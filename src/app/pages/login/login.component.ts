@@ -32,16 +32,18 @@ export class LoginComponent {
     this.isLoading = true;
     const { email, password } = this.loginForm.value;
 
+    const emailLowercase = email.toLowerCase();
+
     if (this.loginForm.valid) {
       console.log('Form is valid. Checking database...');
 
       this.firebaseService.getData('users').then((data) => {
 
-        if (data && data.email === email && data.password === password) {
+        if (data && data.email === emailLowercase && data.password === password) {
           console.log('Login successful');
 
           localStorage.setItem('isLoggedIn', 'true');
-          localStorage.setItem('userEmail', email);
+          localStorage.setItem('userEmail', emailLowercase);
           this.isLoading = false;
           this.router.navigateByUrl('/home');
 
