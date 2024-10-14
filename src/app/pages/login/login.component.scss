@@ -1,11 +1,3 @@
-:root {
-    --primary-color: #0ea5e9;
-    --primary-gradient: linear-gradient(135deg, #0ea5e9, #38bdf8, #5eead4);
-    --text-color: #cbd5e1;
-    --glass-bg: rgba(31, 41, 55, 0.8);
-    --glass-border: rgba(255, 255, 255, 0.2);
-    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-}
 
 body {
     background: radial-gradient(circle at center, #1e293b, #111827);
@@ -29,35 +21,35 @@ body {
 }
 
 .glass-card:hover {
-    transform: translateY(-5px);
+    // transform: translateY(-5px);
     box-shadow: 0 12px 36px rgba(0, 175, 175, 0.35), 0 0 15px rgba(94, 234, 212, 0.5);
 }
 
 @keyframes glow {
     0% {
-        box-shadow:
-            0 8px 10px rgba(0, 175, 175, 0.02),
-            0 0 5px rgba(94, 234, 213, 0.02),
-            0 0 10px rgba(94, 234, 213, 0.01),
-            0 0 15px rgba(0, 175, 175, 0.01);
+      box-shadow:
+        0 8px 10px rgba(15, 174, 202, 0.02),
+        0 0 5px rgba(15, 174, 202, 0.02),
+        0 0 10px rgba(15, 174, 202, 0.01),
+        0 0 15px rgba(15, 174, 202, 0.01);
     }
-
+  
     50% {
-        box-shadow:
-            0 8px 40px rgba(0, 175, 175, 0.5),
-            0 0 50px rgba(94, 234, 213, 0.8),
-            0 0 100px rgba(94, 234, 213, 0.5),
-            0 0 150px rgba(0, 175, 175, 0.3);
+      box-shadow:
+        0 8px 40px rgba(15, 174, 202, 0.5),
+        0 0 50px rgba(15, 174, 202, 0.8),
+        0 0 100px rgba(15, 174, 202, 0.5),
+        0 0 150px rgba(15, 174, 202, 0.3);
     }
-
+  
     100% {
-        box-shadow:
-            0 8px 10px rgba(0, 175, 175, 0.02),
-            0 0 5px rgba(94, 234, 213, 0.02),
-            0 0 10px rgba(94, 234, 213, 0.01),
-            0 0 15px rgba(0, 175, 175, 0.01);
+      box-shadow:
+        0 8px 10px rgba(15, 174, 202, 0.02),
+        0 0 5px rgba(15, 174, 202, 0.02),
+        0 0 10px rgba(15, 174, 202, 0.01),
+        0 0 15px rgba(15, 174, 202, 0.01);
     }
-}
+  }
 
 .text-primary-gradient {
     background: var(--primary-gradient);
@@ -104,7 +96,7 @@ body {
     color: #ffffff;
     box-shadow: var(--glass-shadow);
     transition: background-position 0.5s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
-    border: 2px solid #5eead4;
+    border: 2px solid var(--primary-color);
     animation: wave 8s ease-in-out infinite;
     padding: 10px !important;
     border-radius: 12px;
@@ -112,7 +104,7 @@ body {
 
 ::ng-deep .p-button-social:hover {
     background-position: right center;
-    background-color: #5eead4;
+    background-color: var(--primary-color);
     box-shadow: 0 8px 24px rgba(14, 165, 233, 0.5);
     color: black;
 
@@ -128,13 +120,13 @@ body {
     color: #ffffff;
     box-shadow: var(--glass-shadow);
     transition: background-position 0.5s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
-    border: 2px solid #5eead4;
+    border: 2px solid var(--primary-color);
     animation: wave 8s ease-in-out infinite;
 }
 
 ::ng-deep .p-button-glass:hover {
     background-position: right center;
-    background-color: #5eead4;
+    background-color: var(--primary-color);
     box-shadow: 0 8px 24px rgba(14, 165, 233, 0.5);
 }
 
@@ -143,7 +135,7 @@ body {
 }
 
 .title {
-    color: #5eead4
+    color: var(--primary-color);
 }
 
 .titleText {
@@ -155,10 +147,10 @@ body {
 }
 
 .Nizar {
-    color: #5eead4;
+    color: var(--primary-color);
 }
 
 i {
     transition: 0.3s ease-in-out;
-    color: #5eead4;
+    color: var(--primary-color);
 }
