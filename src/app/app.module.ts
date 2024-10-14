@@ -5,7 +5,7 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getDatabase, provideDatabase } from '@angular/fire/database';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { environment } from '../environments/environment';
-import { ButtonModule} from 'primeng/button'
+import { ButtonModule } from 'primeng/button'
 import { AppComponent } from './app.component';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
@@ -31,10 +31,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     provideStorage(() => getStorage()),
     ButtonModule,
     ReactiveFormsModule,
-    FormsModule, 
-    InputTextModule, 
-    CardModule, 
-    CheckboxModule, 
+    FormsModule,
+    InputTextModule,
+    CardModule,
+    CheckboxModule,
     HttpClientModule,
     RouterOutlet,
     AppRoutingModule,
