@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, MenuItem, MessageService, MenuItemCommandEvent } from 'primeng/api';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -13,8 +14,9 @@ export class HomeComponent {
 
   constructor(
     private router: Router,
-    private confirmationService: ConfirmationService, 
-    private messageService: MessageService
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -141,7 +143,7 @@ export class HomeComponent {
       {
         label: 'Quit',
         icon: 'pi pi-fw pi-power-off',
-        command: (event: MenuItemCommandEvent) => this.confirm1(event) 
+        command: (event: MenuItemCommandEvent) => this.confirm1(event)
       }
     ];
 
@@ -159,28 +161,27 @@ export class HomeComponent {
 
   confirm1(event: MenuItemCommandEvent) {
     this.confirmationService.confirm({
-        target: event.originalEvent as unknown as EventTarget,
-        message: 'Are you sure that you want to logout?',
-        header: 'Confirmation',
-        icon: 'pi pi-exclamation-triangle',
-        acceptIcon:"none",
-        rejectIcon:"none",
-        rejectButtonStyleClass:"p-button-text",
-        accept: () => {
-            // this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
-            this.logout()
-        },
-        reject: () => {
-            // this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
-        }
+      target: event.originalEvent as unknown as EventTarget,
+      message: 'Are you sure that you want to logout?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      acceptIcon: "none",
+      rejectIcon: "none",
+      rejectButtonStyleClass: "p-button-text",
+      accept: () => {
+        // this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
+        this.logout()
+      },
+      reject: () => {
+        // this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+      }
     });
-}
+  }
 
 
 
   logout(): void {
-    localStorage.removeItem('userEmail');
-    localStorage.removeItem('isLoggedIn');
+    this.authService.logout()
     console.log('User logged out successfully');
 
 

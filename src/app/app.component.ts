@@ -197,6 +197,10 @@ export class AppComponent {
     localStorage.removeItem('userEmail');
     localStorage.removeItem('isLoggedIn');
     this.isLoggedIn == false
+
+    this.authService.loggedIn$.subscribe(isLoggedIn => {
+      this.isLoggedIn = !isLoggedIn;
+    });
     console.log('User logged out successfully');
 
     this.checkRef
