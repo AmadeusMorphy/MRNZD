@@ -35,29 +35,29 @@ body {
 
 @keyframes glow {
     0% {
-      box-shadow:
-        0 8px 10px rgba(0, 175, 175, 0.02),
-        0 0 5px rgba(94, 234, 213, 0.02),
-        0 0 10px rgba(94, 234, 213, 0.01),
-        0 0 15px rgba(0, 175, 175, 0.01);
+        box-shadow:
+            0 8px 10px rgba(0, 175, 175, 0.02),
+            0 0 5px rgba(94, 234, 213, 0.02),
+            0 0 10px rgba(94, 234, 213, 0.01),
+            0 0 15px rgba(0, 175, 175, 0.01);
     }
-  
+
     50% {
-      box-shadow:
-        0 8px 40px rgba(0, 175, 175, 0.5),
-        0 0 50px rgba(94, 234, 213, 0.8),
-        0 0 100px rgba(94, 234, 213, 0.5),
-        0 0 150px rgba(0, 175, 175, 0.3);
+        box-shadow:
+            0 8px 40px rgba(0, 175, 175, 0.5),
+            0 0 50px rgba(94, 234, 213, 0.8),
+            0 0 100px rgba(94, 234, 213, 0.5),
+            0 0 150px rgba(0, 175, 175, 0.3);
     }
-  
+
     100% {
-      box-shadow:
-        0 8px 10px rgba(0, 175, 175, 0.02),
-        0 0 5px rgba(94, 234, 213, 0.02),
-        0 0 10px rgba(94, 234, 213, 0.01),
-        0 0 15px rgba(0, 175, 175, 0.01);
+        box-shadow:
+            0 8px 10px rgba(0, 175, 175, 0.02),
+            0 0 5px rgba(94, 234, 213, 0.02),
+            0 0 10px rgba(94, 234, 213, 0.01),
+            0 0 15px rgba(0, 175, 175, 0.01);
     }
-  }
+}
 
 .text-primary-gradient {
     background: var(--primary-gradient);
@@ -65,7 +65,7 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: wave 7s ease-in-out infinite alternate;
-    transform: translateZ(0); 
+    transform: translateZ(0);
 }
 
 @keyframes wave {
@@ -98,6 +98,29 @@ body {
     border-color: var(--primary-color);
 }
 
+::ng-deep .p-button-social {
+    background: var(--primary-gradient);
+    border: none;
+    color: #ffffff;
+    box-shadow: var(--glass-shadow);
+    transition: background-position 0.5s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    border: 2px solid #5eead4;
+    animation: wave 8s ease-in-out infinite;
+    padding: 10px !important;
+    border-radius: 12px;
+}
+
+::ng-deep .p-button-social:hover {
+    background-position: right center;
+    background-color: #5eead4;
+    box-shadow: 0 8px 24px rgba(14, 165, 233, 0.5);
+    color: black;
+
+    &.p-button-social i {
+        color: black;
+    }
+}
+
 ::ng-deep .p-button-glass {
     background: var(--primary-gradient);
     background-size: 400% 400%;
@@ -113,6 +136,10 @@ body {
     background-position: right center;
     background-color: #5eead4;
     box-shadow: 0 8px 24px rgba(14, 165, 233, 0.5);
+}
+
+.socialMedia {
+    gap: 12px;
 }
 
 .title {
@@ -132,5 +159,6 @@ body {
 }
 
 i {
+    transition: 0.3s ease-in-out;
     color: #5eead4;
 }
