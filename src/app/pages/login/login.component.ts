@@ -30,6 +30,16 @@ export class LoginComponent {
 
   }
 
+  ngOnInit() {
+    // this.firebaseService.getApi().subscribe(
+    //   (res: any) => {
+    //     console.log('REST api results: ', res);
+    //   }, (error) => {
+    //     console.error('error stuff: ', error)
+    //   }
+    // )
+  }
+
   onSubmit(): void {
     this.isLoading = true;
     const { email, password } = this.loginForm.value;
