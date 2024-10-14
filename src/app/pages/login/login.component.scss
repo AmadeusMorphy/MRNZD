@@ -95,10 +95,10 @@ body {
     color: #ffffff;
     box-shadow: var(--glass-shadow);
     transition: background-position 0.5s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
-    border: 2px solid var(--primary-color);
-    animation: wave 8s ease-in-out infinite;
+    border: 2px solid var(--primary-color) !important;
+    animation: wave 8s ease-in-out infinite !important;
     padding: 10px !important;
-    border-radius: 12px;
+    border-radius: 12px !important;
 }
 
 ::ng-deep .p-button-social:hover {
