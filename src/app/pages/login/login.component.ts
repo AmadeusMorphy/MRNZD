@@ -12,57 +12,56 @@ export class LoginComponent {
 
 
   loginForm: FormGroup;
+  isLoading: boolean = false;
+
   constructor(
-      private firebaseService: FirebaseService,
-      private fb: FormBuilder,
-      private router: Router,
-      private messageService: MessageService
+    private firebaseService: FirebaseService,
+    private fb: FormBuilder,
+    private router: Router,
+    private messageService: MessageService
   ) {
+
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
     });
 
-
   }
-
-  ngOnInit() {
-
-  }
-
 
   onSubmit(): void {
-
+    this.isLoading = true;
     const { email, password } = this.loginForm.value;
 
     if (this.loginForm.valid) {
       console.log('Form is valid. Checking database...');
-      
+
       this.firebaseService.getData('users').then((data) => {
-  
+
         if (data && data.email === email && data.password === password) {
           console.log('Login successful');
 
           localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem('userEmail', email);
-          this.router.navigateByUrl('/home')
+          this.isLoading = false;
+          this.router.navigateByUrl('/home');
 
         } else {
           this.showWarn()
           console.error('Invalid username or password');
-
+          this.isLoading = false;
         }
       }).catch((error) => {
         console.error('Error fetching user data:', error);
+        this.isLoading = false;
       });
     } else {
       console.error('Form is invalid');
-
+      this.isLoading = false;
     }
   }
 
+
   showWarn() {
     this.messageService.add({ severity: 'error', summary: 'Invalid', detail: 'Wrong email or password' });
-}
-
+  }
 }
