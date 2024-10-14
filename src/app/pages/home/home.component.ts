@@ -11,7 +11,7 @@ export class HomeComponent {
 
   constructor(
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.checkLoginStatus()
@@ -21,17 +21,17 @@ export class HomeComponent {
   checkLoginStatus(): void {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     if (isLoggedIn === 'true') {
-    }else{
+    } else {
       this.router.navigateByUrl("/login")
     }
   }
-  
+
 
   logout(): void {
-    localStorage.removeItem('userEmail'); 
-    localStorage.removeItem('isLoggedIn'); 
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('isLoggedIn');
     console.log('User logged out successfully');
-    
+
 
     this.router.navigate(['/login']);
   }

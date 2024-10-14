@@ -17,6 +17,7 @@
     font-family: NZDfontCyber;
     src: url(./assets/fonts/Exo-VariableFont_wght.ttf);
 }
+
 @font-face {
     font-family: NZDfontCyber2;
     src: url(./assets/fonts/Exo-Italic-VariableFont_wght.ttf);
@@ -25,8 +26,6 @@
 :root {
     --primary-color: #0faeca;
 }
-
-/* FOR LOADIGN */
 
 .overlay {
     position: fixed;
@@ -38,47 +37,142 @@
     z-index: 1;
 }
 
-.spinner{
-    position: fixed;
-    width: 40px;
-    height: 40px;
-    border-radius: 100%;
-    background-color: #5eead4;
-    display: grid;
-    place-items: center;
-    animation: zoomin 1.5s infinite alternate-reverse;
+/* FOR LOADIGN */
+
+.loader {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 50px;
+    height: 80px;
+    border-top: 5px solid #fff;
+    border-bottom: 5px solid #fff;
     position: relative;
-    z-index: 2;
-    transform: translate(-50%, -50%);
+    background: linear-gradient(var(--primary-color) 30px, transparent 0) no-repeat;
+    background-size: 2px 40px;
+    background-position: 50% 0px;
+    animation: spinx 6s linear infinite;
 }
 
-.inner {
- background-color: #212121;
- width: 80%;
- height: 80%;
- border-radius: 100%;
+.loader:before,
+.loader:after {
+    content: "";
+    width: 40px;
+    left: 50%;
+    height: 35px;
+    position: absolute;
+    top: 0;
+    transform: translatex(-50%);
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 0 0 20px 20px;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: 0 0px;
+    animation: lqt 6s linear infinite;
 }
 
-@keyframes zoomin {
- 0% {
-  transform: scale(1);
-  box-shadow: 0 0 100px 20px rgb(16, 71, 71);
- }
-
- 100% {
-  transform: scale(1.5);
-  box-shadow: 0 0 100px 20px #000;
- }
+.loader:after {
+    top: auto;
+    bottom: 0;
+    border-radius: 20px 20px 0 0;
+    animation: lqb 6s linear infinite;
 }
+
+@keyframes lqt {
+
+    0%,
+    100% {
+        background-image: linear-gradient(var(--primary-color) 40px, transparent 0);
+        background-position: 0% 0px;
+    }
+
+    50% {
+        background-image: linear-gradient(var(--primary-color) 40px, transparent 0);
+        background-position: 0% 40px;
+    }
+
+    50.1% {
+        background-image: linear-gradient(var(--primary-color) 40px, transparent 0);
+        background-position: 0% -40px;
+    }
+}
+
+@keyframes lqb {
+    0% {
+        background-image: linear-gradient(var(--primary-color) 40px, transparent 0);
+        background-position: 0 40px;
+    }
+
+    100% {
+        background-image: linear-gradient(var(--primary-color) 40px, transparent 0);
+        background-position: 0 -40px;
+    }
+}
+
+@keyframes spinx {
+
+    0%,
+    49% {
+        transform: rotate(0deg);
+        background-position: 50% 36px;
+    }
+
+    51%,
+    98% {
+        transform: rotate(180deg);
+        background-position: 50% 4px;
+    }
+
+    100% {
+        transform: rotate(360deg);
+        background-position: 50% 36px;
+    }
+}
+
+
+/* Another Loading animation */
+
+// .spinner{
+//     position: fixed;
+//     width: 40px;
+//     height: 40px;
+//     border-radius: 100%;
+//     background-color: var(--primary-color);
+//     display: grid;
+//     place-items: center;
+//     animation: zoomin 1.5s infinite alternate-reverse;
+//     position: relative;
+//     z-index: 2;
+//     transform: translate(-50%, -50%);
+// }
+
+// .inner {
+//  background-color: #212121;
+//  width: 80%;
+//  height: 80%;
+//  border-radius: 100%;
+// }
+
+// @keyframes zoomin {
+//  0% {
+//   transform: scale(1);
+//   box-shadow: 0 0 100px 20px rgb(16, 71, 71);
+//  }
+
+//  100% {
+//   transform: scale(1.5);
+//   box-shadow: 0 0 100px 20px #000;
+//  }
+// }
+
 
 /* fade-in animation */
 .fade-in {
-    opacity: 0; 
+    opacity: 0;
     animation: fadeIn 3s forwards;
 }
 
 @keyframes fadeIn {
     to {
-        opacity: 1; 
+        opacity: 1;
     }
 }
