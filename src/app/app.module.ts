@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { getAuth, provideAuth } from '@angular/fire/auth'; // If you plan to use Authentication
-import { getDatabase, provideDatabase } from '@angular/fire/database'; // If you plan to use Realtime Database
-import { getStorage, provideStorage } from '@angular/fire/storage'; // If you plan to use Storage
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { getDatabase, provideDatabase } from '@angular/fire/database';
+import { getStorage, provideStorage } from '@angular/fire/storage';
 import { environment } from '../environments/environment';
 import { ButtonModule} from 'primeng/button'
 import { AppComponent } from './app.component';
@@ -25,10 +25,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   declarations: [AppComponent, HomeComponent, LoginComponent],
   imports: [
     BrowserModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)), // Initialize Firebase
-    provideAuth(() => getAuth()), // Import Authentication module if needed
-    provideDatabase(() => getDatabase()), // Import Database module if needed
-    provideStorage(() => getStorage()), // Import Storage module if needed
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideDatabase(() => getDatabase()),
+    provideStorage(() => getStorage()),
     ButtonModule,
     ReactiveFormsModule,
     FormsModule, 
