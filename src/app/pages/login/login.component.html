@@ -2,8 +2,8 @@
 
 <p-toast />
 <!----Loadin---->
-<div *ngIf="isLoading" class="overlay">
-    <div class=" flex justify-content-center left-50 align-items-center h-screen absolute">
+<div *ngIf="isLoading" class="overlay flex justify-content-center align-items-center">
+    <div class=" flex justify-content-center align-items-center h-screen absolute">
         <div class="spinner">
             <div class="inner">
             </div>
@@ -14,28 +14,29 @@
 
 <div class="stuff flex justify-content-center align-items-center bg-gray-950">
     <div class="glass-card p-6 shadow-6 border-round-lg w-full md:w-30rem">
-        <div class="text-center mb-6">
-            <h2 class="text-5xl font-bold mb-1 title">Rizzar's Stuff</h2>
-            <p class="text-300">Website is still under construction</p>
+        <div class="titleText text-center mb-6">
+            <h2 class="text-7xl font-bold mb-1 title">Rizzar's Stuff</h2>
+            <div class="titleCaptions">
+            <p class="text-400">Website is still under construction</p>
+            <p class="text-300">This website is owned by: <span class="Nizar">Nizar</span></p>
+        </div>
         </div>
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-            <div class="p-inputgroup mb-4">
-                <span class="p-inputgroup-addon">
+            <div class="p-inputgroup flex justify-content-center align-items-center mb-4">
+                <span class="p-input-icon-left">
                     <i class="pi pi-user"></i>
+                    <input pInputText placeholder="Email" formControlName="email" class="w-full glass-input" />
                 </span>
-                <input pInputText placeholder="Email" formControlName="email" class="w-full glass-input" />
             </div>
-            <div class="p-inputgroup mb-4">
-                <span class="p-inputgroup-addon">
-                    <i class="pi pi-lock"></i>
+            <div class="p-inputgroup flex justify-content-center align-items-center mb-4">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-user"></i>
+                    <input pInputText placeholder="password" formControlName="password" class="w-full glass-input" />
                 </span>
-                <input pInputText type="password" formControlName="password" placeholder="Password"
-                    class="w-full glass-input" />
             </div>
-
-            <div class="loginBtn pt-5">
+            <div class="loginBtn flex justify-content-center align-items-center pt-5">
                 <button pButton type="submit" label="Login"
-                    class="w-full p-button-raised p-button-rounded p-button-glass"></button>
+                    class="w-19rem p-button-raised p-button-rounded p-button-glass"></button>
             </div>
         </form>
 

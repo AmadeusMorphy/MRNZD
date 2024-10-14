@@ -3,6 +3,24 @@
 @import "primeicons/primeicons.css";
 @import "primeflex/primeflex.css";
 
+@font-face {
+    font-family: NZDfont;
+    src: url(./assets/fonts/Caveat-VariableFont_wght.ttf);
+}
+
+@font-face {
+    font-family: NZDfontLA;
+    src: url(./assets/fonts/PermanentMarker-Regular.ttf);
+}
+
+@font-face {
+    font-family: NZDfontCyber;
+    src: url(./assets/fonts/Exo-VariableFont_wght.ttf);
+}
+@font-face {
+    font-family: NZDfontCyber2;
+    src: url(./assets/fonts/Exo-Italic-VariableFont_wght.ttf);
+}
 
 
 
@@ -30,7 +48,6 @@
     position: relative;
     z-index: 2;
     transform: translate(-50%, -50%);
-    left: 50%;
 }
 
 .inner {
