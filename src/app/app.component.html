@@ -1,2 +1,15 @@
-<router-outlet></router-outlet>
+<p-menubar [model]="items" *ngIf="this.isLoggedIn == true">
+  <ng-template pTemplate="start">
+    <img src="/assets/m.png" height="40" style="border-radius: 100px;" class="mr-2 cursor-pointer"
+      [routerLink]="['/home']" />
+  </ng-template>
+  <ng-template pTemplate="end">
+    <input type="text" pInputText placeholder="Search" class="w-full" />
+  </ng-template>
+</p-menubar>
 
+
+<p-toast />
+<p-confirmDialog />
+
+<router-outlet></router-outlet>

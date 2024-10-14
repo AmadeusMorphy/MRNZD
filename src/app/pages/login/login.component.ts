@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -18,7 +19,8 @@ export class LoginComponent {
     private firebaseService: FirebaseService,
     private fb: FormBuilder,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private authService: AuthService
   ) {
 
     this.loginForm = this.fb.group({
@@ -42,8 +44,7 @@ export class LoginComponent {
         if (data && data.email === emailLowercase && data.password === password) {
           console.log('Login successful');
 
-          localStorage.setItem('isLoggedIn', 'true');
-          localStorage.setItem('userEmail', emailLowercase);
+          this.authService.login(emailLowercase);
           this.isLoading = false;
           this.router.navigateByUrl('/home');
 

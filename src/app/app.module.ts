@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ChangeDetectorRef, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
@@ -20,6 +20,9 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MenubarModule } from 'primeng/menubar';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService} from 'primeng/api';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, LoginComponent],
@@ -40,9 +43,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     ToastModule,
     RippleModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MenubarModule,
+    ConfirmDialogModule
   ],
-  providers: [MessageService],
+  providers: [ConfirmationService ,MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

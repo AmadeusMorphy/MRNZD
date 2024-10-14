@@ -1,4 +1,4 @@
-@import "primeng/resources/themes/lara-dark-teal/theme.css";
+@import "primeng/resources/themes/lara-dark-blue/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 @import "primeflex/primeflex.css";
@@ -21,6 +21,11 @@
 @font-face {
     font-family: NZDfontCyber2;
     src: url(./assets/fonts/Exo-Italic-VariableFont_wght.ttf);
+}
+
+
+body {
+    margin: 0px !important;
 }
 
 :root {
