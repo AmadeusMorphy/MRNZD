@@ -1,4 +1,4 @@
-<p-menubar *ngIf="showHeader">
+<!-- <p-menubar *ngIf="showHeader">
     <ng-template pTemplate="start">
         <div class="startHeader flex align-items-center">
             <img src="/assets/m.png" height="40" style="border-radius: 100px;" class="mr-2 cursor-pointer"
@@ -23,7 +23,7 @@
             <div class="flex align-items-center justify-content-between px-4 pt-3 flex-shrink-0">
                 <span class="inline-flex align-items-center gap-2">
 
-                    <!--LOGO HERE-->
+                   
                     <span class="font-semibold text-2xl text-primary">Your Logo</span>
                 </span>
             </div>
@@ -150,7 +150,49 @@
             </div>
         </div>
     </ng-template>
-</p-sidebar>
+</p-sidebar> -->
+
+<div *ngIf="showHeader" style="margin-bottom: 130px;">
+    <header class="header-container glass-effect">
+        <div class="logo-section align-items-center flex gap-3">
+            <img src="assets/m.png" alt="Logo" class="logo border-circle" />
+            <span class="brand-name">YourBrand</span>
+        </div>
+
+        <nav class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+        </nav>
+
+        <div class="user-section">
+            <i class="pi pi-search icon"></i>
+            <i class="pi pi-user icon"></i>
+            <button class="cta-button">Get Started</button>
+        </div>
+
+        <!-- Hamburger icon for mobile -->
+        <div class="hamburger" (click)="toggleMenu()">
+            <span [class.rotate-top]="isMenuOpen"></span>
+            <span [class.fade-out]="isMenuOpen"></span>
+            <span [class.rotate-bottom]="isMenuOpen"></span>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <nav class="mobile-menu mb-8" [ngClass]="{ 'active': isMenuOpen }">
+        <div class="mobile-menu-header">
+            <span class="brand-name">YourBrand</span>
+            <div class="close-icon" (click)="toggleMenu()">×</div>
+        </div>
+        <a href="#" (click)="toggleMenu()">Home</a>
+        <a href="#" (click)="toggleMenu()">About</a>
+        <a href="#" (click)="toggleMenu()">Services</a>
+        <a href="#" (click)="logout()">Logout</a>
+    </nav>
+</div>
+
 
 
 

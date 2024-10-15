@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, ViewChild } from '@angular/core';
 import { ConfirmationService, MenuItem, MenuItemCommandEvent } from 'primeng/api';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -15,9 +15,14 @@ export class HeaderComponent {
   username: any;
   items: MenuItem[] | undefined;
   isLoggedIn: boolean = false
-
+  isMenuOpen = false;
   @ViewChild('sidebarRef') sidebarRef!: Sidebar;
+  isScrolled = false;
 
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.isScrolled = window.scrollY > 0; // Change this threshold if needed
+  }
   closeCallback(e: Event): void {
       this.sidebarRef.close(e);
   }
@@ -171,7 +176,16 @@ export class HeaderComponent {
     ];
 
   }
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
 
+
+    if (this.isMenuOpen) {
+      document.body.classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
+    }
+  }
   checkLoginStatus() {
     this.checkRef
     const isLoggedIn = localStorage.getItem('isLoggedIn');
