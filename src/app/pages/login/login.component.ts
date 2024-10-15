@@ -33,12 +33,15 @@ export class LoginComponent {
   ngOnInit() {
     // this.firebaseService.getApi().subscribe(
     //   (res: any) => {
-    //     console.log('REST api results: ', res);
+    //     console.log('REST api results: ', Object.values(res).map((user:any) => user.email));
     //   }, (error) => {
     //     console.error('error stuff: ', error)
     //   }
     // )
   }
+
+
+  /*****************FIREBASE LOGGING IN********************/
 
   onSubmit(): void {
     this.isLoading = true;
@@ -54,7 +57,7 @@ export class LoginComponent {
         if (data && data.email === emailLowercase && data.password === password) {
           console.log('Login successful');
 
-          this.authService.login(emailLowercase);
+          this.authService.login(emailLowercase, data.username);
           this.isLoading = false;
           this.router.navigateByUrl('/home');
 
@@ -72,7 +75,37 @@ export class LoginComponent {
       this.isLoading = false;
     }
   }
+/******************************************************************/
 
+
+
+/***REST API FIREBASE LOGIN AFTER FILTERING [1] WHICH IS THE USERS*/
+  onLogin(): void {
+    this.isLoading = true;
+    const { email, password } = this.loginForm.value;
+
+    const emailLowercase = email.toLowerCase();
+
+
+    this.firebaseService.signin(emailLowercase, password).subscribe(
+      (user) => {
+        if (user) {
+          this.isLoading = false;
+          this.authService.login(emailLowercase, user.username);
+          this.router.navigate(['/home']);
+        } else {
+          this.showWarn()
+          console.log("invalid stuff");
+          this.isLoading = false;
+        }
+      },
+      (error) => {
+        this.isLoading = false
+        console.error('Error during login:', error);
+      }
+    );
+  }
+/*******************************************************************************/
 
   showWarn() {
     this.messageService.add({ severity: 'error', summary: 'Invalid', detail: 'Wrong email or password' });

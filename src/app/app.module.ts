@@ -22,10 +22,11 @@ import { RippleModule } from 'primeng/ripple';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenubarModule } from 'primeng/menubar';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmationService} from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
+import { HeaderComponent } from './pages/header/header.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent],
+  declarations: [AppComponent, HomeComponent, LoginComponent, HeaderComponent],
   imports: [
     BrowserModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
@@ -47,7 +48,7 @@ import { ConfirmationService} from 'primeng/api';
     MenubarModule,
     ConfirmDialogModule
   ],
-  providers: [ConfirmationService ,MessageService],
+  providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

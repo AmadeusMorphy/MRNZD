@@ -1,34 +1,36 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { ConfirmationService, MenuItem, MenuItemCommandEvent } from 'primeng/api';
 import { Router } from '@angular/router';
-import { ConfirmationService, MenuItem, MessageService, MenuItemCommandEvent } from 'primeng/api';
 import { AuthService } from 'src/app/services/auth.service';
-import { FirebaseService } from 'src/app/services/firebase.service';
+
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss']
 })
-export class HomeComponent {
+export class HeaderComponent {
+  showHeader: boolean = false;
 
   items: MenuItem[] | undefined;
-  accs: any;
-  username: any;
-
+  isLoggedIn: boolean = false
   constructor(
     private router: Router,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService,
-    private authService: AuthService,
-    private firebaseService: FirebaseService
-  ) { }
+    private checkRef: ChangeDetectorRef,
+    private authService: AuthService
+  ) {
+
+    this.router.events.subscribe(() => {
+      this.showHeader = this.router.url === '/home';
+    });
+  }
+
 
   ngOnInit() {
     this.checkLoginStatus();
+    this.checkRef
 
-    this.firebaseService.getApi()
-    
-    this.username = localStorage.getItem('userName')
     this.items = [
       {
         label: 'File',
@@ -156,34 +158,16 @@ export class HomeComponent {
 
   }
 
-  showData() {
-    this.firebaseService.getApi().subscribe(
-      (res: any) => {
-        // console.log('REST api results: ', Object.values(res).map((user:any) => user.email));
-        // console.log('REST api: ', res)
-        this.accs = Object.values(res).map((item: any) => {
-          return {
-            email: item.email,
-            username: item.username,
-            password: item.password
-          }
-        })
-
-        // console.log(this.accs)
-      }, (error) => {
-        console.error('error stuff: ', error)
-      }
-    )
-  }
-
-  checkLoginStatus(): void {
+  checkLoginStatus() {
+    this.checkRef
     const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if (isLoggedIn === 'true') {
+    const email = localStorage.getItem('userEmail')
+    if (isLoggedIn === 'true' || email) {
     } else {
       this.router.navigateByUrl("/login")
     }
+    this.checkRef
   }
-
 
   confirm1(event: MenuItemCommandEvent) {
     this.confirmationService.confirm({
@@ -195,22 +179,21 @@ export class HomeComponent {
       rejectIcon: "none",
       rejectButtonStyleClass: "p-button-text",
       accept: () => {
-        // this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
         this.logout()
+        this.checkRef
       },
       reject: () => {
-        // this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
       }
     });
   }
 
-
-
   logout(): void {
-    this.authService.logout()
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('isLoggedIn');
+    this.authService.logout();
     console.log('User logged out successfully');
-
-
+    this.checkRef
     this.router.navigate(['/login']);
+    this.checkLoginStatus()
   }
 }

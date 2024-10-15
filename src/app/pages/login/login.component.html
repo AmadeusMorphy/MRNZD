@@ -39,11 +39,12 @@
                     </a>
                 </div>
             </div>
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
                 <div class="p-inputgroup flex justify-content-center align-items-center mb-4">
                     <span class="p-input-icon-left">
                         <i class="pi pi-user"></i>
-                        <input pInputText placeholder="Email" formControlName="email" class="w-full glass-input" />
+                        <input pInputText placeholder="Email" type="email" formControlName="email"
+                            class="w-full glass-input" />
                     </span>
                 </div>
                 <div class="p-inputgroup flex justify-content-center align-items-center mb-4">

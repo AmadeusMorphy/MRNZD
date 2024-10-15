@@ -1,8 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
-import { Database, ref, get, child, getDatabase, push } from '@angular/fire/database';
-import { Observable } from 'rxjs';
+import { Database, ref, get, child, getDatabase, push, object } from '@angular/fire/database';
+import { map, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+
+
+interface User {
+  email: string;
+  password: string;
+  username: string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -11,10 +19,22 @@ export class FirebaseService {
   constructor(private db: Database, private auth: Auth, private http: HttpClient) { }
 
 
-  MRNZDapi = 'https://mrnzd-d0f4d-default-rtdb.firebaseio.com/users.json?auth=AIzaSyCeiiz12sJ7tWxLukXwCy7C-hGhEadhGMs'
+accounts: any;
 
   getApi(): Observable<any> {
-    return this.http.get(`${this.MRNZDapi}`);
+    this.http.get(`${environment.firebaseAPI}`).subscribe(
+      (res: any) => {
+
+        this.accounts = Object.values(res).map((item: any) => {
+          return {
+            email: item.email,
+            username: item.username,
+            password: item.password
+          }
+        })
+      }
+    )
+    return this.http.get(`${environment.firebaseAPI}`);
   }
 
   getData(path: string) {
@@ -34,6 +54,7 @@ export class FirebaseService {
       });
   }
 
+  /****FIREBASE LOGIN CONNECTION*****/
   login(email: string, password: string) {
     return signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
@@ -45,8 +66,21 @@ export class FirebaseService {
         return null;
       });
   }
+  /********************************* */
 
 
+/***********FIREBASE REST API LOGGING IN****************/
+  signin(email: string, password: string): Observable<User | null> {
+    return this.http.get<{ [key: string]: User }>(environment.firebaseAPI).pipe(
+      map((users) => {
+        const user = Object.values(users).find(
+          (user) => user.email === email && user.password === password
+        );
+        return user || null;
+      })
+    );
+  }
+/********************************************************** */
 
   postData(username: string, email: string, password: string) {
     const db = getDatabase();
