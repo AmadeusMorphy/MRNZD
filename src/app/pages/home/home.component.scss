@@ -1,4 +1,3 @@
-
 .searchArea {
   display: flex;
   justify-content: center;
@@ -9,9 +8,10 @@
 }
 
 ::ng-deep .p-card.p-component {
-  height: 300px;
+  height: 100%;
   border-radius: 18px !important;
   position: relative;
+  width: 100%;
 }
 
 ::ng-deep .p-card-body {
@@ -85,7 +85,6 @@ p-card {
   /* Optional: Adds space below each row */
 
   border-radius: 20px;
-  padding-bottom: 120px;
 }
 
 p {
@@ -244,14 +243,14 @@ img {
 @media (max-width: 1024px) {
 
   .chipsTrend {
-      margin-left: 0 !important;
-      margin-right: 0 !important;
-      flex-wrap: wrap;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    flex-wrap: wrap;
   }
 
   .cardss {
-      margin-left: 0 !important;
-      margin-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
 }
 
@@ -373,201 +372,201 @@ img {
 
 @keyframes cssload-square {
   50% {
-      border-radius: 100%;
-      transform: scale(0.5) rotate(-45deg);
+    border-radius: 100%;
+    transform: scale(0.5) rotate(-45deg);
   }
 
   100% {
-      transform: scale(1) rotate(-45deg);
+    transform: scale(1) rotate(-45deg);
   }
 }
 
 @-o-keyframes cssload-square {
   50% {
-      border-radius: 100%;
-      -o-transform: scale(0.5) rotate(-45deg);
+    border-radius: 100%;
+    -o-transform: scale(0.5) rotate(-45deg);
   }
 
   100% {
-      -o-transform: scale(1) rotate(-45deg);
+    -o-transform: scale(1) rotate(-45deg);
   }
 }
 
 @-ms-keyframes cssload-square {
   50% {
-      border-radius: 100%;
-      -ms-transform: scale(0.5) rotate(-45deg);
+    border-radius: 100%;
+    -ms-transform: scale(0.5) rotate(-45deg);
   }
 
   100% {
-      -ms-transform: scale(1) rotate(-45deg);
+    -ms-transform: scale(1) rotate(-45deg);
   }
 }
 
 @-webkit-keyframes cssload-square {
   50% {
-      border-radius: 100%;
-      -webkit-transform: scale(0.5) rotate(-45deg);
+    border-radius: 100%;
+    -webkit-transform: scale(0.5) rotate(-45deg);
   }
 
   100% {
-      -webkit-transform: scale(1) rotate(-45deg);
+    -webkit-transform: scale(1) rotate(-45deg);
   }
 }
 
 @-moz-keyframes cssload-square {
   50% {
-      border-radius: 100%;
-      -moz-transform: scale(0.5) rotate(-45deg);
+    border-radius: 100%;
+    -moz-transform: scale(0.5) rotate(-45deg);
   }
 
   100% {
-      -moz-transform: scale(1) rotate(-45deg);
+    -moz-transform: scale(1) rotate(-45deg);
   }
 }
 
 @keyframes cssload-heart {
   50% {
-      transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 
   100% {
-      transform: rotate(720deg);
+    transform: rotate(720deg);
   }
 }
 
 @-o-keyframes cssload-heart {
   50% {
-      -o-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
   }
 
   100% {
-      -o-transform: rotate(720deg);
+    -o-transform: rotate(720deg);
   }
 }
 
 @-ms-keyframes cssload-heart {
   50% {
-      -ms-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
   }
 
   100% {
-      -ms-transform: rotate(720deg);
+    -ms-transform: rotate(720deg);
   }
 }
 
 @-webkit-keyframes cssload-heart {
   50% {
-      -webkit-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
   }
 
   100% {
-      -webkit-transform: rotate(720deg);
+    -webkit-transform: rotate(720deg);
   }
 }
 
 @-moz-keyframes cssload-heart {
   50% {
-      -moz-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
   }
 
   100% {
-      -moz-transform: rotate(720deg);
+    -moz-transform: rotate(720deg);
   }
 }
 
 @keyframes cssload-heartL {
   60% {
-      transform: scale(0.4);
+    transform: scale(0.4);
   }
 }
 
 @-o-keyframes cssload-heartL {
   60% {
-      -o-transform: scale(0.4);
+    -o-transform: scale(0.4);
   }
 }
 
 @-ms-keyframes cssload-heartL {
   60% {
-      -ms-transform: scale(0.4);
+    -ms-transform: scale(0.4);
   }
 }
 
 @-webkit-keyframes cssload-heartL {
   60% {
-      -webkit-transform: scale(0.4);
+    -webkit-transform: scale(0.4);
   }
 }
 
 @-moz-keyframes cssload-heartL {
   60% {
-      -moz-transform: scale(0.4);
+    -moz-transform: scale(0.4);
   }
 }
 
 @keyframes cssload-heartR {
   40% {
-      transform: scale(0.4);
+    transform: scale(0.4);
   }
 }
 
 @-o-keyframes cssload-heartR {
   40% {
-      -o-transform: scale(0.4);
+    -o-transform: scale(0.4);
   }
 }
 
 @-ms-keyframes cssload-heartR {
   40% {
-      -ms-transform: scale(0.4);
+    -ms-transform: scale(0.4);
   }
 }
 
 @-webkit-keyframes cssload-heartR {
   40% {
-      -webkit-transform: scale(0.4);
+    -webkit-transform: scale(0.4);
   }
 }
 
 @-moz-keyframes cssload-heartR {
   40% {
-      -moz-transform: scale(0.4);
+    -moz-transform: scale(0.4);
   }
 }
 
 @keyframes cssload-shadow {
   50% {
-      transform: scale(0.5);
-      border-color: rgb(228, 228, 228);
+    transform: scale(0.5);
+    border-color: rgb(228, 228, 228);
   }
 }
 
 @-o-keyframes cssload-shadow {
   50% {
-      -o-transform: scale(0.5);
-      border-color: rgb(228, 228, 228);
+    -o-transform: scale(0.5);
+    border-color: rgb(228, 228, 228);
   }
 }
 
 @-ms-keyframes cssload-shadow {
   50% {
-      -ms-transform: scale(0.5);
-      border-color: rgb(228, 228, 228);
+    -ms-transform: scale(0.5);
+    border-color: rgb(228, 228, 228);
   }
 }
 
 @-webkit-keyframes cssload-shadow {
   50% {
-      -webkit-transform: scale(0.5);
-      border-color: rgb(228, 228, 228);
+    -webkit-transform: scale(0.5);
+    border-color: rgb(228, 228, 228);
   }
 }
 
 @-moz-keyframes cssload-shadow {
   50% {
-      -moz-transform: scale(0.5);
-      border-color: rgb(228, 228, 228);
+    -moz-transform: scale(0.5);
+    border-color: rgb(228, 228, 228);
   }
 }
 
@@ -637,28 +636,32 @@ img {
 
 @keyframes kfr-filled {
   0% {
-      opacity: 0;
-      transform: scale(0);
+    opacity: 0;
+    transform: scale(0);
   }
 
   50% {
-      opacity: 1;
-      transform: scale(1.2);
+    opacity: 1;
+    transform: scale(1.2);
   }
 }
 
 @keyframes kfr-celebrate {
   0% {
-      transform: scale(0);
+    transform: scale(0);
   }
 
   50% {
-      opacity: 0.8;
+    opacity: 0.8;
   }
 
   100% {
-      transform: scale(1.2);
-      opacity: 0;
-      display: none;
+    transform: scale(1.2);
+    opacity: 0;
+    display: none;
   }
+}
+
+.categoryTitle {
+  background-color: var(--primary-color);
 }

@@ -15,7 +15,12 @@ export class HomeComponent {
   items: MenuItem[] | undefined;
   accs: any;
   News: any;
-
+  Movies: any;
+  MoviesTrending: any;
+  MoviesPopular: any;
+  MoviesTopRated: any;
+  imgTest!: string;
+  movieImg!: string;
   constructor(
     private router: Router,
     private confirmationService: ConfirmationService,
@@ -29,8 +34,10 @@ export class HomeComponent {
     this.checkLoginStatus();
 
     this.firebaseService.getApi();
-
-    this.showNews()
+    this.showMovies();
+    this.showMoviesTrending();
+    this.showMoviesPopular()
+    this.showMoviesTopRated()
     this.items = [
       {
         label: 'File',
@@ -156,8 +163,8 @@ export class HomeComponent {
       }
     ];
 
-}
-  
+  }
+
   showData() {
     this.firebaseService.getApi().subscribe(
       (res: any) => {
@@ -195,6 +202,80 @@ export class HomeComponent {
           }
         })
         console.log('the extracted data: ', this.News)
+      }
+    )
+  }
+
+  showMovies() {
+    this.stuffService.getMovies().subscribe(
+      (res: any) => {
+
+        this.imgTest = res.results[0].poster_path;
+
+        this.movieImg = `https://i0.wp.com/www.themoviedb.org/t/p/w185${this.imgTest}`
+        this.Movies = res.results.map((item: any) => {
+          return {
+            title: item.title,
+            desciption: item.overview,
+            rating: item.vote_average,
+            img: `https://i0.wp.com/www.themoviedb.org/t/p/w185${item.poster_path}`
+          }
+        })
+      }
+    )
+  }
+
+  showMoviesTrending() {
+    this.stuffService.getMoviesTrending().subscribe(
+      (res: any) => {
+
+        this.imgTest = res.results[0].poster_path;
+
+        this.movieImg = `https://i0.wp.com/www.themoviedb.org/t/p/w185${this.imgTest}`
+        this.MoviesTrending = res.results.map((item: any) => {
+          return {
+            title: item.title,
+            desciption: item.overview,
+            rating: item.vote_average,
+            img: `https://i0.wp.com/www.themoviedb.org/t/p/w185${item.poster_path}`
+          }
+        })
+      }
+    )
+  }
+  showMoviesPopular() {
+    this.stuffService.getMoviesPopular().subscribe(
+      (res: any) => {
+
+        this.imgTest = res.results[0].poster_path;
+
+        this.movieImg = `https://i0.wp.com/www.themoviedb.org/t/p/w185${this.imgTest}`
+        this.MoviesPopular = res.results.map((item: any) => {
+          return {
+            title: item.title,
+            desciption: item.overview,
+            rating: item.vote_average,
+            img: `https://i0.wp.com/www.themoviedb.org/t/p/w185${item.poster_path}`
+          }
+        })
+      }
+    )
+  }
+  showMoviesTopRated() {
+    this.stuffService.getMoviesTopRated().subscribe(
+      (res: any) => {
+
+        this.imgTest = res.results[0].poster_path;
+
+        this.movieImg = `https://i0.wp.com/www.themoviedb.org/t/p/w185${this.imgTest}`
+        this.MoviesTopRated = res.results.map((item: any) => {
+          return {
+            title: item.title,
+            desciption: item.overview,
+            rating: item.vote_average,
+            img: `https://i0.wp.com/www.themoviedb.org/t/p/w185${item.poster_path}`
+          }
+        })
       }
     )
   }

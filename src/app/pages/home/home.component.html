@@ -1,17 +1,95 @@
-<div class="cardss">
-    <p-card [style]="{ width: '320px' }" *ngFor="let new of News">
+<div class="categoryTitle flex justify-content-center align-items-center border-round">
+    <h1>Now Playing</h1>
+</div>
+
+
+<div class="cardss gap-6 p-1">
+    <p-card [style]="{width: '250px'}" *ngFor="let movie of Movies">
         <ng-template pTemplate="header">
             <div class="thumbnail-container">
                 <a [href]=>
-                    <img alt="Card" [src]="new.urlImg" />
-                    <p class="gender-label">{{new.category}}</p>
+                    <img alt="Card" [src]="movie.img" />
+                    <p class="gender-label">{{movie.rating}}</p>
                 </a>
             </div>
             <div class="details">
-                <a  class="ogTitle">{{new.title}}</a>
+                <a class="ogTitle">{{movie.title}}</a>
             </div>
-            <h4>Views</h4>
-            <p style="display: none;">{{new.description}}</p>
+            <p>{{movie.description}}</p>
+        </ng-template>
+    </p-card>
+</div>
+
+<div class="space h-5rem w-full flex"></div>
+<div class="categoryTitle flex justify-content-center align-items-center border-round">
+    <h1>Trending</h1>
+</div>
+<div class="space h-5rem w-full flex"></div>
+
+
+<div class="cardss gap-6 p-1">
+    <p-card [style]="{width: '250px'}" *ngFor="let movie of MoviesTrending">
+        <ng-template pTemplate="header">
+            <div class="thumbnail-container">
+                <a [href]=>
+                    <img alt="Card" [src]="movie.img" />
+                    <p class="gender-label">{{movie.rating}}</p>
+                </a>
+            </div>
+            <div class="details">
+                <a class="ogTitle">{{movie.title}}</a>
+            </div>
+            <p style="display: none;">{{movie.description}}</p>
+        </ng-template>
+    </p-card>
+</div>
+
+
+<div class="space h-5rem w-full flex"></div>
+<div class="categoryTitle flex justify-content-center align-items-center border-round">
+    <h1>Popular</h1>
+</div>
+<div class="space h-5rem w-full flex"></div>
+
+
+<div class="cardss gap-6 p-1">
+    <p-card [style]="{width: '250px'}" *ngFor="let movie of MoviesPopular">
+        <ng-template pTemplate="header">
+            <div class="thumbnail-container">
+                <a [href]=>
+                    <img alt="Card" [src]="movie.img" />
+                    <p class="gender-label">{{movie.rating}}</p>
+                </a>
+            </div>
+            <div class="details">
+                <a class="ogTitle">{{movie.title}}</a>
+            </div>
+            <p style="display: none;">{{movie.description}}</p>
+        </ng-template>
+    </p-card>
+</div>
+
+
+<div class="space h-5rem w-full flex"></div>
+<div class="categoryTitle flex justify-content-center align-items-center border-round">
+    <h1>Top Rated</h1>
+</div>
+<div class="space h-5rem w-full flex"></div>
+
+
+<div class="cardss gap-6 p-1">
+    <p-card [style]="{width: '250px'}" *ngFor="let movie of MoviesTopRated">
+        <ng-template pTemplate="header">
+            <div class="thumbnail-container">
+                <a [href]=>
+                    <img alt="Card" [src]="movie.img" />
+                    <p class="gender-label">{{movie.rating}}</p>
+                </a>
+            </div>
+            <div class="details">
+                <a class="ogTitle">{{movie.title}}</a>
+            </div>
+            <p style="display: none;">{{movie.description}}</p>
         </ng-template>
     </p-card>
 </div>

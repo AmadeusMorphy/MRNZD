@@ -10,5 +10,11 @@ export const environment = {
     },
 
     firebaseAPI: "https://mrnzd-d0f4d-default-rtdb.firebaseio.com/users/1.json?auth=AIzaSyCeiiz12sJ7tWxLukXwCy7C-hGhEadhGMs",
-    newsAPI: 'https://newsapi.org/v2/everything?q=keyword&apiKey=c2b17af8d8dd434690f9104a14edb91f'
-  };
+
+    /**********STUFF APIS**********/
+    newsAPI: 'https://newsapi.org/v2/everything?q=keyword&apiKey=c2b17af8d8dd434690f9104a14edb91f',
+    moviesApi: 'https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1',
+    moviesTrending: 'https://api.themoviedb.org/3/trending/movie/day?language=en-US',
+    moviesPopular: 'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1',
+    moviesTopRated: 'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1'
+};
