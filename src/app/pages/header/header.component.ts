@@ -24,12 +24,12 @@ export class HeaderComponent {
     this.isScrolled = window.scrollY > 0; // Change this threshold if needed
   }
   closeCallback(e: Event): void {
-      this.sidebarRef.close(e);
+    this.sidebarRef.close(e);
   }
 
   sidebarVisible: boolean = false;
 
-  
+
   constructor(
     private router: Router,
     private confirmationService: ConfirmationService,
@@ -37,8 +37,12 @@ export class HeaderComponent {
     private authService: AuthService
   ) {
 
+
+    //RESPOBSIBLE FOR SHOWING THE HEADER BY CHOOSING THE ROUTS YOU WANT THE HEADER TO EXIST IN//
+
     this.router.events.subscribe(() => {
-      this.showHeader = this.router.url === '/home';
+      this.showHeader = this.router.url === '/home' || this.router.url === '/posts'
+
     });
   }
 

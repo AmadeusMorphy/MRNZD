@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ConfirmationService, MenuItem, MessageService, MenuItemCommandEvent } from 'primeng/api';
 import { AuthService } from 'src/app/services/auth.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { StuffService } from 'src/app/services/stuff.service';
 
 @Component({
   selector: 'app-home',
@@ -13,13 +14,15 @@ export class HomeComponent {
 
   items: MenuItem[] | undefined;
   accs: any;
+  News: any;
 
   constructor(
     private router: Router,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private authService: AuthService,
-    private firebaseService: FirebaseService
+    private firebaseService: FirebaseService,
+    private stuffService: StuffService
   ) { }
 
   ngOnInit() {
@@ -27,6 +30,7 @@ export class HomeComponent {
 
     this.firebaseService.getApi();
 
+    this.showNews()
     this.items = [
       {
         label: 'File',
@@ -170,6 +174,27 @@ export class HomeComponent {
         // console.log(this.accs)
       }, (error) => {
         console.error('error stuff: ', error)
+      }
+    )
+  }
+
+  showNews() {
+    this.stuffService.getNews().subscribe(
+      (res: any) => {
+        console.log("News data: ", res)
+
+        this.News = res.articles.map((item: any) => {
+          return {
+            title: item.title,
+            description: item.description,
+            publishedAt: item.publishedAt,
+            category: item.source.name,
+            urlImg: item.urlToImage,
+            url: item.url,
+            Title: item.title
+          }
+        })
+        console.log('the extracted data: ', this.News)
       }
     )
   }

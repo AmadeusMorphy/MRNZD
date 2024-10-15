@@ -9,5 +9,6 @@ export const environment = {
         appId: "1:885611008529:web:d534fa51ee9f54ecd4d7b0"
     },
 
-    firebaseAPI: "https://mrnzd-d0f4d-default-rtdb.firebaseio.com/users/1.json?auth=AIzaSyCeiiz12sJ7tWxLukXwCy7C-hGhEadhGMs"
+    firebaseAPI: "https://mrnzd-d0f4d-default-rtdb.firebaseio.com/users/1.json?auth=AIzaSyCeiiz12sJ7tWxLukXwCy7C-hGhEadhGMs",
+    newsAPI: 'https://newsapi.org/v2/everything?q=keyword&apiKey=c2b17af8d8dd434690f9104a14edb91f'
   };

@@ -27,12 +27,12 @@
 body {
     margin: 0;
     padding: 0;
-  }
-  
-  .content {
-    margin-top: 70px; /* Prevent content from being hidden under the header */
-    padding: 20px; /* Adjust content padding */
-  }
+}
+
+.content {
+    margin-top: 70px;
+    padding: 20px;
+}
 
 :root {
     --primary-color: #0faeca;
@@ -40,7 +40,8 @@ body {
 
 .no-scroll {
     overflow: hidden;
-  }
+}
+
 .overlay {
     position: fixed;
     top: 0;
@@ -189,4 +190,21 @@ body {
     to {
         opacity: 1;
     }
+}
+
+/*TO REMOVE THE BLUE BOX OF THE PRESSED ITEM ON MOBILE*/
+
+.hamburger,
+.hamburger span,
+span,
+.user-sction i,
+.user-sction,
+i,
+.close-icon,
+a,
+div,
+button,
+img,
+li {
+    -webkit-tap-highlight-color: transparent;
 }

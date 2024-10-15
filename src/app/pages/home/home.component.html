@@ -1,3 +1,17 @@
-<app-posts></app-posts>
-
-  
+<div class="cardss">
+    <p-card [style]="{ width: '320px' }" *ngFor="let new of News">
+        <ng-template pTemplate="header">
+            <div class="thumbnail-container">
+                <a [href]=>
+                    <img alt="Card" [src]="new.urlImg" />
+                    <p class="gender-label">{{new.category}}</p>
+                </a>
+            </div>
+            <div class="details">
+                <a  class="ogTitle">{{new.title}}</a>
+            </div>
+            <h4>Views</h4>
+            <p style="display: none;">{{new.description}}</p>
+        </ng-template>
+    </p-card>
+</div>
