@@ -24,6 +24,10 @@ import { MenubarModule } from 'primeng/menubar';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { HeaderComponent } from './pages/header/header.component';
+import { AvatarModule } from 'primeng/avatar';
+import { StyleClassModule } from 'primeng/styleclass';
+import { Sidebar } from 'primeng/sidebar';
+import { SidebarModule } from 'primeng/sidebar';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, LoginComponent, HeaderComponent],
@@ -46,7 +50,10 @@ import { HeaderComponent } from './pages/header/header.component';
     RippleModule,
     BrowserAnimationsModule,
     MenubarModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    AvatarModule, 
+    StyleClassModule,
+    SidebarModule
   ],
   providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent],

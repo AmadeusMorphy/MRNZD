@@ -1,7 +1,8 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { ConfirmationService, MenuItem, MenuItemCommandEvent } from 'primeng/api';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { Sidebar } from 'primeng/sidebar';
 
 
 @Component({
@@ -14,6 +15,16 @@ export class HeaderComponent {
   username: any;
   items: MenuItem[] | undefined;
   isLoggedIn: boolean = false
+
+  @ViewChild('sidebarRef') sidebarRef!: Sidebar;
+
+  closeCallback(e: Event): void {
+      this.sidebarRef.close(e);
+  }
+
+  sidebarVisible: boolean = false;
+
+  
   constructor(
     private router: Router,
     private confirmationService: ConfirmationService,
@@ -194,6 +205,7 @@ export class HeaderComponent {
     localStorage.removeItem('userEmail');
     localStorage.removeItem('isLoggedIn');
     this.authService.logout();
+    this.sidebarVisible = false
     console.log('User logged out successfully');
     this.checkRef
     this.router.navigate(['/login']);
