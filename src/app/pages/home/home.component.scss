@@ -7,3 +7,262 @@
     // background: #0000008e;
     // border: 1px solid var(--primary-color);
 }
+
+::ng-deep .surface-card {
+    background-color: #151515 !important;
+}
+
+.post-card {
+    max-width: 500px;
+    background: var(--surface-card, #ffffff);
+    transition: box-shadow 0.3s ease;
+    position: relative;
+  }
+  
+  .post-card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+  }
+  
+  .post-header h4 {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+  }
+  
+  .post-image-container {
+    width: 100%;
+    height: auto;
+  }
+  
+  .post-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .post-content p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  
+  .text-primary-600 {
+    color: #3b82f6; /* Example primary color */
+  }
+  
+  .text-secondary-500 {
+    color: #6b7280; /* Example secondary color */
+  }
+  
+  .text-secondary-700 {
+    color: #374151; /* Darker text color */
+  }
+  
+  .border-round-md {
+    border-radius: 12px;
+  }
+  
+  .shadow-2 {
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  }
+  
+  .p-button-text {
+    padding: 0.5rem;
+  }
+  
+  .bookmark-button {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.5rem;
+  }
+  
+  .like-container {
+    position: relative;
+    display: inline-block;
+}
+
+.pop {
+    animation: pop-animation 0.3s ease-out;
+}
+
+@keyframes pop-animation {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.sparkles {
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    width: 10px;
+    height: 10px;
+    pointer-events: none;
+    animation: sparkle-animation 0.8s ease-out forwards;
+}
+
+.sparkles::before,
+.sparkles::after {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 51, 0, 0.8);
+    border-radius: 50%;
+    opacity: 0;
+}
+
+.sparkles::before {
+    top: -5px;
+    left: -5px;
+    animation: sparkle-fade 0.5s ease-out 0.1s forwards;
+}
+
+.sparkles::after {
+    bottom: -5px;
+    right: -5px;
+    animation: sparkle-fade 0.5s ease-out 0.2s forwards;
+}
+
+/* Add more sparkles */
+.sparkles::before::before,
+.sparkles::before::after,
+.sparkles::after::before,
+.sparkles::after::after {
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: rgba(255, 51, 0, 0.8);
+    border-radius: 50%;
+    opacity: 0;
+}
+
+.sparkles::before::before {
+    top: -3px;
+    left: -3px;
+    animation: sparkle-fade 0.5s ease-out 0.2s forwards;
+}
+
+.sparkles::before::after {
+    bottom: -3px;
+    right: -3px;
+    animation: sparkle-fade 0.5s ease-out 0.3s forwards;
+}
+
+.sparkles::after::before {
+    top: -3px;
+    left: -3px;
+    animation: sparkle-fade 0.5s ease-out 0.3s forwards;
+}
+
+.sparkles::after::after {
+    bottom: -3px;
+    right: -3px;
+    animation: sparkle-fade 0.5s ease-out 0.4s forwards;
+}
+
+/* Add even more sparkles */
+.sparkles::before::before::before,
+.sparkles::before::before::after,
+.sparkles::before::after::before,
+.sparkles::before::after::after,
+.sparkles::after::before::before,
+.sparkles::after::before::after,
+.sparkles::after::after::before,
+.sparkles::after::after::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: rgba(255, 51, 0, 0.8);
+    border-radius: 50%;
+    opacity: 0;
+}
+
+.sparkles::before::before::before {
+    top: -2px;
+    left: -2px;
+    animation: sparkle-fade 0.5s ease-out 0.3s forwards;
+}
+
+.sparkles::before::before::after {
+    bottom: -2px;
+    right: -2px;
+    animation: sparkle-fade 0.5s ease-out 0.4s forwards;
+}
+
+.sparkles::before::after::before {
+    top: -2px;
+    left: -2px;
+    animation: sparkle-fade 0.5s ease-out 0.4s forwards;
+}
+
+.sparkles::before::after::after {
+    bottom: -2px;
+    right: -2px;
+    animation: sparkle-fade 0.5s ease-out 0.5s forwards;
+}
+
+.sparkles::after::before::before {
+    top: -2px;
+    left: -2px;
+    animation: sparkle-fade 0.5s ease-out 0.5s forwards;
+}
+
+.sparkles::after::before::after {
+    bottom: -2px;
+    right: -2px;
+    animation: sparkle-fade 0.5s ease-out 0.6s forwards;
+}
+
+.sparkles::after::after::before {
+    top: -2px;
+    left: -2px;
+    animation: sparkle-fade 0.5s ease-out 0.6s forwards;
+}
+
+.sparkles::after::after::after {
+    bottom: -2px;
+    right: -2px;
+    animation: sparkle-fade 0.5s ease-out 0.7s forwards;
+}
+
+@keyframes sparkle-fade {
+    0% {
+        transform: scale(0.5);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+::ng-deep .p-menu {
+    top: 15% !important;
+    left: 85% !important;
+}
+
+@media (max-width: 550px) {
+    ::ng-deep .p-menu {
+        top: 15% !important;
+        left: 50% !important;
+    }
+}

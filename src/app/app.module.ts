@@ -28,6 +28,9 @@ import { AvatarModule } from 'primeng/avatar';
 import { StyleClassModule } from 'primeng/styleclass';
 import { Sidebar } from 'primeng/sidebar';
 import { SidebarModule } from 'primeng/sidebar';
+import { MenuItem } from 'primeng/api';
+import { MenuModule } from 'primeng/menu';
+import { ImageModule } from 'primeng/image';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, LoginComponent, HeaderComponent],
@@ -53,7 +56,9 @@ import { SidebarModule } from 'primeng/sidebar';
     ConfirmDialogModule,
     AvatarModule, 
     StyleClassModule,
-    SidebarModule
+    SidebarModule,
+    MenuModule,
+    ImageModule
   ],
   providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent],
