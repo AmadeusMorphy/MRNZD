@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, MenuItem, MessageService, MenuItemCommandEvent } from 'primeng/api';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,17 +11,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 })
 export class HomeComponent {
 
-  username: string = 'Username';
-  postTime: string = '2 hours ago';
-  postLikes: number = 23;
-  isLiked: boolean = false;
-  isShared: boolean = false;
-  isBookmarked: boolean = false;
-
-
-
   items: MenuItem[] | undefined;
-  postItems: MenuItem[] | undefined;
   accs: any;
 
   constructor(
@@ -35,7 +25,7 @@ export class HomeComponent {
   ngOnInit() {
     this.checkLoginStatus();
 
-    this.firebaseService.getApi()
+    this.firebaseService.getApi();
 
     this.items = [
       {
@@ -162,38 +152,8 @@ export class HomeComponent {
       }
     ];
 
-    this.postItems = [
-      {
-          label: 'Options',
-          items: [
-              {
-                  label: 'Refresh',
-                  icon: 'pi pi-refresh'
-              },
-              {
-                  label: 'Export',
-                  icon: 'pi pi-upload'
-              }
-          ]
-      }
-  ];
 }
   
-
-
-  toggleLike(): void {
-    this.isLiked = !this.isLiked;
-    this.isLiked ? this.postLikes++ : this.postLikes--;
-  }
-
-  toggleShare(): void {
-    this.isShared = !this.isShared;
-  }
-
-  toggleBookmark(): void {
-    this.isBookmarked = !this.isBookmarked;
-  }
-
   showData() {
     this.firebaseService.getApi().subscribe(
       (res: any) => {
@@ -241,8 +201,6 @@ export class HomeComponent {
       }
     });
   }
-
-
 
   logout(): void {
     this.authService.logout()

@@ -31,9 +31,11 @@ import { SidebarModule } from 'primeng/sidebar';
 import { MenuItem } from 'primeng/api';
 import { MenuModule } from 'primeng/menu';
 import { ImageModule } from 'primeng/image';
+import { SkeletonModule } from 'primeng/skeleton';
+import { PostsComponent } from './pages/posts/posts.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent, HeaderComponent],
+  declarations: [AppComponent, HomeComponent, LoginComponent, HeaderComponent, PostsComponent],
   imports: [
     BrowserModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
@@ -58,7 +60,8 @@ import { ImageModule } from 'primeng/image';
     StyleClassModule,
     SidebarModule,
     MenuModule,
-    ImageModule
+    ImageModule,
+    SkeletonModule
   ],
   providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent],
