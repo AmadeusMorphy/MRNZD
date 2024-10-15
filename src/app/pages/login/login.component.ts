@@ -38,6 +38,11 @@ export class LoginComponent {
     //     console.error('error stuff: ', error)
     //   }
     // )
+    const checkUser = localStorage.getItem('userEmail')
+    
+    if(checkUser){
+      this.router.navigateByUrl('/home')
+    }
   }
 
 
