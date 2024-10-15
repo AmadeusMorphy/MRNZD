@@ -39,8 +39,8 @@ export class LoginComponent {
     //   }
     // )
     const checkUser = localStorage.getItem('userEmail')
-    
-    if(checkUser){
+
+    if (checkUser) {
       this.router.navigateByUrl('/home')
     }
   }

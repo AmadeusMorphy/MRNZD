@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HeaderComponent {
   showHeader: boolean = false;
-
+  username: any;
   items: MenuItem[] | undefined;
   isLoggedIn: boolean = false
   constructor(
@@ -31,6 +31,9 @@ export class HeaderComponent {
     this.checkLoginStatus();
     this.checkRef
 
+    this.authService.username$.subscribe((username) => {
+      this.username = username;
+    });
     this.items = [
       {
         label: 'File',

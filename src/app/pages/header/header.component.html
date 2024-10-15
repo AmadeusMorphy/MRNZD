@@ -4,7 +4,11 @@
             [routerLink]="['/home']" />
     </ng-template>
     <ng-template pTemplate="end">
+        <div class="headerItem flex align-items-center">
+        <h2 class="m-0 mr-4">{{username}}</h2>
         <input type="text" pInputText placeholder="Search" class="w-full" />
+    </div>
+    <!-- <input type="text" pInputText placeholder="Search" class="w-full" /> -->
     </ng-template>
 </p-menubar>
 

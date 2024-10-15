@@ -13,7 +13,6 @@ export class HomeComponent {
 
   items: MenuItem[] | undefined;
   accs: any;
-  username: any;
 
   constructor(
     private router: Router,
@@ -27,8 +26,7 @@ export class HomeComponent {
     this.checkLoginStatus();
 
     this.firebaseService.getApi()
-    
-    this.username = localStorage.getItem('userName')
+
     this.items = [
       {
         label: 'File',

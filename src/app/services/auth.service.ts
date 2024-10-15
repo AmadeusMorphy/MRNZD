@@ -11,6 +11,9 @@ export class AuthService {
 
   private loggedIn = new BehaviorSubject<boolean>(false);
 
+  private usernameSubject = new BehaviorSubject<string | null>(localStorage.getItem('userName'));
+  username$ = this.usernameSubject.asObservable();
+
   get isLoggedIn(): Observable<boolean> {
     return this.loggedIn.asObservable();
   }
@@ -19,6 +22,7 @@ export class AuthService {
     localStorage.setItem('isLoggedIn', 'true');
     localStorage.setItem('userEmail', email.toLowerCase());
     localStorage.setItem('userName', username);
+    this.usernameSubject.next(username);
     this.loggedIn.next(true);
   }
 
@@ -26,6 +30,7 @@ export class AuthService {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userEmail');
     localStorage.removeItem('userName');
+    this.usernameSubject.next(null);
     this.loggedIn.next(false);
   }
   checkLoginStatus(): boolean {
