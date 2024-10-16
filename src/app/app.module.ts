@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
@@ -7,9 +7,9 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 import { environment } from '../environments/environment';
 import { ButtonModule } from 'primeng/button'
 import { AppComponent } from './app.component';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
-import { Card, CardModule } from 'primeng/card';
+import { CardModule } from 'primeng/card';
 import { CheckboxModule } from 'primeng/checkbox'
 import { HttpClientModule } from '@angular/common/http';
 import { RouterOutlet } from '@angular/router';
@@ -26,8 +26,6 @@ import { AvatarModule } from 'primeng/avatar';
 import { StyleClassModule } from 'primeng/styleclass';
 import { SidebarModule } from 'primeng/sidebar';
 import { MenuModule } from 'primeng/menu';
-import { ImageModule } from 'primeng/image';
-import { SkeletonModule } from 'primeng/skeleton';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -54,9 +52,7 @@ import { SkeletonModule } from 'primeng/skeleton';
     AvatarModule,
     StyleClassModule,
     SidebarModule,
-    MenuModule,
-    ImageModule,
-    SkeletonModule
+    MenuModule
   ],
   providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent],

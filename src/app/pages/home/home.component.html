@@ -1,12 +1,7 @@
-
 <p-toast />
 <!----Loadin---->
 <div *ngIf="isLoading" class="overlay flex justify-content-center align-items-center">
     <div class=" flex justify-content-center align-items-center h-screen absolute">
-        <!-- <div class="spinner">
-            <div class="inner">
-            </div>
-        </div> -->
         <div class="loader"></div>
     </div>
 </div>
@@ -17,20 +12,14 @@
     <div class="categoryTitle flex justify-content-center align-items-center border-round">
         <h1>Now Playing</h1>
     </div>
-
     <div class="cardss gap-6 p-1">
         <p-card [style]="{width: '250px'}" *ngFor="let movie of Movies">
             <ng-template pTemplate="header">
                 <div class="thumbnail-container">
                     <a [href]="movie.link">
                         <p-skeleton *ngIf="loadingStates[movie.img] === true" styleClass="w-full h-20rem"></p-skeleton>
-                        <img
-                            alt="Card"
-                            [src]="movie.img"
-                            (load)="onImageLoad(movie.img)"
-                            (error)="onImageError(movie.img)"
-                            *ngIf="loadingStates[movie.img] === false" 
-                        />
+                        <img alt="Card" [src]="movie.img" (load)="onImageLoad(movie.img)"
+                            (error)="onImageError(movie.img)" *ngIf="loadingStates[movie.img] === false" />
                         <p class="gender-label">{{movie.rating}}</p>
                     </a>
                 </div>
@@ -41,81 +30,4 @@
             </ng-template>
         </p-card>
     </div>
-    
-    
-
-    <!-- <div class="space h-5rem w-full flex"></div>
-    <div class="categoryTitle flex justify-content-center align-items-center border-round">
-        <h1>Trending</h1>
-    </div>
-    <div class="space h-5rem w-full flex"></div>
-
-
-    <div class="cardss gap-6 p-1">
-        <p-card [style]="{width: '250px'}" *ngFor="let movie of MoviesTrending">
-            <ng-template pTemplate="header">
-                <div class="thumbnail-container">
-                    <a [href]=>
-                        <img alt="Card" [src]="movie.img" />
-                        <p class="gender-label">{{movie.rating}}</p>
-                    </a>
-                </div>
-                <div class="details">
-                    <a class="ogTitle">{{movie.title}}</a>
-                </div>
-                <p style="display: none;">{{movie.description}}</p>
-            </ng-template>
-        </p-card>
-    </div>
-
-
-    <div class="space h-5rem w-full flex"></div>
-    <div class="categoryTitle flex justify-content-center align-items-center border-round">
-        <h1>Popular</h1>
-    </div>
-    <div class="space h-5rem w-full flex"></div>
-
-
-    <div class="cardss gap-6 p-1">
-        <p-card [style]="{width: '250px'}" *ngFor="let movie of MoviesPopular">
-            <ng-template pTemplate="header">
-                <div class="thumbnail-container">
-                    <a [href]=>
-                        <img alt="Card" [src]="movie.img" />
-                        <p class="gender-label">{{movie.rating}}</p>
-                    </a>
-                </div>
-                <div class="details">
-                    <a class="ogTitle">{{movie.title}}</a>
-                </div>
-                <p style="display: none;">{{movie.description}}</p>
-            </ng-template>
-        </p-card>
-    </div>
-
-
-    <div class="space h-5rem w-full flex"></div>
-    <div class="categoryTitle flex justify-content-center align-items-center border-round">
-        <h1>Top Rated</h1>
-    </div>
-    <div class="space h-5rem w-full flex"></div>
-
-
-    <div class="cardss gap-6 p-1">
-        <p-card [style]="{width: '250px'}" *ngFor="let movie of MoviesTopRated">
-            <ng-template pTemplate="header">
-                <div class="thumbnail-container">
-                    <a [href]=>
-                        <img alt="Card" [src]="movie.img" />
-                        <p class="gender-label">{{movie.rating}}</p>
-                    </a>
-                </div>
-                <div class="details">
-                    <a class="ogTitle">{{movie.title}}</a>
-                </div>
-                <p style="display: none;">{{movie.description}}</p>
-            </ng-template>
-        </p-card>
-    </div> -->
-
 </div>
