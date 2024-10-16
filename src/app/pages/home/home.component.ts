@@ -1,16 +1,22 @@
-import { Component, HostListener } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, MenuItem, MessageService, MenuItemCommandEvent } from 'primeng/api';
+import { CardModule } from 'primeng/card';
+import { SkeletonModule } from 'primeng/skeleton';
+import { ToastModule } from 'primeng/toast';
 import { AuthService } from 'src/app/services/auth.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { StuffService } from 'src/app/services/stuff.service';
 
 @Component({
   selector: 'app-home',
+  standalone: true,
+  imports: [CardModule, ToastModule, CommonModule, SkeletonModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent{
 
   items: MenuItem[] | undefined;
   accs: any;
@@ -21,10 +27,15 @@ export class HomeComponent {
   MoviesTopRated: any;
   imgTest!: string;
   movieImg!: string;
+
+  isLoading: boolean = false;
+  isLoading2: boolean = false;
+  isLoading3: boolean = false;
+  isLoading4: boolean = false;
+
   constructor(
     private router: Router,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService,
     private authService: AuthService,
     private firebaseService: FirebaseService,
     private stuffService: StuffService
@@ -207,6 +218,7 @@ export class HomeComponent {
   }
 
   showMovies() {
+    this.isLoading = true;
     this.stuffService.getMovies().subscribe(
       (res: any) => {
 
@@ -221,11 +233,14 @@ export class HomeComponent {
             img: `https://i0.wp.com/www.themoviedb.org/t/p/w185${item.poster_path}`
           }
         })
+        this.isLoading = false;
       }
     )
   }
 
   showMoviesTrending() {
+    this.isLoading2 = true;
+
     this.stuffService.getMoviesTrending().subscribe(
       (res: any) => {
 
@@ -240,10 +255,14 @@ export class HomeComponent {
             img: `https://i0.wp.com/www.themoviedb.org/t/p/w185${item.poster_path}`
           }
         })
+        if(this.isLoading3 = false) {
+          this.isLoading2 = false;
+        }
       }
     )
   }
   showMoviesPopular() {
+    this.isLoading3 = true;
     this.stuffService.getMoviesPopular().subscribe(
       (res: any) => {
 
@@ -258,10 +277,13 @@ export class HomeComponent {
             img: `https://i0.wp.com/www.themoviedb.org/t/p/w185${item.poster_path}`
           }
         })
+        this.isLoading3 = false
       }
     )
   }
+
   showMoviesTopRated() {
+    this.isLoading = true;
     this.stuffService.getMoviesTopRated().subscribe(
       (res: any) => {
 
@@ -276,6 +298,7 @@ export class HomeComponent {
             img: `https://i0.wp.com/www.themoviedb.org/t/p/w185${item.poster_path}`
           }
         })
+        this.isLoading = false;
       }
     )
   }
@@ -287,7 +310,6 @@ export class HomeComponent {
       this.router.navigateByUrl("/login")
     }
   }
-
 
   confirm1(event: MenuItemCommandEvent) {
     this.confirmationService.confirm({
@@ -315,4 +337,11 @@ export class HomeComponent {
 
     this.router.navigate(['/login']);
   }
+
+  isLoadingImg(imageUrl: string): boolean {
+
+    const image = new Image();
+    image.src = imageUrl;
+    return !image.complete;
+}
 }

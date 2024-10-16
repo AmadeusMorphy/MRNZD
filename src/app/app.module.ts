@@ -35,7 +35,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { PostsComponent } from './pages/posts/posts.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent, HeaderComponent, PostsComponent],
+  declarations: [AppComponent, LoginComponent, HeaderComponent, PostsComponent],
   imports: [
     BrowserModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
