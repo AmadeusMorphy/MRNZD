@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, MenuItem, MessageService, MenuItemCommandEvent } from 'primeng/api';
 import { CardModule } from 'primeng/card';
@@ -27,6 +27,8 @@ export class HomeComponent{
   MoviesTopRated: any;
   imgTest!: string;
   movieImg!: string;
+  Moviess: any[] = []; // Your movies data
+  loadingStates: { [key: string]: boolean } = {}; // To track loading state for each image
 
   isLoading: boolean = false;
   isLoading2: boolean = false;
@@ -38,8 +40,13 @@ export class HomeComponent{
     private confirmationService: ConfirmationService,
     private authService: AuthService,
     private firebaseService: FirebaseService,
-    private stuffService: StuffService
-  ) { }
+    private stuffService: StuffService,
+    private checkstuff: ChangeDetectorRef
+  ) { 
+    this.Moviess.forEach(movie => {
+      this.loadingStates[movie.img] = true; // Set all images to loading state initially
+    });
+  }
 
   ngOnInit() {
     this.checkLoginStatus();
@@ -223,16 +230,20 @@ export class HomeComponent{
       (res: any) => {
 
         this.imgTest = res.results[0].poster_path;
-
         this.movieImg = `https://i0.wp.com/www.themoviedb.org/t/p/w185${this.imgTest}`
         this.Movies = res.results.map((item: any) => {
+          const imgUrl = `https://i0.wp.com/www.themoviedb.org/t/p/w185${item.poster_path}`;
           return {
             title: item.title,
             desciption: item.overview,
             rating: item.vote_average,
-            img: `https://i0.wp.com/www.themoviedb.org/t/p/w185${item.poster_path}`
+            img: imgUrl
           }
         })
+        this.Movies.forEach((movie: any) => {
+          this.loadingStates[movie.img] = false; 
+          this.checkstuff// Set loading to true for each image
+        });
         this.isLoading = false;
       }
     )
@@ -338,10 +349,21 @@ export class HomeComponent{
     this.router.navigate(['/login']);
   }
 
-  isLoadingImg(imageUrl: string): boolean {
+  onImageLoad(imageUrl: string): void {
+    this.loadingStates[imageUrl] = true;
+    if(imageUrl){
+      this.loadingStates[imageUrl] = true //YOU NEED TO WORK ON THIS, SITTING THIS FALSE SHOULD WORK BUT THE SKELETON IS NOT SHOWING
+      console.log('its loaded')
+      return;
+    }else{
+      this.loadingStates[imageUrl] = true;
+    };
+    this.checkstuff
+  }
 
-    const image = new Image();
-    image.src = imageUrl;
-    return !image.complete;
-}
+  // Call this method when the image fails to load
+  onImageError(imageUrl: string): void {
+    this.loadingStates[imageUrl] = false; // Set the loading state to false when image fails to load
+    // Optionally, you could set a placeholder image here
+  }
 }
