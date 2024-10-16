@@ -1,134 +1,102 @@
 <div class="container grid gap-6 justify-content-center m-0 align-items-center">
-    <div class="post-card p-4 surface-card shadow-2 border-round-md">
-        <div class="post-header flex align-items-center justify-content-between mb-3">
-          <div class="flex align-items-center">
-            <img src="https://via.placeholder.com/40" alt="User Avatar" class="user-avatar border-circle mr-2" />
-            <div>
-              <h4 class="m-0 text-primary-600">{{ username }}</h4>
-              <small class="text-secondary-500">{{ postTime }}</small>
-            </div>
-          </div>
-          
-          <p-toast />
-          <p-menu #menu [model]="postItems" [popup]="true" />
-          <i class="pi pi-ellipsis-v text-secondary-500 cursor-pointer" (click)="menu.toggle($event)"></i>
+  <div class="post-card p-4 surface-card shadow-2 border-round-md">
+    <div class="post-header flex align-items-center justify-content-between mb-3">
+      <div class="flex align-items-center">
+        <div>
+          <h4 class="m-0 text-primary-600">{{ username }}</h4>
+          <small class="text-secondary-500">{{ postTime }}</small>
         </div>
-      
-
-        <ng-container *ngIf="isLoadingImg">
-            <p-skeleton styleClass="w-full h-20rem"></p-skeleton>
-          </ng-container>
-          
-          <img
-            *ngIf="!isLoadingImg && !imageError"
-            [src]="imageUrl"
-            alt="Image"
-            width="400"
-            style="display: block; margin: 0 auto;"
-          />
-          
-  
-            <img #errorTemplate
-              [src]="imageUrl"
-              alt="Default Image"
-              width="400"
-              style="display: block; margin: 0 auto;"
-            />
-
-          
-          
-          
-
-
-          
-        <div class="post-content">
-          <p class="text-secondary-700 mb-3">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod, urna eu tincidunt consectetur, nisi nisl lacinia urna, id aliquam turpis dolor et est.
-          </p>
-          <div class="flex align-items-center justify-content-between">
-            <div class="flex align-items-center">
-              <div class="like-container" (click)="toggleLike()">
-                <i 
-                  class="pi" 
-                  [ngClass]="isLiked ? 'pi-heart-fill text-red-500 pop' : 'pi-heart'"
-                  style="font-size: 1.5rem; margin-right: 1rem; cursor: pointer;">
-                </i>
-                <div *ngIf="isLiked" class="sparkles"></div>
-              </div>
-              <i 
-                class="pi" 
-                [ngClass]="isShared ? 'pi-share-fill text-blue-500' : 'pi-share-alt'"
-                (click)="toggleShare()"
-                style="font-size: 1.5rem; margin-right: 1rem; cursor: pointer;">
-              </i>
-            </div>
-
-
-
-          </div>
-        </div>
-      
-        <i 
-          class="pi" 
-          [ngClass]="isBookmarked ? 'pi-bookmark-fill text-yellow-500' : 'pi-bookmark'"
-          (click)="toggleBookmark()"
-          style="font-size: 1.5rem; position: absolute; bottom: 1rem; right: 1rem; cursor: pointer;">
-        </i>
       </div>
-    <div class="post-card p-4 surface-card shadow-2 border-round-md">
-        <div class="post-header flex align-items-center justify-content-between mb-3">
-          <div class="flex align-items-center">
-            <img src="https://via.placeholder.com/40" alt="User Avatar" class="user-avatar border-circle mr-2" />
-            <div>
-              <h4 class="m-0 text-primary-600">{{ username }}</h4>
-              <small class="text-secondary-500">{{ postTime }}</small>
-            </div>
+
+      <p-toast />
+      <p-menu #menu [model]="postItems" [popup]="true" />
+      <i class="pi pi-ellipsis-v text-secondary-500 cursor-pointer" (click)="menu.toggle($event)"></i>
+    </div>
+
+    <img [src]="imageUrl" alt="Default Image" width="400" style="display: block; margin: 0 auto;" />
+
+
+
+
+
+
+
+    <div class="post-content">
+      <p class="text-secondary-700 mb-3">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod, urna eu tincidunt consectetur,
+        nisi nisl lacinia urna, id aliquam turpis dolor et est.
+      </p>
+      <div class="flex align-items-center justify-content-between">
+        <div class="flex align-items-center">
+          <div class="like-container" (click)="toggleLike()">
+            <i class="pi" [ngClass]="isLiked ? 'pi-heart-fill text-red-500 pop' : 'pi-heart'"
+              style="font-size: 1.5rem; margin-right: 1rem; cursor: pointer;">
+            </i>
+            <div *ngIf="isLiked" class="sparkles"></div>
           </div>
-          
-          <p-toast />
-          <p-menu #menu [model]="postItems" [popup]="true" />
-          <i class="pi pi-ellipsis-v text-secondary-500 cursor-pointer" (click)="menu.toggle($event)"></i>
+          <i class="pi" [ngClass]="isShared ? 'pi-share-fill text-blue-500' : 'pi-share-alt'" (click)="toggleShare()"
+            style="font-size: 1.5rem; margin-right: 1rem; cursor: pointer;">
+          </i>
         </div>
-      
-
-        <p-image src="https://cmsphoto.ww-cdn.com/superstatic/40142/art/grande/21371695-24434585.jpg?v=1571314400.6397533&force_webp=1" 
-        class="justify-content-center flex" alt="Image" width="400" [preview]="true"></p-image>
-
-      
-        <div class="post-content">
-          <p class="text-secondary-700 mb-3">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod, urna eu tincidunt consectetur, nisi nisl lacinia urna, id aliquam turpis dolor et est.
-          </p>
-          <div class="flex align-items-center justify-content-between">
-            <div class="flex align-items-center">
-              <div class="like-container" (click)="toggleLike()">
-                <i 
-                  class="pi" 
-                  [ngClass]="isLiked ? 'pi-heart-fill text-red-500 pop' : 'pi-heart'"
-                  style="font-size: 1.5rem; margin-right: 1rem; cursor: pointer;">
-                </i>
-                <div *ngIf="isLiked" class="sparkles"></div>
-              </div>
-              <i 
-                class="pi" 
-                [ngClass]="isShared ? 'pi-share-fill text-blue-500' : 'pi-share-alt'"
-                (click)="toggleShare()"
-                style="font-size: 1.5rem; margin-right: 1rem; cursor: pointer;">
-              </i>
-            </div>
 
 
 
-          </div>
-        </div>
-      
-        <i 
-          class="pi" 
-          [ngClass]="isBookmarked ? 'pi-bookmark-fill text-yellow-500' : 'pi-bookmark'"
-          (click)="toggleBookmark()"
-          style="font-size: 1.5rem; position: absolute; bottom: 1rem; right: 1rem; cursor: pointer;">
-        </i>
       </div>
+    </div>
+
+    <i class="pi" [ngClass]="isBookmarked ? 'pi-bookmark-fill text-yellow-500' : 'pi-bookmark'"
+      (click)="toggleBookmark()"
+      style="font-size: 1.5rem; position: absolute; bottom: 1rem; right: 1rem; cursor: pointer;">
+    </i>
+  </div>
+  <div class="post-card p-4 surface-card shadow-2 border-round-md">
+    <div class="post-header flex align-items-center justify-content-between mb-3">
+      <div class="flex align-items-center">
+        <div>
+          <h4 class="m-0 text-primary-600">{{ username }}</h4>
+          <small class="text-secondary-500">{{ postTime }}</small>
+        </div>
+      </div>
+
+      <p-toast />
+      <p-menu #menu [model]="postItems" [popup]="true" />
+      <i class="pi pi-ellipsis-v text-secondary-500 cursor-pointer" (click)="menu.toggle($event)"></i>
+    </div>
+
+
+    <p-image
+      src="https://cmsphoto.ww-cdn.com/superstatic/40142/art/grande/21371695-24434585.jpg?v=1571314400.6397533&force_webp=1"
+      class="justify-content-center flex" alt="Image" width="400" [preview]="true"></p-image>
+
+
+    <div class="post-content">
+      <p class="text-secondary-700 mb-3">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod, urna eu tincidunt consectetur,
+        nisi nisl lacinia urna, id aliquam turpis dolor et est.
+      </p>
+      <div class="flex align-items-center justify-content-between">
+        <div class="flex align-items-center">
+          <div class="like-container" (click)="toggleLike()">
+            <i class="pi" [ngClass]="isLiked ? 'pi-heart-fill text-red-500 pop' : 'pi-heart'"
+              style="font-size: 1.5rem; margin-right: 1rem; cursor: pointer;">
+            </i>
+            <div *ngIf="isLiked" class="sparkles"></div>
+          </div>
+          <i class="pi" [ngClass]="isShared ? 'pi-share-fill text-blue-500' : 'pi-share-alt'" (click)="toggleShare()"
+            style="font-size: 1.5rem; margin-right: 1rem; cursor: pointer;">
+          </i>
+        </div>
+
+
+
+      </div>
+    </div>
+
+    <i class="pi" [ngClass]="isBookmarked ? 'pi-bookmark-fill text-yellow-500' : 'pi-bookmark'"
+      (click)="toggleBookmark()"
+      style="font-size: 1.5rem; position: absolute; bottom: 1rem; right: 1rem; cursor: pointer;">
+    </i>
+  </div>
 
 
 </div>

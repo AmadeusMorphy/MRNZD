@@ -12,16 +12,13 @@ import { InputTextModule } from 'primeng/inputtext';
   selector: 'app-login',
   standalone: true,
   imports: [ToastModule, FormsModule, ReactiveFormsModule, CommonModule, ButtonModule, InputTextModule],
+  providers: [MessageService],
   template: `<div class="fade-in">
 
   <p-toast />
   <!----Loadin---->
   <div *ngIf="isLoading" class="overlay flex justify-content-center align-items-center">
       <div class=" flex justify-content-center align-items-center h-screen absolute">
-          <!-- <div class="spinner">
-              <div class="inner">
-              </div>
-          </div> -->
           <div class="loader"></div>
       </div>
   </div>
@@ -117,38 +114,38 @@ export class LoginComponent {
 
   /*****************FIREBASE LOGGING IN********************/
 
-  onSubmit(): void {
-    this.isLoading = true;
-    const { email, password } = this.loginForm.value;
+  // onSubmit(): void {
+  //   this.isLoading = true;
+  //   const { email, password } = this.loginForm.value;
 
-    const emailLowercase = email.toLowerCase();
+  //   const emailLowercase = email.toLowerCase();
 
-    if (this.loginForm.valid) {
-      console.log('Form is valid. Checking database...');
+  //   if (this.loginForm.valid) {
+  //     console.log('Form is valid. Checking database...');
 
-      this.firebaseService.getData('users').then((data) => {
+  //     this.firebaseService.getData('users').then((data) => {
 
-        if (data && data.email === emailLowercase && data.password === password) {
-          console.log('Login successful');
+  //       if (data && data.email === emailLowercase && data.password === password) {
+  //         console.log('Login successful');
 
-          this.authService.login(emailLowercase, data.username);
-          this.isLoading = false;
-          this.router.navigateByUrl('/home');
+  //         this.authService.login(emailLowercase, data.username);
+  //         this.isLoading = false;
+  //         this.router.navigateByUrl('/home');
 
-        } else {
-          this.showWarn()
-          console.error('Invalid username or password');
-          this.isLoading = false;
-        }
-      }).catch((error) => {
-        console.error('Error fetching user data:', error);
-        this.isLoading = false;
-      });
-    } else {
-      console.error('Form is invalid');
-      this.isLoading = false;
-    }
-  }
+  //       } else {
+  //         this.showWarn()
+  //         console.error('Invalid username or password');
+  //         this.isLoading = false;
+  //       }
+  //     }).catch((error) => {
+  //       console.error('Error fetching user data:', error);
+  //       this.isLoading = false;
+  //     });
+  //   } else {
+  //     console.error('Form is invalid');
+  //     this.isLoading = false;
+  //   }
+  // }
   /******************************************************************/
 
 

@@ -24,16 +24,13 @@ import { ConfirmationService } from 'primeng/api';
 import { HeaderComponent } from './pages/header/header.component';
 import { AvatarModule } from 'primeng/avatar';
 import { StyleClassModule } from 'primeng/styleclass';
-import { Sidebar } from 'primeng/sidebar';
 import { SidebarModule } from 'primeng/sidebar';
-import { MenuItem } from 'primeng/api';
 import { MenuModule } from 'primeng/menu';
 import { ImageModule } from 'primeng/image';
 import { SkeletonModule } from 'primeng/skeleton';
-import { PostsComponent } from './pages/posts/posts.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, PostsComponent],
+  declarations: [AppComponent, HeaderComponent],
   imports: [
     BrowserModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
