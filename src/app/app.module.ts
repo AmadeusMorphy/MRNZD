@@ -12,8 +12,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Card, CardModule } from 'primeng/card';
 import { CheckboxModule } from 'primeng/checkbox'
 import { HttpClientModule } from '@angular/common/http';
-import { HomeComponent } from './pages/home/home.component';
-import { LoginComponent } from './pages/login/login.component'
 import { RouterOutlet } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { ToastModule } from 'primeng/toast';
@@ -35,7 +33,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { PostsComponent } from './pages/posts/posts.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, HeaderComponent, PostsComponent],
+  declarations: [AppComponent, HeaderComponent, PostsComponent],
   imports: [
     BrowserModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
@@ -56,7 +54,7 @@ import { PostsComponent } from './pages/posts/posts.component';
     BrowserAnimationsModule,
     MenubarModule,
     ConfirmDialogModule,
-    AvatarModule, 
+    AvatarModule,
     StyleClassModule,
     SidebarModule,
     MenuModule,

@@ -16,7 +16,7 @@ import { StuffService } from 'src/app/services/stuff.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent{
+export default class HomeComponent {
 
   items: MenuItem[] | undefined;
   accs: any;
@@ -42,7 +42,7 @@ export class HomeComponent{
     private firebaseService: FirebaseService,
     private stuffService: StuffService,
     private checkstuff: ChangeDetectorRef
-  ) { 
+  ) {
     this.Moviess.forEach(movie => {
       this.loadingStates[movie.img] = true; // Set all images to loading state initially
     });
@@ -241,7 +241,7 @@ export class HomeComponent{
           }
         })
         this.Movies.forEach((movie: any) => {
-          this.loadingStates[movie.img] = false; 
+          this.loadingStates[movie.img] = false;
           this.checkstuff// Set loading to true for each image
         });
         this.isLoading = false;
@@ -266,7 +266,7 @@ export class HomeComponent{
             img: `https://i0.wp.com/www.themoviedb.org/t/p/w185${item.poster_path}`
           }
         })
-        if(this.isLoading3 = false) {
+        if (this.isLoading3 = false) {
           this.isLoading2 = false;
         }
       }
@@ -351,11 +351,11 @@ export class HomeComponent{
 
   onImageLoad(imageUrl: string): void {
     this.loadingStates[imageUrl] = true;
-    if(imageUrl){
-      this.loadingStates[imageUrl] = true //YOU NEED TO WORK ON THIS, SITTING THIS FALSE SHOULD WORK BUT THE SKELETON IS NOT SHOWING
+    if (imageUrl) {
+      this.loadingStates[imageUrl] = false //YOU NEED TO WORK ON THIS, SITTING THIS FALSE SHOULD WORK BUT THE SKELETON IS NOT SHOWING
       console.log('its loaded')
       return;
-    }else{
+    } else {
       this.loadingStates[imageUrl] = true;
     };
     this.checkstuff
