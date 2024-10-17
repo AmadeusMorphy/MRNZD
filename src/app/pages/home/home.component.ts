@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { StuffService } from 'src/app/services/stuff.service';
 import { take } from 'rxjs/operators';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 interface Movie {
   title: string;
@@ -26,6 +27,14 @@ interface Account {
   selector: 'app-home',
   standalone: true,
   imports: [CardModule, ToastModule, CommonModule, SkeletonModule, NgOptimizedImage],
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(-20px)' }), // Start with 0 opacity and moved up
+        animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' })) // Fade in and move to original position
+      ]),
+    ]),
+  ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
@@ -96,5 +105,8 @@ export default class HomeComponent implements OnInit {
 
   imgLoaded(index: number): void {
     this.isImgLoading = false;
+  }
+  getAnimationDelay(index: number): string {
+    return `${index * 7}s`;
   }
 }
