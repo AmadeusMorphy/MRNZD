@@ -1,14 +1,16 @@
-<div class="container flex flex-wrap gap-3">
+<div class="container W-30 flex flex-wrap gap-3 justify-content-center align-items-center">
     <div class="imgContainer" *ngFor="let img of movieImgs, let i = index">
         <div class="imgContainer">
             <a href="">
               <div class="w-15rem">
-                <img [src]="img.img"
+                <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Pizigani_1367_Chart_10MB.jpg"/> YOU CAN TEST THIS CUZ ITS A HUGE SIZED IMAGE -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Pizigani_1367_Chart_10MB.jpg"
+        
                      (load)="imgLoaded(i)"
                      priority
-                     class="border-round w-15rem h-20rem"
+                     class="border-round w-full h-23rem"
                      [hidden]="!isImgLoaded">
-                <p-skeleton *ngIf="isImgLoading" styleClass="border-round w-15rem h-20rem"></p-skeleton>
+                <p-skeleton *ngIf="isImgLoading" styleClass="border-round w-16rem h-23rem"></p-skeleton>
               </div>
             </a>
           </div>
