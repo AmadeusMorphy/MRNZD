@@ -17,14 +17,14 @@ export class ImageLoaderComponent {
   isImgLoaded: boolean = false;
   constructor(
     private stuffService: StuffService
-  ) {}
+  ) { }
 
 
   ngOnInit(): void {
     this.showMovies()
   }
 
-  
+
   showMovies() {
     this.stuffService.getMovies().subscribe(
       (res: any) => {

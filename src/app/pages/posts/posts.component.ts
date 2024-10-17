@@ -10,7 +10,7 @@ import { ToastModule } from 'primeng/toast';
   selector: 'app-posts',
   templateUrl: './posts.component.html',
   standalone: true,
-  imports: [CommonModule, ToastModule, SkeletonModule, MenuModule, ImageModule],
+  imports: [CommonModule, ToastModule, SkeletonModule, MenuModule, ImageModule, SkeletonModule],
   styleUrls: ['./posts.component.scss']
 })
 export default class PostsComponent {
@@ -26,6 +26,7 @@ export default class PostsComponent {
 
   postItems: MenuItem[] | undefined;
 
+  isImgLoading: boolean = true;
 
   ngOnInit(): void {
 
@@ -58,5 +59,8 @@ export default class PostsComponent {
 
   toggleBookmark(): void {
     this.isBookmarked = !this.isBookmarked;
+  }
+  isLoaded() {
+    this.isImgLoading = false;
   }
 }

@@ -6,7 +6,6 @@
     </div>
 </div>
 <!-------------->
-
 <div *ngIf="!isLoading" class="homeContainer">
 
     <div class="categoryTitle flex justify-content-center align-items-center border-round">
@@ -17,7 +16,7 @@
             <ng-template pTemplate="header">
                 <div class="thumbnail-container">
                     <a [href]="movie.link">
-                        <img alt="Card" [src]="movie.img" (load)="imgLoaded(i)" priority [hidden]="isImgLoading"/>
+                        <img alt="Card" [src]="movie.img" (load)="imgLoaded(i)" priority [hidden]="isImgLoading" />
                         <p-skeleton *ngIf="isImgLoading" styleClass="w-full h-20rem"></p-skeleton>
                         <p class="gender-label">{{movie.rating}}</p>
                     </a>

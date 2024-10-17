@@ -1,75 +1,77 @@
-
 .post-card {
     max-width: auto;
     background: var(--surface-card, #ffffff);
     transition: box-shadow 0.3s ease;
     position: relative;
-  }
-  
-  .post-card:hover {
+}
+
+.post-card:hover {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  }
-  
-  .user-avatar {
+}
+
+.user-avatar {
     width: 40px;
     height: 40px;
     object-fit: cover;
-  }
-  
-  .post-header h4 {
+}
+
+.post-header h4 {
     font-size: 1rem;
     font-weight: bold;
     margin-bottom: 0.25rem;
-  }
-  
-  .post-image-container {
+}
+
+.post-image-container {
     width: 100%;
     height: auto;
-  }
-  
-  .post-image {
+}
+
+.post-image {
     width: 100%;
     height: auto;
     object-fit: cover;
-  }
-  
-  .post-content p {
+}
+
+.post-content p {
     font-size: 0.9rem;
     line-height: 1.4;
-  }
-  
-  .text-primary-600 {
-    color: #3b82f6; /* Example primary color */
-  }
-  
-  .text-secondary-500 {
-    color: #6b7280; /* Example secondary color */
-  }
-  
-  .text-secondary-700 {
-    color: #374151; /* Darker text color */
-  }
-  
-  .border-round-md {
+}
+
+.text-primary-600 {
+    color: #3b82f6;
+    /* Example primary color */
+}
+
+.text-secondary-500 {
+    color: #6b7280;
+    /* Example secondary color */
+}
+
+.text-secondary-700 {
+    color: #374151;
+    /* Darker text color */
+}
+
+.border-round-md {
     border-radius: 12px;
-  }
-  
-  .shadow-2 {
+}
+
+.shadow-2 {
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
-  }
-  
-  .p-button-text {
+}
+
+.p-button-text {
     padding: 0.5rem;
-  }
-  
-  .bookmark-button {
+}
+
+.bookmark-button {
     position: absolute;
     bottom: 1rem;
     right: 1rem;
     padding: 0.5rem;
-  }
-  
-  .like-container {
+}
+
+.like-container {
     position: relative;
     display: inline-block;
 }
@@ -82,9 +84,11 @@
     0% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(1.2);
     }
+
     100% {
         transform: scale(1);
     }
@@ -232,10 +236,12 @@
         transform: scale(0.5);
         opacity: 1;
     }
+
     50% {
         transform: scale(1.5);
         opacity: 0.8;
     }
+
     100% {
         transform: scale(2);
         opacity: 0;

@@ -1,7 +1,6 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConfirmationService, MenuItem, MessageService, MenuItemCommandEvent } from 'primeng/api';
 import { CardModule } from 'primeng/card';
 import { SkeletonModule } from 'primeng/skeleton';
 import { ToastModule } from 'primeng/toast';
@@ -32,11 +31,10 @@ export default class HomeComponent {
     private authService: AuthService,
     private firebaseService: FirebaseService,
     private stuffService: StuffService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.checkLoginStatus();
-
     this.firebaseService.getApi();
     this.showMovies();
   }
@@ -65,7 +63,6 @@ export default class HomeComponent {
     this.isLoading = true;
     this.stuffService.getMovies().subscribe(
       (res: any) => {
-
         this.Movies = res.results.map((item: any) => {
           const imgUrl = `https://i0.wp.com/www.themoviedb.org/t/p/w185${item.poster_path}`;
           return {
@@ -91,8 +88,6 @@ export default class HomeComponent {
   logout(): void {
     this.authService.logout()
     console.log('User logged out successfully');
-
-
     this.router.navigate(['/login']);
   }
   imgLoaded(index: any) {

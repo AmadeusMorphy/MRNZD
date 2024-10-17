@@ -41,7 +41,7 @@ export class HeaderComponent {
     //RESPOBSIBLE FOR SHOWING THE HEADER BY CHOOSING THE ROUTS YOU WANT THE HEADER TO EXIST IN//
 
     this.router.events.subscribe(() => {
-      this.showHeader = this.router.url === '/home' || this.router.url === '/posts'
+      this.showHeader = this.router.url === '/home' || this.router.url === '/posts' || this.router.url === '/imgs'
 
     });
   }
