@@ -3,9 +3,9 @@
         <div class="imgContainer">
             <a href="">
               <div class="w-15rem">
-                <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Pizigani_1367_Chart_10MB.jpg"/> YOU CAN TEST THIS CUZ ITS A HUGE SIZED IMAGE -->
-                <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Pizigani_1367_Chart_10MB.jpg"
+
         
+                <img [src]="img.img" alt=""
                      (load)="imgLoaded(i)"
                      priority
                      class="border-round w-full h-23rem"
@@ -15,6 +15,12 @@
             </a>
           </div>
 
+
+                          <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Pizigani_1367_Chart_10MB.jpg"/> YOU CAN TEST THIS CUZ ITS A HUGE SIZED IMAGE -->
+                <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Pizigani_1367_Chart_10MB.jpg"/> -->
+
+
+                
         <!-- <div class="imgContainer">
             <a href="">
               <div class="w-15rem">
