@@ -1,5 +1,5 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { SkeletonModule } from 'primeng/skeleton';
@@ -7,6 +7,20 @@ import { ToastModule } from 'primeng/toast';
 import { AuthService } from 'src/app/services/auth.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { StuffService } from 'src/app/services/stuff.service';
+import { take } from 'rxjs/operators';
+
+interface Movie {
+  title: string;
+  description: string;
+  rating: number;
+  img: string;
+}
+
+interface Account {
+  email: string;
+  username: string;
+  password: string;
+}
 
 @Component({
   selector: 'app-home',
@@ -15,16 +29,13 @@ import { StuffService } from 'src/app/services/stuff.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export default class HomeComponent {
+export default class HomeComponent implements OnInit {
+  accs: Account[] = [];
+  Movies: Movie[] = [];
+  isLoading = false;
+  isImgLoading = true;
 
-  accs: any;
-  News: any;
-  Movies: any;
-  MoviesTrending: any;
-  MoviesPopular: any;
-  MoviesTopRated: any;
-  isLoading: boolean = false;
-  isImgLoading: boolean = true;
+  private readonly LOGIN_PATH = '/login';
 
   constructor(
     private router: Router,
@@ -33,65 +44,58 @@ export default class HomeComponent {
     private stuffService: StuffService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.checkLoginStatus();
-    this.firebaseService.getApi();
-    this.showMovies();
+    this.fetchFirebaseData();
+    this.fetchMoviesData();
   }
 
-  showData() {
-    this.firebaseService.getApi().subscribe(
+  private fetchFirebaseData(): void {
+    this.firebaseService.getApi().pipe(take(1)).subscribe(
       (res: any) => {
-        // console.log('REST api results: ', Object.values(res).map((user:any) => user.email));
-        // console.log('REST api: ', res)
-        this.accs = Object.values(res).map((item: any) => {
-          return {
-            email: item.email,
-            username: item.username,
-            password: item.password
-          }
-        })
-
-        // console.log(this.accs)
-      }, (error) => {
-        console.error('error stuff: ', error)
-      }
-    )
+        this.accs = Object.values(res).map((item: any) => ({
+          email: item.email,
+          username: item.username,
+          password: item.password
+        }));
+      },
+      (error) => console.error('Error fetching account data:', error)
+    );
   }
 
-  showMovies() {
+  private fetchMoviesData(): void {
     this.isLoading = true;
-    this.stuffService.getMovies().subscribe(
+    this.stuffService.getMovies().pipe(take(1)).subscribe(
       (res: any) => {
-        this.Movies = res.results.map((item: any) => {
-          const imgUrl = `https://i0.wp.com/www.themoviedb.org/t/p/w185${item.poster_path}`;
-          return {
-            title: item.title,
-            desciption: item.overview,
-            rating: item.vote_average,
-            img: imgUrl
-          }
-        })
+        this.Movies = res.results.map((item: any) => ({
+          title: item.title,
+          description: item.overview,
+          rating: item.vote_average,
+          img: `https://i0.wp.com/www.themoviedb.org/t/p/w185${item.poster_path}`
+        }));
+        this.isLoading = false;
+      },
+      (error) => {
+        console.error('Error fetching movies data:', error);
         this.isLoading = false;
       }
-    )
+    );
   }
 
-  checkLoginStatus(): void {
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if (isLoggedIn === 'true') {
-    } else {
-      this.router.navigateByUrl("/login")
+  private checkLoginStatus(): void {
+    if (localStorage.getItem('isLoggedIn') !== 'true') {
+      this.router.navigateByUrl(this.LOGIN_PATH);
     }
   }
 
   logout(): void {
-    this.authService.logout()
+    this.authService.logout();
     console.log('User logged out successfully');
-    this.router.navigate(['/login']);
+    this.router.navigate([this.LOGIN_PATH]);
   }
-  imgLoaded(index: any) {
-    console.log('image loaded', index)
+
+  imgLoaded(index: number): void {
+    console.log(`Image loaded at index ${index}`);
     this.isImgLoading = false;
   }
 }

@@ -15,7 +15,7 @@
         <p-card [style]="{width: '250px'}" *ngFor="let movie of Movies, let i = index">
             <ng-template pTemplate="header">
                 <div class="thumbnail-container">
-                    <a [href]="movie.link">
+                    <a>
                         <img alt="Card" [src]="movie.img" (load)="imgLoaded(i)" priority [hidden]="isImgLoading" />
                         <p-skeleton *ngIf="isImgLoading" styleClass="w-full h-20rem"></p-skeleton>
                         <p class="gender-label">{{movie.rating}}</p>
