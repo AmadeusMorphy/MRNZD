@@ -95,7 +95,6 @@ export default class HomeComponent implements OnInit {
   }
 
   imgLoaded(index: number): void {
-    console.log(`Image loaded at index ${index}`);
     this.isImgLoading = false;
   }
 }

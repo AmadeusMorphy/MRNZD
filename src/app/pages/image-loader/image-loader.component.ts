@@ -38,14 +38,12 @@ export class ImageLoaderComponent {
             img: imgUrl
           }
         })
-        console.log(this.movieImgs)
       }
 
     )
   }
 
   imgLoaded(index: any) {
-    console.log('Img loaded', index)
     this.isImgLoading = false;
     this.isImgLoaded = true;
   }
