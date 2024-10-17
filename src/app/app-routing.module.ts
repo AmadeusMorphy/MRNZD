@@ -7,7 +7,8 @@ const routes: Routes = [
   { path: 'header', component: HeaderComponent },
   { path: 'login', loadComponent: () => import('./pages/login/login.component').then(m => m.LoginComponent) },
   { path: 'home', loadComponent: () => import('./pages/home/home.component') },
-  { path: 'posts', loadComponent: () => import('./pages/posts/posts.component') }
+  { path: 'posts', loadComponent: () => import('./pages/posts/posts.component') },
+  { path: 'imgs', loadComponent: () => import('./pages/image-loader/image-loader.component').then(m => m.ImageLoaderComponent) },
 ];
 
 @NgModule({

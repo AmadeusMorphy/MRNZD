@@ -1,0 +1,29 @@
+<div class="container flex flex-wrap gap-3">
+    <div class="imgContainer" *ngFor="let img of movieImgs, let i = index">
+        <div class="imgContainer">
+            <a href="">
+              <div class="w-15rem">
+                <img [src]="img.img"
+                     (load)="imgLoaded(i)"
+                     priority
+                     class="border-round w-15rem h-20rem"
+                     [hidden]="!isImgLoaded">
+                <p-skeleton *ngIf="isImgLoading" styleClass="border-round w-15rem h-20rem"></p-skeleton>
+              </div>
+            </a>
+          </div>
+
+        <!-- <div class="imgContainer">
+            <a href="">
+              <div class="w-15rem">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Pizigani_1367_Chart_10MB.jpg"
+                     (load)="imgLoaded()"
+                     priority
+                     class="border-round w-30rem h-30rem"
+                     [hidden]="!isImgLoaded">
+                <p-skeleton *ngIf="isImgLoading" styleClass="border-round w-30rem h-30rem"></p-skeleton>
+              </div>
+            </a>
+          </div> -->
+
+</div>
