@@ -29,7 +29,9 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userEmail');
+    localStorage.removeItem('userId');
     localStorage.removeItem('userName');
+    localStorage.removeItem('profileImg')
     this.usernameSubject.next(null);
     this.loggedIn.next(false);
   }

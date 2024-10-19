@@ -1,7 +1,8 @@
 <div *ngIf="showHeader" style="margin-bottom: 84px;">
     <header class="header-container glass-effect">
         <div class="logo-section align-items-center flex gap-3">
-            <img routerLink="/home" src="assets/m.png" alt="Logo" class="logo border-circle" />
+            <img *ngIf="!isProfileImg" routerLink="/home" src="assets/m.png" alt="Logo" class="logo border-circle" />
+            <img *ngIf="isProfileImg" routerLink="/home" [src]="profileImg" alt="Logo" class="logo border-circle" />
             <span class="brand-name">{{username}}</span>
         </div>
 
@@ -9,6 +10,9 @@
             <a routerLink="/home">Home</a>
             <a routerLink="/posts">Posts</a>
             <a routerLink="/imgs">Images</a>
+            <a routerLink="/dms">Inbox</a>
+            <a routerLink="/add-friend">Add friend</a>
+            <a routerLink="/my-profile">My Profile</a>
             <a style="text-decoration: none; cursor: pointer;" (click)="logout()">Logout</a>
         </nav>
 
@@ -26,10 +30,12 @@
             <span class="brand-name">YourBrand</span>
             <div class="close-icon" (click)="toggleMenu()">×</div>
         </div>
-        <a routerLink="/home" class="item1" href="#" (click)="toggleMenu()">Home</a>
-        <a routerLink="/posts" class="item2" href="#" (click)="toggleMenu()">Posts</a>
-        <a class="item3" href="#" (click)="toggleMenu()">Services</a>
-        <a class="item4" href="#" (click)="logout()">Logout</a>
+        <a routerLink="/home" class="item1" (click)="toggleMenu()">Home</a>
+        <a routerLink="/posts" class="item2" (click)="toggleMenu()">Posts</a>
+        <a routerLink="/dms" class="item3" (click)="toggleMenu()">Ingbox</a>
+        <a routerLink="/add-friend" class="item3" (click)="toggleMenu()">Add friend</a>
+        <a routerLink="/my-profile" class="item3" (click)="toggleMenu()">My profile</a>
+        <a class="item4" (click)="toggleMenu()" (click)="logout()">Logout</a>
     </nav>
 </div>
 

@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
-import { Database } from '@angular/fire/database';
-import { map, Observable } from 'rxjs';
+import { Database, getDatabase, push, ref } from '@angular/fire/database';
+import { map, Observable, switchMap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 
@@ -21,6 +21,20 @@ export class FirebaseService {
 
   accounts: any;
 
+
+  getUsers(): Observable<{ [key: string]: any }> {
+    return this.http.get<{ [key: string]: any }>(`${environment.firebaseAPI}`);
+  }
+
+  getUserById(id: any): Observable<any> {
+    return this.http.get(`https://mrnzd-d0f4d-default-rtdb.firebaseio.com/users/1/${id}.json?auth=AIzaSyCeiiz12sJ7tWxLukXwCy7C-hGhEadhGMs`)
+  }
+
+  uploadImage(id: any, image: any): Observable<any> {
+
+    return this.http.patch(`https://mrnzd-d0f4d-default-rtdb.firebaseio.com/users/1/${id}.json?auth=AIzaSyCeiiz12sJ7tWxLukXwCy7C-hGhEadhGMs`, image)
+  }
+
   getApi(): Observable<any> {
     this.http.get(`${environment.firebaseAPI}`).subscribe(
       (res: any) => {
@@ -37,6 +51,14 @@ export class FirebaseService {
     return this.http.get(`${environment.firebaseAPI}`);
   }
 
+  getAllUsers(): Observable<{ id: string;[key: string]: any }[]> {
+    return this.http.get<{ [key: string]: any }>(`${environment.firebaseAPI}`).pipe(
+      map(data => {
+        // Convert the object to an array including the IDs
+        return Object.entries(data).map(([id, user]) => ({ id, ...user }));
+      })
+    );
+  }
   // getData(path: string) {
   //   const dbRef = ref(this.db);
   //   return get(child(dbRef, path))
@@ -82,7 +104,12 @@ export class FirebaseService {
   }
   /********************************************************** */
 
-  // postData(username: string, email: string, password: string) {
+  signUp(user: any): Observable<any> {
+
+
+    return this.http.post(environment.firebaseAPI, user);
+  }
+  // signUp(username: string, email: string, password: string) {
   //   const db = getDatabase();
   //   const userRef = ref(db, 'users');
 

@@ -13,66 +13,7 @@ import { InputTextModule } from 'primeng/inputtext';
   standalone: true,
   imports: [ToastModule, FormsModule, ReactiveFormsModule, CommonModule, ButtonModule, InputTextModule],
   providers: [MessageService],
-  template: `<div class="fade-in">
-
-  <p-toast />
-  <!----Loadin---->
-  <div *ngIf="isLoading" class="overlay flex justify-content-center align-items-center">
-      <div class=" flex justify-content-center align-items-center h-screen absolute">
-          <div class="loader"></div>
-      </div>
-  </div>
-  <!-------------->
-
-  <div class="stuff flex justify-content-center align-items-center bg-gray-950">
-      <div class="glass-card p-6 border-round-lg w-full m-8 md:w-27rem">
-          <div class="titleText text-center mb-6">
-              <h2 class="text-7xl font-bold mb-1 title">Rizzar's Stuff</h2>
-              <div class="titleCaptions">
-                  <p class="text-400">Website is still under construction</p>
-                  <p class="text-300">This website is owned by: <span class="Nizar">Nizar</span></p>
-              </div>
-              <div class="socialMedia flex justify-content-center align-items-center">
-                  <a href="https://www.instagram.com/nizar_masadeh">
-                      <button pButton class="p-button-raised p-button-social">
-                          <i class="pi pi-instagram"></i>
-                      </button>
-                  </a>
-                  <a href="https://www.github.com/NizarMasadeh">
-                      <button pButton class="p-button-raised p-button-social">
-                          <i class="pi pi-github"></i>
-                      </button>
-                  </a>
-                  <a href="https://www.facebook.com/nizar.masadeh.7">
-                      <button pButton class="p-button-raised p-button-social">
-                          <i class="pi pi-facebook"></i>
-                      </button>
-                  </a>
-              </div>
-          </div>
-          <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-              <div class="p-inputgroup flex justify-content-center align-items-center mb-4">
-                  <span class="p-input-icon-left">
-                      <i class="pi pi-user"></i>
-                      <input pInputText placeholder="Email" type="email" formControlName="email"
-                          class="w-full glass-input" />
-                  </span>
-              </div>
-              <div class="p-inputgroup flex justify-content-center align-items-center mb-4">
-                  <span class="p-input-icon-left">
-                      <i class="pi pi-key"></i>
-                      <input pInputText placeholder="password" type="password" formControlName="password"
-                          class="w-full glass-input" />
-                  </span>
-              </div>
-              <div class="loginBtn flex justify-content-center align-items-center pt-5">
-                  <button pButton type="submit" label="Login"
-                      class="w-19rem p-button-raised p-button-rounded p-button-glass"></button>
-              </div>
-          </form>
-      </div>
-  </div>
-</div>` ,
+  templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
@@ -80,7 +21,8 @@ export class LoginComponent {
 
   loginForm: FormGroup;
   isLoading: boolean = false;
-
+  signUpForm: FormGroup;
+  isSignUp = false;
   constructor(
     private firebaseService: FirebaseService,
     private fb: FormBuilder,
@@ -94,6 +36,13 @@ export class LoginComponent {
       password: ['', Validators.required]
     });
 
+
+    this.signUpForm = this.fb.group({
+      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      dateCreated: new Date()
+    });
   }
 
   ngOnInit() {
@@ -180,5 +129,27 @@ export class LoginComponent {
 
   showWarn() {
     this.messageService.add({ severity: 'error', summary: 'Invalid', detail: 'Wrong email or password' });
+  }
+
+  onSignUp() {
+    this.isLoading = true;
+
+    const user = this.signUpForm.value;
+
+    this.firebaseService.signUp(user).subscribe(
+      (res: any) => {
+        this.isLoading = false;
+        this.toggleForm();
+        console.log('successfully signed up: ', res);
+      }, (error) => {
+        this.isLoading = false;
+        console.error("Error Stuff: ", error);
+
+      }
+    )
+  }
+
+  toggleForm() {
+    this.isSignUp = !this.isSignUp;
   }
 }

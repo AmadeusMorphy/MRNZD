@@ -34,7 +34,8 @@ export default class HomeComponent implements OnInit {
   Movies: Movie[] = [];
   isLoading = false;
   isImgLoading = true;
-
+  users: any[] = [];
+  userId: any;
   private readonly LOGIN_PATH = '/login';
 
   constructor(
@@ -48,6 +49,29 @@ export default class HomeComponent implements OnInit {
     this.checkLoginStatus();
     this.fetchFirebaseData();
     this.fetchMoviesData();
+
+
+    /******THIS IS RESPONSIBLE FOR RETRIEVING THE ID OF ANY USER BY USERNAME */
+    // this.firebaseService.getUsers().subscribe((data) => {
+    //   const currentUser = localStorage.getItem('userName')
+    //   this.users = Object.entries(data).map(([id, user]) => ({ id, ...user }));
+    //   console.log(data)
+    // });
+
+    this.getUserIdFromLocalStorage()
+
+    this.firebaseService.getUserById(localStorage.getItem('userId')).subscribe(
+      (res: any) => {
+        console.log('data from userId localstorage: ', res)
+      }
+    )
+    this.firebaseService.getAllUsers().subscribe(
+      (res: any) => {
+        // console.log("users with their id: ", res);
+        console.log('search one: ', res.find((user: { usermame: string; }) => user.usermame === 'Auth'));
+
+      }
+    )
   }
 
   private fetchFirebaseData(): void {
@@ -96,5 +120,34 @@ export default class HomeComponent implements OnInit {
 
   imgLoaded(index: number): void {
     this.isImgLoading = false;
+  }
+
+  // searchByUsername(username: string) {
+  //   const currentUser = localStorage.getItem('userName')
+  //   const foundUser = this.users.find(user => user.username === currentUser);
+  //   this.userId = foundUser ? foundUser.id : null; // This will hold the user ID or null if not found
+  //   console.log('Found User ID:', foundUser);
+  // }
+
+  getUserIdFromLocalStorage() {
+    this.firebaseService.getUsers().subscribe((data) => {
+      const currentUser = localStorage.getItem('userName');
+
+      // Convert the object to an array including the IDs
+      this.users = Object.entries(data).map(([id, user]) => ({ id, ...user }));
+
+      // Find the user by username from local storage
+      const foundUser = this.users.find(user => user.username === currentUser);
+      this.userId = foundUser ? foundUser.id : null; // This will hold the user ID or null if not found
+
+      localStorage.setItem('userId', this.userId)
+      console.log('All users:', this.users);
+      console.log('Current User ID:', this.userId);
+      this.firebaseService.getUserById(this.userId).subscribe(
+        (res: any) => {
+          localStorage.setItem('profileImg', res.profileImg)
+        }
+      )
+    });
   }
 }
