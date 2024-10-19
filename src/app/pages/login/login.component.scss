@@ -188,3 +188,13 @@ i {
         transform: translateY(0);
     }
 }
+
+button:enabled {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 15px rgba(94, 234, 212, 0.5);
+}
+
+button {
+    transition: 0.5s ease-in-out
+}

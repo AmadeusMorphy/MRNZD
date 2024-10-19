@@ -23,6 +23,8 @@ export class LoginComponent {
   isLoading: boolean = false;
   signUpForm: FormGroup;
   isSignUp = false;
+  users: any[] = [];
+  userId: any;
   constructor(
     private firebaseService: FirebaseService,
     private fb: FormBuilder,
@@ -32,7 +34,7 @@ export class LoginComponent {
   ) {
 
     this.loginForm = this.fb.group({
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
 
@@ -40,7 +42,11 @@ export class LoginComponent {
     this.signUpForm = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.pattern(/^(?=.*[0-9])(?=.*[!@#$%^&*])/)
+      ]],
       dateCreated: new Date()
     });
   }
@@ -101,6 +107,7 @@ export class LoginComponent {
 
   /***REST API FIREBASE LOGIN AFTER FILTERING [1] WHICH IS THE USERS*/
   onLogin(): void {
+    this.getUserIdFromLocalStorage();
     this.isLoading = true;
     const { email, password } = this.loginForm.value;
 
@@ -112,6 +119,11 @@ export class LoginComponent {
         if (user) {
           this.isLoading = false;
           this.authService.login(emailLowercase, user.username);
+          this.firebaseService.getUserById(this.userId).subscribe((res: any) => {
+            const newProfileImg = res.profileImg || '';
+            localStorage.setItem('profileImg', newProfileImg);
+            this.authService.updateProfileImg(newProfileImg);
+          });
           this.router.navigate(['/home']);
         } else {
           this.showWarn()
@@ -124,6 +136,28 @@ export class LoginComponent {
         console.error('Error during login:', error);
       }
     );
+  }
+
+  getUserIdFromLocalStorage() {
+    this.firebaseService.getUsers().subscribe((data) => {
+      const currentUser = localStorage.getItem('userName');
+
+      // Convert the object to an array including the IDs
+      this.users = Object.entries(data).map(([id, user]) => ({ id, ...user }));
+
+      // Find the user by username from local storage
+      const foundUser = this.users.find(user => user.username === currentUser);
+      this.userId = foundUser ? foundUser.id : null; // This will hold the user ID or null if not found
+
+      localStorage.setItem('userId', this.userId)
+      console.log('All users:', this.users);
+      console.log('Current User ID:', this.userId);
+      this.firebaseService.getUserById(this.userId).subscribe(
+        (res: any) => {
+          localStorage.setItem('profileImg', res.profileImg)
+        }
+      )
+    });
   }
   /*******************************************************************************/
 

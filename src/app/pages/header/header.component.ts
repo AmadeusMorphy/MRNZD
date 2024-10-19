@@ -66,12 +66,12 @@ export class HeaderComponent {
     });
 
     this.currentUserId = localStorage.getItem('userId');
-    this.firebaseService.getUserById(this.currentUserId).subscribe(
-      (res: any) => {
-        localStorage.setItem('profileImg', res.profileImg)
-      }
-    )
-    this.profileImg = localStorage.getItem('profileImg')
+
+    this.authService.profileImg$.subscribe((newProfileImg) => {
+      this.profileImg = newProfileImg;
+    });
+
+    this.profileImg = localStorage.getItem('profileImg');
 
     this.firebaseService.getUserById(this.currentUserId).subscribe(
       (res: any) => {

@@ -14,6 +14,10 @@ export class AuthService {
   private usernameSubject = new BehaviorSubject<string | null>(localStorage.getItem('userName'));
   username$ = this.usernameSubject.asObservable();
 
+
+  private profileImgSubject = new BehaviorSubject<string>(localStorage.getItem('profileImg') || '');
+  profileImg$ = this.profileImgSubject.asObservable();
+
   get isLoggedIn(): Observable<boolean> {
     return this.loggedIn.asObservable();
   }
@@ -37,5 +41,8 @@ export class AuthService {
   }
   checkLoginStatus(): boolean {
     return localStorage.getItem('isLoggedIn') === 'true';
+  }
+  updateProfileImg(newProfileImg: string) {
+    this.profileImgSubject.next(newProfileImg);
   }
 }
