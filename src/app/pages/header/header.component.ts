@@ -65,7 +65,12 @@ export class HeaderComponent {
       this.username = username;
     });
 
-    this.currentUserId = localStorage.getItem('userId')
+    this.currentUserId = localStorage.getItem('userId');
+    this.firebaseService.getUserById(this.currentUserId).subscribe(
+      (res: any) => {
+        localStorage.setItem('profileImg', res.profileImg)
+      }
+    )
     this.profileImg = localStorage.getItem('profileImg')
 
     this.firebaseService.getUserById(this.currentUserId).subscribe(
