@@ -49,7 +49,7 @@ export class AddFriendComponent {
     // console.log(this.currentFriends)
     this.firebaseService.getAllUsers().subscribe(
       (res: any) => {
-        console.log((res));
+        // console.log((res));
 
         const friendReqEmails = this.currentFriends
         this.users = Object.values(res).filter((item: any) => {
@@ -61,8 +61,8 @@ export class AddFriendComponent {
 
           return true;
         });
-        console.log('aiedufgbail: ', Object.values(res).filter((item: any) => item.friendReq?.map((req: any) => req.username === this.currentUsername)))
-        console.log('except the current username: ', this.users)
+        // console.log('aiedufgbail: ', Object.values(res).filter((item: any) => item.friendReq?.map((req: any) => req.username === this.currentUsername)))
+        // console.log('except the current username: ', this.users)
       }
     );
   }
@@ -106,11 +106,11 @@ export class AddFriendComponent {
 
         this.firebaseService.sendFriendReq(selectedId, this.chosenFriend).subscribe(
           (res: any) => {
-            console.log("friend req sent successfully: ", res);
+            // console.log("friend req sent successfully: ", res);
             this.showSuccess(this.users[index].username)
             // this.users[index].isReq == true
             this.getUsers()
-            console.log(this.users[index].isReq)
+            // console.log(this.users[index].isReq)
           }, (error) => {
             console.error("error stuff: ", error);
           }

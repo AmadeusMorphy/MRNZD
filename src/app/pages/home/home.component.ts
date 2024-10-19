@@ -129,12 +129,12 @@ export default class HomeComponent implements OnInit {
       this.userId = foundUser ? foundUser.id : null; // This will hold the user ID or null if not found
 
       localStorage.setItem('userId', this.userId)
-      console.log('All users:', this.users);
-      console.log('Current User ID:', this.userId);
+      // console.log('All users:', this.users);
+      // console.log('Current User ID:', this.userId);
       this.firebaseService.getUserById(this.userId).subscribe(
         (res: any) => {
           localStorage.setItem('profileImg', res.profileImg)
-          console.log("user data: ", res);
+          // console.log("user data: ", res);
 
         }
       )

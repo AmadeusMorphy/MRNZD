@@ -107,58 +107,72 @@ export class LoginComponent {
 
   /***REST API FIREBASE LOGIN AFTER FILTERING [1] WHICH IS THE USERS*/
   onLogin(): void {
-    this.getUserIdFromLocalStorage();
     this.isLoading = true;
     const { email, password } = this.loginForm.value;
-
     const emailLowercase = email.toLowerCase();
-
 
     this.firebaseService.signin(emailLowercase, password).subscribe(
       (user) => {
         if (user) {
           this.isLoading = false;
+
+          // Set the username in localStorage immediately after login success
+          localStorage.setItem('userName', user.username);  // Save username
           this.authService.login(emailLowercase, user.username);
-          this.firebaseService.getUserById(this.userId).subscribe((res: any) => {
-            const newProfileImg = res.profileImg || '';
-            localStorage.setItem('profileImg', newProfileImg);
-            this.authService.updateProfileImg(newProfileImg);
-          });
-          this.router.navigate(['/home']);
+
+          // Now that userName is in localStorage, fetch userId
+          this.getUserIdFromLocalStorage();  // Proceed to get the userId
         } else {
-          this.showWarn()
-          console.log("invalid stuff");
+          this.showWarn();
+          console.log("Invalid login credentials");
           this.isLoading = false;
         }
       },
       (error) => {
-        this.isLoading = false
+        this.isLoading = false;
         console.error('Error during login:', error);
       }
     );
   }
 
   getUserIdFromLocalStorage() {
-    this.firebaseService.getUsers().subscribe((data) => {
-      const currentUser = localStorage.getItem('userName');
+    const currentUser = localStorage.getItem('userName');
+    if (!currentUser) {
+      console.error("Error: currentUser is null in localStorage.");
+      return;
+    }
 
+    this.firebaseService.getUsers().subscribe((data) => {
       // Convert the object to an array including the IDs
       this.users = Object.entries(data).map(([id, user]) => ({ id, ...user }));
 
       // Find the user by username from local storage
       const foundUser = this.users.find(user => user.username === currentUser);
-      this.userId = foundUser ? foundUser.id : null; // This will hold the user ID or null if not found
+      this.userId = foundUser ? foundUser.id : null;
 
-      localStorage.setItem('userId', this.userId)
-      console.log('All users:', this.users);
-      console.log('Current User ID:', this.userId);
-      this.firebaseService.getUserById(this.userId).subscribe(
-        (res: any) => {
-          localStorage.setItem('profileImg', res.profileImg)
-        }
-      )
+      if (this.userId) {
+        localStorage.setItem('userId', this.userId);
+
+        // Fetch profileImg and store it in localStorage
+        this.firebaseService.getUserById(this.userId).subscribe(
+          (res: any) => {
+            const newProfileImg = res.profileImg || 'path/to/default-image.png';  // Use default if null
+            localStorage.setItem('profileImg', newProfileImg);
+            this.authService.updateProfileImg(newProfileImg);
+
+            // Navigate to /home only after storing profileImg
+            this.router.navigate(['/home']);
+          },
+          (error) => {
+            console.error('Error fetching profile image:', error);
+          }
+        );
+      } else {
+        console.error("Error: userId could not be set in localStorage.");
+      }
     });
   }
+
   /*******************************************************************************/
 
   showWarn() {
