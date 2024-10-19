@@ -42,7 +42,6 @@ export class MyProfileComponent {
       (res: any) => {
         this.userName = res.username,
           this.profImg = res.profileImg;
-
         const onDateJoined = res.dateCreated;
         const dateJoined = new Date(onDateJoined); // Convert to Date object
 
@@ -51,8 +50,6 @@ export class MyProfileComponent {
         } else {
           console.error('Invalid date format:', onDateJoined);
         }
-
-        console.log(res);
       }
     );
   }

@@ -1,7 +1,14 @@
-<div class="container">
+<div class="container flex flex-wrap gap-6 pt-10rem justify-content-center">
     <div class="card" *ngFor="let user of users">
-        <div class="username">{{user.username}}</div>
-        <div class="email">{{user.email}}</div>
+        <div class="profileImage flex justify-content-center align-items-center">
+            <img [src]="user.profileImg">
+        </div>
+        <div class="textContainer flex justify-content-around align-items-center">
+            <p class="name">{{user.username}}</p>
 
+            <button pButton icon="pi pi-user-plus" style="height: 30px; width: 30px !important;"></button>
+
+        </div>
     </div>
+
 </div>

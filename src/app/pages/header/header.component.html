@@ -1,8 +1,10 @@
 <div *ngIf="showHeader" style="margin-bottom: 84px;">
     <header class="header-container glass-effect">
         <div class="logo-section align-items-center flex gap-3">
-            <img *ngIf="!isProfileImg" routerLink="/home" src="assets/m.png" alt="Logo" class="logo border-circle" />
-            <img *ngIf="isProfileImg" routerLink="/home" [src]="profileImg" alt="Logo" class="logo border-circle" />
+            <img *ngIf="!isProfileImg || profileImg == 'undefined'" routerLink="/home" src="assets/image1.png"
+                alt="Logo" class="logo border-circle" />
+            <img *ngIf="isProfileImg" routerLink="/home" [src]="profileImg" alt="Logo"
+                [hidden]="profileImg == 'undefined'" class="logo border-circle" />
             <span class="brand-name">{{username}}</span>
         </div>
 
