@@ -60,18 +60,6 @@ export default class HomeComponent implements OnInit {
 
     this.getUserIdFromLocalStorage()
 
-    this.firebaseService.getUserById(localStorage.getItem('userId')).subscribe(
-      (res: any) => {
-        console.log('data from userId localstorage: ', res)
-      }
-    )
-    this.firebaseService.getAllUsers().subscribe(
-      (res: any) => {
-        // console.log("users with their id: ", res);
-        console.log('search one: ', res.find((user: { usermame: string; }) => user.usermame === 'Auth'));
-
-      }
-    )
   }
 
   private fetchFirebaseData(): void {
@@ -141,8 +129,8 @@ export default class HomeComponent implements OnInit {
       this.userId = foundUser ? foundUser.id : null; // This will hold the user ID or null if not found
 
       localStorage.setItem('userId', this.userId)
-      console.log('All users:', this.users);
-      console.log('Current User ID:', this.userId);
+      // console.log('All users:', this.users);
+      // console.log('Current User ID:', this.userId);
       this.firebaseService.getUserById(this.userId).subscribe(
         (res: any) => {
           localStorage.setItem('profileImg', res.profileImg)

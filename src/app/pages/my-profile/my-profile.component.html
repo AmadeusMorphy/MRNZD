@@ -11,9 +11,9 @@
     <div class="profileItems">
         <div class="profilePic">
             <!-- <img src="assets/loginPic.png" alt=""> -->
-            <img *ngIf="this.profImg != undefined" [src]="this.profImg" (load)="imgLoaded()" [hidden]="isImgLoading">
-            <img *ngIf="this.profImg == undefined" (load)="imgLoaded()" src="assets/image1.png" alt="">
             <p-skeleton *ngIf="isImgLoading" styleClass="border-circle w-11rem h-11rem mt-5"></p-skeleton>
+            <img *ngIf="this.profImg != undefined" [src]="this.profImg" (load)="imgLoaded()">
+            <img *ngIf="this.profImg == undefined" (load)="imgLoaded()" src="assets/image1.png" alt="">
             <div class="editImg">
                 <i class="pi pi-pencil" (click)="onEdit()"></i>
             </div>

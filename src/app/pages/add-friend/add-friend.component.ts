@@ -36,7 +36,7 @@ export class AddFriendComponent {
             profileImg: item.profileImg
           }
         }).filter((user: any) => user.username !== this.currentUsername);
-        console.log(this.users)
+        // console.log(this.users)
       }
     )
   }
