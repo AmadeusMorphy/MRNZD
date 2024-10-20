@@ -21,7 +21,7 @@ export class AddFriendComponent {
   currentUserBlock: any;
   isFriendReq: boolean = false;
   currentFriends: any;
-  isImgLoading = true;
+  imgLoadingStates: boolean[] = [];
   isLoading = false;
 
   constructor(
@@ -56,6 +56,7 @@ export class AddFriendComponent {
         this.firebaseService.getUserById(this.currentUserId).subscribe(
           (res: any) => {
             this.currentFriends = res.friends;
+            this.imgLoadingStates = new Array(this.users.length).fill(true);
             console.log('current friends: ', this.currentFriends);
 
           }
@@ -175,8 +176,8 @@ export class AddFriendComponent {
   //   )
   //   console.log('you clicked on this: ', this.chosenFriend)
   // }
-  imgLoaded() {
-    this.isImgLoading = false
+  imgLoaded(index: number) {
+    this.imgLoadingStates[index] = false; // Set loading state to false for the image that loaded
   }
   showSuccess(username: any) {
     this.messageService.add({ severity: 'success', summary: 'Success', detail: `Sent to ${username}` });
