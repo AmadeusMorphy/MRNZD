@@ -1,0 +1,58 @@
+.slider-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.slider-track {
+    display: flex;
+    justify-content: space-between;
+    animation: scrollSlider linear infinite;
+    transition: all 0.7s;
+}
+
+.slider-card {
+    min-width: 300px;
+    margin-right: 20px;
+    transition: transform 0.5s ease;
+    /* Smooth transition for hover effects */
+}
+
+.card-content {
+    text-align: center;
+}
+
+/* Default animation for scrolling */
+@keyframes scrollSlider {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes stopScroller {
+    from {
+        transform: translateX(-100);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+
+
+/* Pause animation on hover */
+// .slider-track.paused {
+
+//     animation-play-state: paused;
+// }
+
+/* Slower animation speed */
+.slider-track.slow {
+    animation-duration: 10s;
+    /* Adjust this duration to slow down */
+}

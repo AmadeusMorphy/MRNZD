@@ -1,1 +1,21 @@
-<p>dms works!</p>
+<div class="slider-container">
+    <div class="slider-track" [ngClass]="{ 'paused': isPaused, 'slow': isPaused }" style="animation-duration: 20s;">
+        <div class="slider-card" [ngClass]="{ 'paused': isPaused, 'slow': isPaused }" style="animation-duration: 20s;"
+            *ngFor="let card of movies" (mouseenter)="onCardHover(true)" (mouseleave)="onCardHover(false)"
+            (mouseleave)="onCardHover(false)">
+            <div class="card-content">
+                <img [src]="card.img" alt="Card Image">
+                <h3>{{ card.title }}</h3>
+            </div>
+        </div>
+        <!-- Duplicate for seamless infinite scrolling -->
+        <div class="slider-card" *ngFor="let card of movies" (mouseenter)="onCardHover(true)"
+            (mouseleave)="onCardHover(false)" (mouseleave)="onCardHover(false)">
+            <div class="card-content">
+                <img [src]="card.img" alt="Card Image">
+                <h3>{{ card.title }}</h3>
+                <p>{{ card.description }}</p>
+            </div>
+        </div>
+    </div>
+</div>
