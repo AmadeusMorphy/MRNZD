@@ -51,6 +51,8 @@ export class FriendReqComponent {
     this.isImgLoading = false;
   }
 
+
+  /*******SENSITIVE CODE*******/
   onAccept(index: any) {
     console.log(this.users[index]);
     console.log(this.users[index].profileImg);
@@ -136,10 +138,8 @@ export class FriendReqComponent {
       }
     )
   }
+  /****************************/
 
-  onSelect(index: any) {
-    console.log('you chose this: ', this.users.filter((item: any) => item.username !== this.users[index].username))
-  }
   showSuccess(username: any) {
     this.messageService.add({ severity: 'success', summary: 'Success', detail: `You accepted ${username}` });
   }

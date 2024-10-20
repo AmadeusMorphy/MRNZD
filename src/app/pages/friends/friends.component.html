@@ -1,9 +1,15 @@
-<p-toast />
+<!----Loading---->
+<div *ngIf="isLoading" class="overlay flex justify-content-center align-items-center">
+    <div class="flex justify-content-center align-items-center h-screen absolute">
+        <div class="loader"></div>
+    </div>
+</div>
+<!-------------->
 <div class="container flex flex-wrap gap-6 pt-10rem justify-content-center">
     <div *ngIf="users?.length === 0 || users === undefined" class="defaultMessage">
         You have no friend requests
     </div>
-    <div class="card" *ngFor="let user of users; let i = index">
+    <div class="card" *ngFor="let user of users; let i = index" (click)="onSelect(i)">
         <div class="profileImage flex justify-content-center align-items-center">
             <img *ngIf="user.profileImg != null || undefined" [src]="user.profileImg" [hidden]="isImgLoading" (load)="imgLoaded()">
             <p-skeleton *ngIf="isImgLoading" styleClass="border-circle w-11rem h-11rem "></p-skeleton>
@@ -12,8 +18,8 @@
         <div class="textContainer flex justify-content-around align-items-center">
             <p class="name">{{user.username}}</p>
 
-            <button pButton icon="pi pi-user-plus" style="height: 30px; width: 30px !important;"
-                (click)="onAccept(i)"></button>
+            <!-- <button pButton icon="pi pi-user-plus" style="height: 30px; width: 30px !important;"
+                (click)="onSelect(i)"></button> -->
             <!-- <button *ngIf="user.isReq === true" [disabled]="true" pButton icon="pi pi-check"
                 style="height: 30px; width: 30px !important;" [disabled]="">Friend request sent</button> -->
 
