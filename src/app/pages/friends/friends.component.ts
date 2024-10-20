@@ -62,6 +62,7 @@ export class FriendsComponent {
 
           }
         );
+        this.isLoading = false
       },
       (error) => {
         this.isLoading = false
