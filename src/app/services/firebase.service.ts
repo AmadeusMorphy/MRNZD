@@ -63,6 +63,14 @@ export class FirebaseService {
   sendFriendReq(id: any, userWithFriendReq: any): Observable<any> {
     return this.http.put(`https://mrnzd-d0f4d-default-rtdb.firebaseio.com/users/1/${id}.json?auth=AIzaSyCeiiz12sJ7tWxLukXwCy7C-hGhEadhGMs`, userWithFriendReq)
   }
+
+  acceptFriendReq(userId: any, userWithAcceptedFriend: any): Observable<any> {
+
+        return this.http.put<any>(`https://mrnzd-d0f4d-default-rtdb.firebaseio.com/users/1/${userId}.json?auth=AIzaSyCeiiz12sJ7tWxLukXwCy7C-hGhEadhGMs`, userWithAcceptedFriend);
+
+  }
+
+
   // getData(path: string) {
   //   const dbRef = ref(this.db);
   //   return get(child(dbRef, path))

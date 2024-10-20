@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'dms', loadComponent: () => import('./pages/dms/dms.component').then(m => m.DmsComponent) },
   { path: 'add-friend', loadComponent: () => import('./pages/add-friend/add-friend.component').then(m => m.AddFriendComponent) },
   { path: 'my-profile', loadComponent: () => import('./pages/my-profile/my-profile.component').then(m => m.MyProfileComponent) },
+  { path: 'friend-req', loadComponent: () => import('./pages/friend-req/friend-req.component').then(m => m.FriendReqComponent) }
 ];
 
 @NgModule({
