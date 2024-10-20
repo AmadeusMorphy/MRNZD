@@ -1,6 +1,6 @@
 <p-toast />
 <div class="container flex flex-wrap gap-6 pt-10rem justify-content-center">
-    <div *ngIf="users?.length === 0" class="defaultMessage">
+    <div *ngIf="users?.length === 0 || users === undefined" class="defaultMessage">
         You have no friend requests
     </div>
     <div class="card" *ngFor="let user of users; let i = index">

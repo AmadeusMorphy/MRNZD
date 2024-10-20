@@ -22,6 +22,7 @@ export class AddFriendComponent {
   isFriendReq: boolean = false;
   currentFriends: any;
   isImgLoading = true;
+  isLoading = false;
 
   constructor(
     private firebaseService: FirebaseService,
@@ -46,6 +47,7 @@ export class AddFriendComponent {
   }
 
   getUsers() {
+    this.isLoading = true;
     // console.log(this.currentFriends)
     this.firebaseService.getAllUsers().subscribe(
       (res: any) => {
@@ -59,15 +61,23 @@ export class AddFriendComponent {
           // Exclude users who already received a friend request from the current user
           if (item.friendReq?.some((req: any) => req.username === this.currentUsername)) return false;
 
+          if(item.friends?.map((friend: any) => friend.username === res.map((name: any) => name.username))) return false;
+
           return true;
         });
-        // console.log('aiedufgbail: ', Object.values(res).filter((item: any) => item.friendReq?.map((req: any) => req.username === this.currentUsername)))
-        // console.log('except the current username: ', this.users)
+        // this.users = Object.values(res).filter((item: any) => item.friendReq?.map((req: any) => req.username === this.currentUsername));
+        console.log('aiedufgbail: ',  Object.values(res).filter((item: any) => item.friendReq?.some((req: any) => req.username)));
+        console.log('except the current username: ', this.users);
+        this.isLoading = false;
+      }, (error) => {
+        console.error('Error stuff', error);
+        this.isLoading = false;
       }
     );
   }
 
   sendReq(index: any) {
+
 
     this.chosenFriend = this.users[index];
 
@@ -78,7 +88,8 @@ export class AddFriendComponent {
         this.currentUserBlock = {
           username: res.username,
           email: res.email,
-          profileImg: res.profileImg
+          profileImg: res.profileImg,
+          id: localStorage.getItem('userId')
         };
 
         console.log("you clicked on: ", this.users[index]);

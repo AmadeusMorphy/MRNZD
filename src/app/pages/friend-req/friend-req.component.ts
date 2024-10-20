@@ -19,6 +19,9 @@ export class FriendReqComponent {
   users: any;
   isImgLoading = true;
   currentUserBlock: any;
+  requestedBlock: any;
+  currentUserAcceptingBlock: any;
+  requesterId: any;
   constructor(
     private firebaseService: FirebaseService,
     private messageService: MessageService
@@ -75,8 +78,50 @@ export class FriendReqComponent {
         this.firebaseService.acceptFriendReq(this.currentUserId, this.currentUserBlock).subscribe(
           (res: any) => {
             console.log('Friend request accepted: ', res);
-            this.getReqs();
-            this.showSuccess(chosenName)
+
+            this.requesterId = this.users[index].id
+            this.firebaseService.getUserById(this.requesterId).subscribe(
+              (res: any) => {
+                const isReqFriendsExist = res?.friends?.map((friend: any) => friend);
+
+                if(isReqFriendsExist) {
+                  this.requestedBlock = {
+                    ...res,
+                    friends: [
+                      ...isReqFriendsExist,
+                      {
+                        username: localStorage.getItem('userName'),
+                        email: localStorage.getItem('userEmail'),
+                        profileImg: localStorage.getItem('profileImg')
+                      }
+                    ]
+                  }
+                } else {
+                  this.requestedBlock = {
+                    ...res,
+                    friends: [
+                      {
+                        username: localStorage.getItem('userName'),
+                        email: localStorage.getItem('userEmail'),
+                        profileImg: localStorage.getItem('profileImg')
+                      }
+                    ]
+                  }
+                }
+
+                this.firebaseService.acceptFriendReq(this.requesterId, this.requestedBlock).subscribe(
+                  (res: any) => {
+                    console.log('Youre friends with them now too: ', res);
+                    this.getReqs();
+                    this.showSuccess(chosenName)
+                  }, (error) => {
+                    console.error("error stuff", error);
+                    
+                  }
+                )
+              }
+            )
+       
           }, (error) => {
             console.error("Error stuff", error);
             
