@@ -20,7 +20,7 @@ export class FriendsComponent {
   isLoading = false;
   constructor(
     private firebaseSerivce: FirebaseService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getFriends()
@@ -31,34 +31,34 @@ export class FriendsComponent {
     this.firebaseSerivce.getUserById(this.currentUserId).subscribe(
       (res: any) => {
         // console.log(res.friends[0]);
-  
+
         const counter = res.friends?.length;
-  
+
 
         // Prepare an array of API requests
         const userRequests = [];
-  
+
         for (let i = 0; i < counter; i++) {
           const chosenUser = res.friends[i]?.id;
           userRequests.push(this.firebaseSerivce.getUserById(chosenUser)); // Collect all the requests
         }
-  
+
         // Use forkJoin to wait for all requests to finish
         forkJoin(userRequests).subscribe(
           (userResponses: any[]) => {
             // Filter out the 'password' field from each user object
             this.users = userResponses.map(user => {
-              const {userWithoutPassword } = user; // Destructure to remove 'password' & 'friendReq'
-              return userWithoutPassword; // Return the user object without the password
+              // const {userWithoutPassword } = user; // Destructure to remove 'password' & 'friendReq'
+              return user; // Return the user object without the password
             });
-  
-            console.log('All users data without passwords:', this.users); 
-        this.isLoading = false;
+
+            console.log('All users data without passwords:', this.users);
+            this.isLoading = false;
 
           },
           (error) => {
             console.error('Error fetching user data: ', error);
-        this.isLoading = false;
+            this.isLoading = false;
 
           }
         );
@@ -70,7 +70,7 @@ export class FriendsComponent {
     );
     this.isLoading = false
   }
-  
+
 
   imgLoaded() {
     this.isImgLoading = false;

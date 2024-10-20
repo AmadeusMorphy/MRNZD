@@ -97,7 +97,7 @@ export class FriendReqComponent {
             friendReq: filteredReqs,
             friends: [
               ...isFriendsExit,
-              this.users[index].id
+              { id: this.users[index].id }
             ]
           }
         } else {
@@ -105,7 +105,7 @@ export class FriendReqComponent {
             ...res,
             friendReq: filteredReqs,
             friends: [
-              {id: this.users[index].id}
+              { id: this.users[index].id }
             ]
           }
         }
