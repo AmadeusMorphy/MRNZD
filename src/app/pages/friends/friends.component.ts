@@ -32,7 +32,6 @@ export class FriendsComponent {
       (res: any) => {
         this.isLoading = false;
         console.log(res.friends[0]);
-        console.log(res.friends[0]?.id);
   
         const counter = res.friends.length;
   
@@ -50,7 +49,7 @@ export class FriendsComponent {
           (userResponses: any[]) => {
             // Filter out the 'password' field from each user object
             this.users = userResponses.map(user => {
-              const { password, ...userWithoutPassword } = user; // Destructure to remove 'password'
+              const { password, friendReq, ...userWithoutPassword } = user; // Destructure to remove 'password' & 'friendReq'
               return userWithoutPassword; // Return the user object without the password
             });
   

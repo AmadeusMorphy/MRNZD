@@ -51,10 +51,10 @@ export class FriendReqComponent {
   getFriends() {
     this.firebaseService.getUserById(this.currentUserId).subscribe(
       (res: any) => {
-        console.log(res.friendReq?.length);
-        console.log(res.friendReq);
+        // console.log(res.friendReq?.length);
+        // console.log(res.friendReq);
   
-        const counter = res.friendReq.length;
+        const counter = res.friendReq?.length;
   
         // Prepare an array of API requests
         const userRequests = [];

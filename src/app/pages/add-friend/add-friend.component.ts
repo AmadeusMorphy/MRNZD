@@ -51,9 +51,15 @@ export class AddFriendComponent {
     // console.log(this.currentFriends)
     this.firebaseService.getAllUsers().subscribe(
       (res: any) => {
-        console.log((res));
+        // console.log((res));
 
-        const friendReqEmails = this.currentFriends
+        this.firebaseService.getUserById(this.currentUserId).subscribe(
+          (res: any) => {
+            this.currentFriends = res.friends;
+            // console.log('current friends: ',this.currentFriends);
+            
+          }
+        )
         this.users = Object.values(res).filter((item: any) => {
           // Exclude the current user
           if (item.username === this.currentUsername) return false;
@@ -61,13 +67,14 @@ export class AddFriendComponent {
           // Exclude users who already received a friend request from the current user
           if (item.friendReq?.some((req: any) => req.id === this.currentUserId)) return false;
 
-          if(item.friends?.some((friend: any) => friend.username === localStorage.getItem('userName'))) return false;
+          //to exclude current friends
+          if(item.friends?.map((friend: any) => friend === this.currentUserId)) return false;
 
           return true;
         });
         // this.users = Object.values(res).filter((item: any) => item.friendReq?.map((req: any) => req.username === this.currentUsername));
-        console.log('aiedufgbail: ',  Object.values(res).filter((item: any) => item.friendReq?.some((req: any) => req.username)));
-        console.log('except the current username: ', this.users.map((item: any) => item.id));
+        // console.log('aiedufgbail: ',  Object.values(res).filter((item: any) => item.friendReq?.some((req: any) => req.username)));
+        // console.log('except the current username: ', this.users.map((item: any) => item.id));
         this.isLoading = false;
       }, (error) => {
         console.error('Error stuff', error);
