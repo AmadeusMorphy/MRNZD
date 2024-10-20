@@ -37,6 +37,7 @@ export class FriendReqComponent {
       (res: any) => {
         const friendUsernames = new Set(res.friends?.map((friend: any) => friend.username));
         this.users = res.friendReq?.filter((item: any) => {
+          console.log(item)
           return !friendUsernames.has(item.username);
         });
         console.log(this.users);
@@ -56,11 +57,13 @@ export class FriendReqComponent {
     const chosenName = this.users[index].username;
     this.firebaseService.getUserById(this.currentUserId).subscribe(
       (res: any) => {
-        const isFriendsExit = res.friends?.map((item: any) => item)
+        const isFriendsExit = res.friends?.map((item: any) => item);
+        const filteredReqs = this.users.filter((item: any) => item.username !== this.users[index].username)
 
         if(isFriendsExit) {
           this.currentUserBlock = {
             ...res,
+            friendReq: filteredReqs,
             friends: [
               ...isFriendsExit,
               this.users[index]
@@ -69,6 +72,7 @@ export class FriendReqComponent {
         } else {
           this.currentUserBlock = {
             ...res,
+            friendReq: filteredReqs,
             friends: [
               this.users[index]
             ]
@@ -112,6 +116,8 @@ export class FriendReqComponent {
                 this.firebaseService.acceptFriendReq(this.requesterId, this.requestedBlock).subscribe(
                   (res: any) => {
                     console.log('Youre friends with them now too: ', res);
+
+
                     this.getReqs();
                     this.showSuccess(chosenName)
                   }, (error) => {
@@ -131,6 +137,9 @@ export class FriendReqComponent {
     )
   }
 
+  onSelect(index: any) {
+    console.log('you chose this: ', this.users.filter((item: any) => item.username !== this.users[index].username))
+  }
   showSuccess(username: any) {
     this.messageService.add({ severity: 'success', summary: 'Success', detail: `You accepted ${username}` });
   }
