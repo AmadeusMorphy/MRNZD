@@ -70,9 +70,10 @@ export class FirebaseService {
   }
 
   acceptFriendReq(userId: any, userWithAcceptedFriend: any): Observable<any> {
-
-        return this.http.put<any>(`https://mrnzd-d0f4d-default-rtdb.firebaseio.com/users/1/${userId}.json?auth=AIzaSyCeiiz12sJ7tWxLukXwCy7C-hGhEadhGMs`, userWithAcceptedFriend);
-
+    return this.http.put<any>(`https://mrnzd-d0f4d-default-rtdb.firebaseio.com/users/1/${userId}.json?auth=AIzaSyCeiiz12sJ7tWxLukXwCy7C-hGhEadhGMs`, userWithAcceptedFriend);
+  }
+  rejectFriendReq(userId: any, userWithNoFriendReq: any): Observable<any> {
+    return this.http.put<any>(`https://mrnzd-d0f4d-default-rtdb.firebaseio.com/users/1/${userId}.json?auth=AIzaSyCeiiz12sJ7tWxLukXwCy7C-hGhEadhGMs`, userWithNoFriendReq);
   }
 
 

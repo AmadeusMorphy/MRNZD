@@ -30,10 +30,9 @@ export class FriendsComponent {
     this.isLoading = true;
     this.firebaseSerivce.getUserById(this.currentUserId).subscribe(
       (res: any) => {
-        this.isLoading = false;
-        console.log(res.friends[0]);
+        // console.log(res.friends[0]);
   
-        const counter = res.friends.length;
+        const counter = res.friends?.length;
   
 
         // Prepare an array of API requests
@@ -53,10 +52,14 @@ export class FriendsComponent {
               return userWithoutPassword; // Return the user object without the password
             });
   
-            console.log('All users data without passwords:', this.users); // Log after all requests are done
+            console.log('All users data without passwords:', this.users); 
+        this.isLoading = false;
+
           },
           (error) => {
             console.error('Error fetching user data: ', error);
+        this.isLoading = false;
+
           }
         );
       },

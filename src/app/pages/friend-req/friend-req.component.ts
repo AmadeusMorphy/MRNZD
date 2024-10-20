@@ -29,26 +29,13 @@ export class FriendReqComponent {
   ) {}
 
   ngOnInit(): void {
-    this.getFriends();
+    this.getFriendReqs();
     
   }
 
-  getReqs() {
-    this.firebaseService.getUserById(this.currentUserId).subscribe(
-      (res: any) => {
-        const friendUsernames = new Set(res.friends?.map((friend: any) => friend.username));
-        this.users = res.friendReq?.filter((item: any) => {
-          console.log(item)
-          return !friendUsernames.has(item.username);
-        });
-        console.log(this.users);
-        
-      }
-    );
-  }
 
   
-  getFriends() {
+  getFriendReqs() {
     this.firebaseService.getUserById(this.currentUserId).subscribe(
       (res: any) => {
         // console.log(res.friendReq?.length);
@@ -158,8 +145,8 @@ export class FriendReqComponent {
                     console.log('Youre friends with them now too: ', res);
 
 
-                    this.getReqs();
-                    this.showSuccess(chosenName)
+                    this.showSuccess(chosenName);
+                    this.getFriendReqs();
                   }, (error) => {
                     console.error("error stuff", error);
                     
@@ -178,7 +165,47 @@ export class FriendReqComponent {
   }
   /****************************/
 
+  onReject(index: any) {
+
+    console.log(this.users[index]);
+    
+    const selectedUserId = this.users[index].id;
+    this.firebaseService.getUserById(this.currentUserId).subscribe(
+      (res: any) => {
+        console.log('without the smth: ', res.friendReq?.filter((item: any) => item.id !== selectedUserId).length)
+
+        const currentFriendReq = res.friendReq?.filter((item: any) => item.id !== selectedUserId)
+        if(currentFriendReq.length > 0) {
+          
+          this.currentUserBlock = {
+            ...res,
+            friendReq: currentFriendReq
+          }
+        } else {
+          this.currentUserBlock = {
+            ...res,
+            friendReq: null
+          }
+        }
+
+        this.firebaseService.rejectFriendReq(this.currentUserId, this.currentUserBlock).subscribe(
+          (res: any) => {
+            console.log('You reject the req: ', res);
+            this.getFriendReqs();
+          }, (error) => {
+            console.error("error stuff: ", error);
+            
+          }
+        )
+        // this.currentUserBlock = {
+        //   ...res,
+        //   friendReq:
+        // }
+      }
+    )
+
+  }
   showSuccess(username: any) {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: `You accepted ${username}` });
+    this.messageService.add({ severity: 'success', detail: `You accepted ${username}` });
   }
 }

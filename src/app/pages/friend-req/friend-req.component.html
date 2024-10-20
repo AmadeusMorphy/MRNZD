@@ -9,11 +9,16 @@
             <p-skeleton *ngIf="isImgLoading" styleClass="border-circle w-11rem h-11rem "></p-skeleton>
 
         </div>
-        <div class="textContainer flex justify-content-around align-items-center">
-            <p class="name">{{user.username}}</p>
+        <div class="textContainer grid justify-content-around align-items-center">
+            <p class="name flex justify-content-center">{{user.username}}</p>
 
-            <button pButton icon="pi pi-user-plus" style="height: 30px; width: 30px !important;"
-                (click)="onAccept(i)"></button>
+
+            <div class="btnContainer flex justify-content-center align-items-center gap-7">
+            <p-button icon="pi pi-user-plus"
+                (click)="onAccept(i)"></p-button>
+            <p-button icon="pi pi-times" severity="danger"
+                (click)="onReject(i)"></p-button>
+            </div>
             <!-- <button *ngIf="user.isReq === true" [disabled]="true" pButton icon="pi pi-check"
                 style="height: 30px; width: 30px !important;" [disabled]="">Friend request sent</button> -->
 
