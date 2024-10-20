@@ -42,7 +42,8 @@ export default class HomeComponent implements OnInit {
   accs: Account[] = [];
   Movies: Movie[] = [];
   isLoading = false;
-  isImgLoading = true;
+  imgLoadingStates: boolean[] = [];
+
 
   private readonly LOGIN_PATH = '/login';
 
@@ -67,6 +68,7 @@ export default class HomeComponent implements OnInit {
           username: item.username,
           password: item.password
         }));
+
       },
       (error) => console.error('Error fetching account data:', error)
     );
@@ -82,6 +84,8 @@ export default class HomeComponent implements OnInit {
           rating: item.vote_average,
           img: `https://i0.wp.com/www.themoviedb.org/t/p/w185${item.poster_path}`
         }));
+        this.imgLoadingStates = new Array(this.Movies.length).fill(true);
+
         this.isLoading = false;
       },
       (error) => {
@@ -103,8 +107,8 @@ export default class HomeComponent implements OnInit {
     this.router.navigate([this.LOGIN_PATH]);
   }
 
-  imgLoaded(index: number): void {
-    this.isImgLoading = false;
+  imgLoaded(index: number) {
+    this.imgLoadingStates[index] = false; // Set loading state to false for the image that loaded
   }
   getAnimationDelay(index: number): string {
     return `${index * 7}s`;

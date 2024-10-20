@@ -18,8 +18,9 @@
             <ng-template pTemplate="header">
                 <div class="thumbnail-container">
                     <a>
-                        <img alt="Card" [src]="movie.img" (load)="imgLoaded(i)" priority [hidden]="isLoading" />
-                        <p-skeleton *ngIf="isLoading" styleClass="w-full h-20rem"></p-skeleton>
+                        <img alt="Card" [src]="movie.img" [hidden]="imgLoadingStates[i]"
+                            [ngClass]="imgLoadingStates[i] ? 'hidden' : ''" (load)="imgLoaded(i)" />
+                        <p-skeleton *ngIf=" imgLoadingStates[i]" styleClass="w-full h-20rem"></p-skeleton>
                         <p class="gender-label">{{ movie.rating }}</p>
                     </a>
                 </div>

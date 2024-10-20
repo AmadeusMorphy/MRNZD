@@ -1,5 +1,48 @@
 <p-toast />
-<div class="container flex flex-wrap gap-6 pt-10rem justify-content-center">
+<!----Loading---->
+<div *ngIf="isLoading" class="skeletonLoading border-round border-1 surface-border p-4 surface-card">
+    <ul class="m-0 p-0 list-none">
+        <li class="mb-3">
+            <div class="flex">
+                <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                <div style="flex: 1">
+                    <p-skeleton width="100%" styleClass="mb-2" />
+                    <p-skeleton width="75%" />
+                </div>
+            </div>
+        </li>
+        <li class="mb-3">
+            <div class="flex">
+                <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                <div style="flex: 1">
+                    <p-skeleton width="100%" styleClass="mb-2" />
+                    <p-skeleton width="75%" />
+                </div>
+            </div>
+        </li>
+        <li class="mb-3">
+            <div class="flex">
+                <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                <div style="flex: 1">
+                    <p-skeleton width="100%" styleClass="mb-2" />
+                    <p-skeleton width="75%" />
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="flex">
+                <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                <div style="flex: 1">
+                    <p-skeleton width="100%" styleClass="mb-2" />
+                    <p-skeleton width="75%" />
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<!-------------->
+<div *ngIf="!isLoading" class="container flex flex-wrap gap-6 pt-10rem justify-content-center">
     <div *ngIf="users?.length === 0 || users === undefined" class="defaultMessage">
         You have no friend requests
     </div>

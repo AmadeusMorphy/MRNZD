@@ -51,13 +51,13 @@ export class AddFriendComponent {
     // console.log(this.currentFriends)
     this.firebaseService.getAllUsers().subscribe(
       (allUsers: any) => {
-        console.log((allUsers));
+        // console.log((allUsers));
 
         this.firebaseService.getUserById(this.currentUserId).subscribe(
           (res: any) => {
             this.currentFriends = res.friends;
             this.imgLoadingStates = new Array(this.users.length).fill(true);
-            console.log('current friends: ', this.currentFriends);
+            // console.log('current friends: ', this.currentFriends);
 
           }
         )
@@ -68,7 +68,6 @@ export class AddFriendComponent {
           // Exclude users who already received a friend request from the current user
           if (item.friendReq?.some((req: any) => req.id === this.currentUserId)) return false;
 
-          console.log("TARGETING CURRENT FRIENDS: ", allUsers?.map((item: any) => item?.friends?.map((item: any) => item.id)))
 
           if (item.friends?.map((friend: any) => friend === this.currentUserId)) return false;
 
@@ -92,7 +91,7 @@ export class AddFriendComponent {
     this.chosenFriend = this.users[index];
 
     this.users[index].isFriendReq = this.users[index].isReq?.map((item: any) => item.isreq)[0];
-    console.log(this.isFriendReq)
+    // console.log(this.isFriendReq)
     this.firebaseService.getUserById(this.currentUserId).subscribe(
       (res: any) => {
         this.currentUserBlock = {
@@ -102,7 +101,7 @@ export class AddFriendComponent {
           id: localStorage.getItem('userId')
         };
 
-        console.log("you clicked on: ", this.users[index]);
+        // console.log("you clicked on: ", this.users[index]);
 
         const selectedBlock = this.users[index];
         const selectedId = this.users[index].id;
@@ -145,39 +144,8 @@ export class AddFriendComponent {
     );
   }
 
-
-  //   this.firebaseService.getUserById(this.currentUserId).subscribe(
-  //     (res: any) => {
-  //       const isReqAvailable = res.friendReq
-  //       if (isReqAvailable) {
-  //         this.currentUserBlock = {
-  //           ...res,
-  //           friendReq: [
-  //             ...res.friendReq?.map((item: any) => item),
-  //             this.chosenFriend
-  //           ]
-  //         }
-  //       } else {
-  //         this.currentUserBlock = {
-  //           ...res,
-  //           friendReq: [this.chosenFriend]
-  //         }
-  //       }
-  //       console.log(this.currentUserBlock);
-
-  //       const userBlock = this.currentUserBlock
-  //       this.firebaseService.sendFriendReq(this.currentUserId, userBlock).subscribe(
-  //         (res: any) => {
-  //           this.isFriendReq = true
-  //           console.log('friend req sent: ', res)
-  //         }
-  //       )
-  //     }
-  //   )
-  //   console.log('you clicked on this: ', this.chosenFriend)
-  // }
   imgLoaded(index: number) {
-    this.imgLoadingStates[index] = false; // Set loading state to false for the image that loaded
+    this.imgLoadingStates[index] = false;
   }
   showSuccess(username: any) {
     this.messageService.add({ severity: 'success', summary: 'Success', detail: `Sent to ${username}` });

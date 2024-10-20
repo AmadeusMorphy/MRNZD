@@ -52,23 +52,22 @@ export class FriendsComponent {
               return user; // Return the user object without the password
             });
 
-            console.log('All users data without passwords:', this.users);
-            this.isLoading = false;
+            // console.log('All users data without passwords:', this.users);
+            this.isLoading = false
 
           },
           (error) => {
             console.error('Error fetching user data: ', error);
-            this.isLoading = false;
+            this.isLoading = false
 
           }
         );
       },
       (error) => {
+        this.isLoading = false
         console.error("Error fetching current user data: ", error);
-        this.isLoading = false;
       }
     );
-    this.isLoading = false
   }
 
 

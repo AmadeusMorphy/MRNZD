@@ -33,7 +33,9 @@ export class MyProfileComponent {
   isImgLoading = true;
   isPfpExist: any;
   changeImgVisible = false;
-  deleteWarn = false
+  deleteWarn = false;
+  isTextLoading = true;
+  user: any;
   constructor(
     private firebaseService: FirebaseService,
     private imageUploadService: ImageUploadService
@@ -43,15 +45,17 @@ export class MyProfileComponent {
 
     this.firebaseService.getUserById(localStorage.getItem('userId')).subscribe(
       (res: any) => {
+        // console.log(res);
+
         this.userName = res.username,
           this.profImg = res.profileImg;
         const onDateJoined = res.dateCreated;
         const dateJoined = new Date(onDateJoined); // Convert to Date object
-
-        if(this.profImg) {
-          this.isPfpExist = true;
-        }else if(!this.profImg){
-          this.isPfpExist = false
+        this.isTextLoading = false;
+        if (this.profImg) {
+          this.isImgLoading = true; // Show skeleton while loading the image
+        } else {
+          this.isImgLoading = false; // No image, so no need for skeleton
         }
         if (!isNaN(dateJoined.getTime())) { // Check if valid date
           this.formattedDateJoined = this.formatDate(dateJoined);
@@ -128,7 +132,7 @@ export class MyProfileComponent {
   removeImage() {
 
     this.isLoading = true;
-    const emptyImg = { profileImg: null}
+    const emptyImg = { profileImg: null }
     this.firebaseService.deleteImage(this.currentUserId, emptyImg).subscribe(
       (res: any) => {
         console.log("image removed successfully: ", res);
@@ -138,7 +142,7 @@ export class MyProfileComponent {
       }, (error) => {
         this.isLoading = false;
         console.error("error stuff: ", error);
-        
+
       }
     )
   }
@@ -146,10 +150,15 @@ export class MyProfileComponent {
     this.isImgLoading = false;
   }
 
+
   onChangeImage() {
     this.changeImgVisible = true;
   }
   openDelete() {
     this.deleteWarn = true;
+  }
+
+  isTextLoaded() {
+    this.isTextLoading = false;
   }
 }

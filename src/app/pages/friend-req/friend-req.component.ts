@@ -23,6 +23,7 @@ export class FriendReqComponent {
   requestedBlock: any;
   currentUserAcceptingBlock: any;
   requesterId: any;
+  isLoading = false;
   constructor(
     private firebaseService: FirebaseService,
     private messageService: MessageService
@@ -36,10 +37,12 @@ export class FriendReqComponent {
 
 
   getFriendReqs() {
+    this.isLoading = true;
     this.firebaseService.getUserById(this.currentUserId).subscribe(
       (res: any) => {
         // console.log(res.friendReq?.length);
         // console.log(res.friendReq);
+
 
         const counter = res.friendReq?.length;
 
@@ -60,15 +63,18 @@ export class FriendReqComponent {
               const { password, ...userWithoutPassword } = user; // Destructure to remove 'password'
               return userWithoutPassword; // Return the user object without the password
             });
-
+            this.isLoading = false;
             console.log('All users data without passwords:', this.users); // Log after all requests are done
           },
           (error) => {
+            this.isLoading = false;
             console.error('Error fetching user data: ', error);
           }
         );
+        this.isLoading = false;
       },
       (error) => {
+        this.isLoading = false;
         console.error("Error fetching current user data: ", error);
       }
     );

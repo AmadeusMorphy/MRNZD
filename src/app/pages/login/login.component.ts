@@ -155,7 +155,7 @@ export class LoginComponent {
         // Fetch profileImg and store it in localStorage
         this.firebaseService.getUserById(this.userId).subscribe(
           (res: any) => {
-            const newProfileImg = res.profileImg || 'path/to/default-image.png';  // Use default if null
+            const newProfileImg = res.profileImg || 'assets/image1.png';  // Use default if null
             localStorage.setItem('profileImg', newProfileImg);
             this.authService.updateProfileImg(newProfileImg);
 

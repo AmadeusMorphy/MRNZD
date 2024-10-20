@@ -1,50 +1,65 @@
-<p-toast />
-<!----Loadin---->
+<p-toast></p-toast>
+
+<!-- Loading Spinner Overlay -->
 <div *ngIf="isLoading" class="overlay flex justify-content-center align-items-center">
-    <div class=" flex justify-content-center align-items-center h-screen absolute">
+    <div class="flex justify-content-center align-items-center h-screen absolute">
         <div class="loader"></div>
     </div>
 </div>
-<!-------------->
 
 <div class="profileCard">
     <div class="profileItems">
         <div class="profilePic">
-            <!-- <img src="assets/loginPic.png" alt=""> -->
+
             <p-skeleton *ngIf="isImgLoading" styleClass="border-circle w-11rem h-11rem mt-5"></p-skeleton>
-            <img *ngIf="this.profImg != undefined" [src]="this.profImg" (load)="imgLoaded()">
-            <img *ngIf="isPfpExist == false" (load)="imgLoaded()" src="assets/image1.png" alt="">
-            <div *ngIf="isPfpExist == false" class="editImg">
+
+            <img *ngIf="profImg" [src]="profImg" (load)="imgLoaded()" alt="Profile Image" [hidden]="isImgLoading"
+                [ngClass]="isImgLoading ? 'hidden' : ''" class="border-circle w-11rem h-11rem mt-5" />
+
+            <img *ngIf="!profImg" src="assets/image1.png" (load)="imgLoaded()" alt="Default Image"
+                [hidden]="isImgLoading" [ngClass]="isImgLoading ? 'hidden' : ''"
+                class="border-circle w-11rem h-11rem mt-5" />
+
+            <div *ngIf="!profImg" class="editImg">
                 <i class="pi pi-pencil" (click)="onEdit()"></i>
             </div>
-            <div *ngIf="isPfpExist == true" class="editImg">
+
+            <div *ngIf="profImg" class="editImg">
                 <i class="pi pi-pencil" (click)="onChangeImage()"></i>
             </div>
-
         </div>
 
         <div class="userName">
-            <h2>{{this.userName}}</h2>
+            <p-skeleton *ngIf="isTextLoading" styleClass="h-2rem w-6rem mt-5"></p-skeleton>
+            <h2 [hidden]="isTextLoading">{{ userName }}</h2>
         </div>
 
         <div class="userInfo">
-            <div class="dateUser">
-                <p>Joined at: <br><br> {{this.formattedDateJoined}}</p>
+            <div *ngIf="isTextLoading">
+                <p-skeleton styleClass="mb-2" borderRadius="16px" />
+                <p-skeleton width="10rem" styleClass="mb-2" borderRadius="16px" />
+                <p-skeleton width="5rem" styleClass="mb-2" borderRadius="16px" />
+                <p-skeleton height="2rem" styleClass="mb-2" borderRadius="16px" />
+                <p-skeleton width="10rem" height="4rem" borderRadius="16px" />
             </div>
-            <div class="videos">
-                <p>Videos saved: </p>
-            </div>
-            <div class="imaages">
-                <p>Images saved: </p>
+            <div [hidden]="isTextLoading">
+                <div class="dateUser">
+                    <p>Joined at: <br><br> {{ formattedDateJoined }}</p>
+                </div>
+                <div class="videos">
+                    <p>Videos saved: </p>
+                </div>
+                <div class="images">
+                    <p>Images saved: </p>
+                </div>
             </div>
         </div>
-
     </div>
 </div>
 
-<p-dialog header="Upload profile picture" [modal]="true" [draggable]="false" [(visible)]="visible" [style]="{ width: '50rem', height: '20rem' }"
-    [breakpoints]="{ '1000px': '75vw', '400px': '90vw' }">
-
+<!-- Profile Picture Upload Dialog -->
+<p-dialog header="Upload profile picture" [modal]="true" [draggable]="false" [(visible)]="visible"
+    [style]="{ width: '50rem', height: '20rem' }" [breakpoints]="{ '1000px': '75vw', '400px': '90vw' }">
     <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)"
         [multiple]="true" accept="image/*">
         <ng-template pTemplate="content">
@@ -53,27 +68,23 @@
             </ul>
         </ng-template>
     </p-fileUpload>
-
-
-
 </p-dialog>
-<p-dialog header="Change or delete" [modal]="true" [(visible)]="changeImgVisible" [draggable]="false" [style]="{ width: '50rem', height: '20rem' }"
-    [breakpoints]="{ '1000px': '75vw', '400px': '90vw' }">
 
-
+<!-- Image Change Dialog -->
+<p-dialog header="Change or delete" [modal]="true" [(visible)]="changeImgVisible" [draggable]="false"
+    [style]="{ width: '50rem', height: '20rem' }" [breakpoints]="{ '1000px': '75vw', '400px': '90vw' }">
     <div class="btnContainer flex gap-6 justify-content-center align-items-center">
-    <button pButton (click)="onEdit()">Change image</button>
-    <p-button severity="danger" (onClick)="openDelete()">Delete image</p-button>
-</div>
+        <button pButton (click)="onEdit()">Change image</button>
+        <p-button severity="danger" (onClick)="openDelete()">Delete image</p-button>
+    </div>
+</p-dialog>
 
-<p-dialog header="Warning" [modal]="true" [(visible)]="deleteWarn" [draggable]="false" [style]="{ width: '50rem', height: '20rem' }"
-    [breakpoints]="{ '1000px': '75vw', '400px': '90vw' }">
-
+<!-- Delete Confirmation Dialog -->
+<p-dialog header="Warning" [modal]="true" [(visible)]="deleteWarn" [draggable]="false"
+    [style]="{ width: '50rem', height: '20rem' }" [breakpoints]="{ '1000px': '75vw', '400px': '90vw' }">
     <h2>Are you sure you want to delete?</h2>
     <div class="btnContainer flex gap-6 justify-content-center align-items-center">
-    <button pButton (click)="removeImage()">Yes</button>
-    <p-button severity="danger" (onClick)="deleteWarn = false">No</p-button>
-</div>
-
-
+        <button pButton (click)="removeImage()">Yes</button>
+        <p-button severity="danger" (onClick)="deleteWarn = false">No</p-button>
+    </div>
 </p-dialog>
