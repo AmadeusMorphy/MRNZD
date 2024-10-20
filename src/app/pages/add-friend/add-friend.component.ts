@@ -51,7 +51,7 @@ export class AddFriendComponent {
     // console.log(this.currentFriends)
     this.firebaseService.getAllUsers().subscribe(
       (res: any) => {
-        // console.log((res));
+        console.log((res));
 
         const friendReqEmails = this.currentFriends
         this.users = Object.values(res).filter((item: any) => {
@@ -59,15 +59,15 @@ export class AddFriendComponent {
           if (item.username === this.currentUsername) return false;
 
           // Exclude users who already received a friend request from the current user
-          if (item.friendReq?.some((req: any) => req.username === this.currentUsername)) return false;
+          if (item.friendReq?.some((req: any) => req.id === this.currentUserId)) return false;
 
-          if(item.friends?.map((friend: any) => friend.username === res.map((name: any) => name.username))) return false;
+          if(item.friends?.some((friend: any) => friend.username === localStorage.getItem('userName'))) return false;
 
           return true;
         });
         // this.users = Object.values(res).filter((item: any) => item.friendReq?.map((req: any) => req.username === this.currentUsername));
         console.log('aiedufgbail: ',  Object.values(res).filter((item: any) => item.friendReq?.some((req: any) => req.username)));
-        console.log('except the current username: ', this.users);
+        console.log('except the current username: ', this.users.map((item: any) => item.id));
         this.isLoading = false;
       }, (error) => {
         console.error('Error stuff', error);
@@ -103,14 +103,14 @@ export class AddFriendComponent {
             ...selectedBlock,
             friendReq: [
               ...currenFriendReq,
-              this.currentUserBlock
+              {id: this.currentUserBlock.id}
             ]
           };
         } else {
           this.chosenFriend = {
             ...selectedBlock,
             friendReq: [
-              this.currentUserBlock
+              {id: this.currentUserBlock.id}
             ]
           }
         }

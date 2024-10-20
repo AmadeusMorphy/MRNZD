@@ -31,16 +31,17 @@ export class FriendsComponent {
     this.firebaseSerivce.getUserById(this.currentUserId).subscribe(
       (res: any) => {
         this.isLoading = false;
-        console.log(res.friends.length);
+        console.log(res.friends[0]);
         console.log(res.friends[0]?.id);
   
         const counter = res.friends.length;
   
+
         // Prepare an array of API requests
         const userRequests = [];
   
         for (let i = 0; i < counter; i++) {
-          const chosenUser = res.friends[i]?.id;
+          const chosenUser = res.friends[i];
           userRequests.push(this.firebaseSerivce.getUserById(chosenUser)); // Collect all the requests
         }
   

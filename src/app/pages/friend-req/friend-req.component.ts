@@ -5,6 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { SkeletonModule } from 'primeng/skeleton';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-friend-req',
@@ -28,7 +29,7 @@ export class FriendReqComponent {
   ) {}
 
   ngOnInit(): void {
-    this.getReqs();
+    this.getFriends();
     
   }
 
@@ -45,6 +46,47 @@ export class FriendReqComponent {
       }
     );
   }
+
+  
+  getFriends() {
+    this.firebaseService.getUserById(this.currentUserId).subscribe(
+      (res: any) => {
+        console.log(res.friendReq?.length);
+        console.log(res.friendReq);
+  
+        const counter = res.friendReq.length;
+  
+        // Prepare an array of API requests
+        const userRequests = [];
+  
+        for (let i = 0; i < counter; i++) {
+          const chosenUser = res.friendReq[i]?.id;
+          console.log(chosenUser)
+          userRequests.push(this.firebaseService.getUserById(chosenUser)); // Collect all the requests
+        }
+  
+        // Use forkJoin to wait for all requests to finish
+        forkJoin(userRequests).subscribe(
+          (userResponses: any[]) => {
+            // Filter out the 'password' field from each user object
+            this.users = userResponses.map(user => {
+              const { password, ...userWithoutPassword } = user; // Destructure to remove 'password'
+              return userWithoutPassword; // Return the user object without the password
+            });
+  
+            console.log('All users data without passwords:', this.users); // Log after all requests are done
+          },
+          (error) => {
+            console.error('Error fetching user data: ', error);
+          }
+        );
+      },
+      (error) => {
+        console.error("Error fetching current user data: ", error);
+      }
+    );
+  }
+  
   
   
   imgLoaded() {
@@ -68,7 +110,7 @@ export class FriendReqComponent {
             friendReq: filteredReqs,
             friends: [
               ...isFriendsExit,
-              this.users[index]
+              this.users[index].id
             ]
           }
         } else {
@@ -76,7 +118,7 @@ export class FriendReqComponent {
             ...res,
             friendReq: filteredReqs,
             friends: [
-              this.users[index]
+              this.users[index].id
             ]
           }
         }
@@ -96,9 +138,7 @@ export class FriendReqComponent {
                     friends: [
                       ...isReqFriendsExist,
                       {
-                        username: localStorage.getItem('userName'),
-                        email: localStorage.getItem('userEmail'),
-                        profileImg: localStorage.getItem('profileImg')
+                        id: this.currentUserId
                       }
                     ]
                   }
@@ -107,9 +147,7 @@ export class FriendReqComponent {
                     ...res,
                     friends: [
                       {
-                        username: localStorage.getItem('userName'),
-                        email: localStorage.getItem('userEmail'),
-                        profileImg: localStorage.getItem('profileImg')
+                        id: this.currentUserId
                       }
                     ]
                   }

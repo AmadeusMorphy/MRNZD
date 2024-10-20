@@ -45,7 +45,6 @@ export class LoginComponent {
       password: ['', [
         Validators.required,
         Validators.minLength(6),
-        Validators.pattern(/^(?=.*[0-9])(?=.*[!@#$%^&*])/)
       ]],
       dateCreated: new Date()
     });
