@@ -26,32 +26,32 @@ export class FriendReqComponent {
   constructor(
     private firebaseService: FirebaseService,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getFriendReqs();
-    
+
   }
 
 
-  
+
   getFriendReqs() {
     this.firebaseService.getUserById(this.currentUserId).subscribe(
       (res: any) => {
         // console.log(res.friendReq?.length);
         // console.log(res.friendReq);
-  
+
         const counter = res.friendReq?.length;
-  
+
         // Prepare an array of API requests
         const userRequests = [];
-  
+
         for (let i = 0; i < counter; i++) {
           const chosenUser = res.friendReq[i]?.id;
           console.log(chosenUser)
           userRequests.push(this.firebaseService.getUserById(chosenUser)); // Collect all the requests
         }
-  
+
         // Use forkJoin to wait for all requests to finish
         forkJoin(userRequests).subscribe(
           (userResponses: any[]) => {
@@ -60,7 +60,7 @@ export class FriendReqComponent {
               const { password, ...userWithoutPassword } = user; // Destructure to remove 'password'
               return userWithoutPassword; // Return the user object without the password
             });
-  
+
             console.log('All users data without passwords:', this.users); // Log after all requests are done
           },
           (error) => {
@@ -73,9 +73,9 @@ export class FriendReqComponent {
       }
     );
   }
-  
-  
-  
+
+
+
   imgLoaded() {
     this.isImgLoading = false;
   }
@@ -89,9 +89,9 @@ export class FriendReqComponent {
     this.firebaseService.getUserById(this.currentUserId).subscribe(
       (res: any) => {
         const isFriendsExit = res.friends?.map((item: any) => item);
-        const filteredReqs = this.users.filter((item: any) => item.username !== this.users[index].username)
+        const filteredReqs = this.users.filter((item: any) => item.username !== this.users[index].username);
 
-        if(isFriendsExit) {
+        if (isFriendsExit) {
           this.currentUserBlock = {
             ...res,
             friendReq: filteredReqs,
@@ -105,7 +105,7 @@ export class FriendReqComponent {
             ...res,
             friendReq: filteredReqs,
             friends: [
-              this.users[index].id
+              {id: this.users[index].id}
             ]
           }
         }
@@ -114,12 +114,12 @@ export class FriendReqComponent {
           (res: any) => {
             console.log('Friend request accepted: ', res);
 
-            this.requesterId = this.users[index].id
+            this.requesterId = this.users[index].id;
             this.firebaseService.getUserById(this.requesterId).subscribe(
               (res: any) => {
                 const isReqFriendsExist = res?.friends?.map((friend: any) => friend);
 
-                if(isReqFriendsExist) {
+                if (isReqFriendsExist) {
                   this.requestedBlock = {
                     ...res,
                     friends: [
@@ -142,22 +142,22 @@ export class FriendReqComponent {
 
                 this.firebaseService.acceptFriendReq(this.requesterId, this.requestedBlock).subscribe(
                   (res: any) => {
+                    this.getFriendReqs();
                     console.log('Youre friends with them now too: ', res);
 
 
                     this.showSuccess(chosenName);
-                    this.getFriendReqs();
                   }, (error) => {
                     console.error("error stuff", error);
-                    
+
                   }
                 )
               }
             )
-       
+
           }, (error) => {
             console.error("Error stuff", error);
-            
+
           }
         )
       }
@@ -168,15 +168,15 @@ export class FriendReqComponent {
   onReject(index: any) {
 
     console.log(this.users[index]);
-    
+
     const selectedUserId = this.users[index].id;
     this.firebaseService.getUserById(this.currentUserId).subscribe(
       (res: any) => {
-        console.log('without the smth: ', res.friendReq?.filter((item: any) => item.id !== selectedUserId).length)
+        // console.log('without the smth: ', res.friendReq?.filter((item: any) => item.id !== selectedUserId).length);
 
-        const currentFriendReq = res.friendReq?.filter((item: any) => item.id !== selectedUserId)
-        if(currentFriendReq.length > 0) {
-          
+        const currentFriendReq = res.friendReq?.filter((item: any) => item.id !== selectedUserId);
+        if (currentFriendReq.length > 0) {
+
           this.currentUserBlock = {
             ...res,
             friendReq: currentFriendReq
@@ -191,10 +191,10 @@ export class FriendReqComponent {
         this.firebaseService.rejectFriendReq(this.currentUserId, this.currentUserBlock).subscribe(
           (res: any) => {
             console.log('You reject the req: ', res);
-            this.getFriendReqs();
+            window.location.reload();
           }, (error) => {
             console.error("error stuff: ", error);
-            
+
           }
         )
         // this.currentUserBlock = {

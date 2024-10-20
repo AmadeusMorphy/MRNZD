@@ -39,7 +39,7 @@ export class FriendsComponent {
         const userRequests = [];
   
         for (let i = 0; i < counter; i++) {
-          const chosenUser = res.friends[i];
+          const chosenUser = res.friends[i]?.id;
           userRequests.push(this.firebaseSerivce.getUserById(chosenUser)); // Collect all the requests
         }
   
@@ -48,7 +48,7 @@ export class FriendsComponent {
           (userResponses: any[]) => {
             // Filter out the 'password' field from each user object
             this.users = userResponses.map(user => {
-              const { password, friendReq, ...userWithoutPassword } = user; // Destructure to remove 'password' & 'friendReq'
+              const {userWithoutPassword } = user; // Destructure to remove 'password' & 'friendReq'
               return userWithoutPassword; // Return the user object without the password
             });
   
@@ -68,6 +68,7 @@ export class FriendsComponent {
         this.isLoading = false;
       }
     );
+    this.isLoading = false
   }
   
 

@@ -51,12 +51,12 @@ export class AddFriendComponent {
     // console.log(this.currentFriends)
     this.firebaseService.getAllUsers().subscribe(
       (res: any) => {
-        // console.log((res));
+        console.log((res));
 
         this.firebaseService.getUserById(this.currentUserId).subscribe(
           (res: any) => {
             this.currentFriends = res.friends;
-            // console.log('current friends: ',this.currentFriends);
+            console.log('current friends: ',this.currentFriends);
             
           }
         )
@@ -68,7 +68,9 @@ export class AddFriendComponent {
           if (item.friendReq?.some((req: any) => req.id === this.currentUserId)) return false;
 
           //to exclude current friends
+          if(this.currentFriends){
           if(item.friends?.map((friend: any) => friend === this.currentUserId)) return false;
+          }
 
           return true;
         });

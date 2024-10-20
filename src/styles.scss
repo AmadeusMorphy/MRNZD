@@ -27,6 +27,7 @@
 body {
     margin: 0;
     padding: 0;
+    // background-color: #1E1E1E;
 }
 
 .content {
@@ -211,4 +212,24 @@ li {
 
 .skeletonLoading {
     height: 91vh;
+}
+
+
+@keyframes cardAnim {
+    0% {
+        transform: translateY(0); /* Start slightly higher for a smoother effect */
+        opacity: 1; /* Start with opacity 0 for smooth fade-in */
+    }
+    50% {
+        transform: translateY(-10px); /* Start slightly higher for a smoother effect */
+        opacity: 1; /* Start with opacity 0 for smooth fade-in */
+    }
+    100% {
+        transform: translateY(0); /* End at normal position */
+        opacity: 1; /* End with full opacity */
+    }
+}
+
+.cardAnimation {
+    animation: cardAnim 0.3s ease-out forwards; /* Increased duration for smoothness */
 }
