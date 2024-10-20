@@ -50,27 +50,27 @@ export class AddFriendComponent {
     this.isLoading = true;
     // console.log(this.currentFriends)
     this.firebaseService.getAllUsers().subscribe(
-      (res: any) => {
-        console.log((res));
+      (allUsers: any) => {
+        console.log((allUsers));
 
         this.firebaseService.getUserById(this.currentUserId).subscribe(
           (res: any) => {
             this.currentFriends = res.friends;
-            console.log('current friends: ',this.currentFriends);
-            
+            console.log('current friends: ', this.currentFriends);
+
           }
         )
-        this.users = Object.values(res).filter((item: any) => {
+        this.users = Object.values(allUsers).filter((item: any) => {
           // Exclude the current user
           if (item.username === this.currentUsername) return false;
 
           // Exclude users who already received a friend request from the current user
           if (item.friendReq?.some((req: any) => req.id === this.currentUserId)) return false;
 
-          //to exclude current friends
-          if(this.currentFriends){
-          if(item.friends?.map((friend: any) => friend === this.currentUserId)) return false;
-          }
+          console.log("TARGETING CURRENT FRIENDS: ", allUsers?.map((item: any) => item?.friends?.map((item: any) => item.id)))
+
+          if (item.friends?.map((friend: any) => friend === this.currentUserId)) return false;
+
 
           return true;
         });
@@ -112,14 +112,14 @@ export class AddFriendComponent {
             ...selectedBlock,
             friendReq: [
               ...currenFriendReq,
-              {id: this.currentUserBlock.id}
+              { id: this.currentUserBlock.id }
             ]
           };
         } else {
           this.chosenFriend = {
             ...selectedBlock,
             friendReq: [
-              {id: this.currentUserBlock.id}
+              { id: this.currentUserBlock.id }
             ]
           }
         }
