@@ -35,6 +35,11 @@ export class FirebaseService {
     return this.http.patch(`https://mrnzd-d0f4d-default-rtdb.firebaseio.com/users/1/${id}.json?auth=AIzaSyCeiiz12sJ7tWxLukXwCy7C-hGhEadhGMs`, image)
   }
 
+  deleteImage(id: any, image: any): Observable<any> {
+
+    return this.http.patch(`https://mrnzd-d0f4d-default-rtdb.firebaseio.com/users/1/${id}.json?auth=AIzaSyCeiiz12sJ7tWxLukXwCy7C-hGhEadhGMs`, image)
+  }
+
   getApi(): Observable<any> {
     this.http.get(`${environment.firebaseAPI}`).subscribe(
       (res: any) => {

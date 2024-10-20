@@ -20,7 +20,7 @@ export class MyProfileComponent {
   uploadedFiles: any[] = [];
   imageUrl: any;
   isLoading: boolean = false;
-  currentUserId: any;
+  currentUserId = localStorage.getItem('userId');
   profImg: any;
   isDelete: boolean = false
   userName: any;
@@ -31,6 +31,9 @@ export class MyProfileComponent {
   currentUserImg: string = '';
   formattedDateJoined: string = '';
   isImgLoading = true;
+  isPfpExist: any;
+  changeImgVisible = false;
+  deleteWarn = false
   constructor(
     private firebaseService: FirebaseService,
     private imageUploadService: ImageUploadService
@@ -45,6 +48,11 @@ export class MyProfileComponent {
         const onDateJoined = res.dateCreated;
         const dateJoined = new Date(onDateJoined); // Convert to Date object
 
+        if(this.profImg) {
+          this.isPfpExist = true;
+        }else if(!this.profImg){
+          this.isPfpExist = false
+        }
         if (!isNaN(dateJoined.getTime())) { // Check if valid date
           this.formattedDateJoined = this.formatDate(dateJoined);
         } else {
@@ -95,9 +103,8 @@ export class MyProfileComponent {
     this.visible = true;
   }
   putImgDb() {
-    const user = localStorage.getItem('userId');
-    this.currentUserId = user
 
+    this.isLoading = true;
     const img = {
       profileImg: this.imageUrl
     }
@@ -106,18 +113,43 @@ export class MyProfileComponent {
     this.firebaseService.uploadImage(this.currentUserId, img).subscribe(
       (updateUs) => {
 
-        console.log('image to the user: ', this.imageUrl)
+        console.log('image to the user: ', this.imageUrl);
         console.log('ADDED TO THE DB: ', updateUs);
+        this.isLoading = false
         window.location.reload()
       },
       (error) => {
-        console.error('Error Bitch: ', error)
+        this.isLoading = false;
+        console.error('Error Bitch: ', error);
       }
     );
   }
 
+  removeImage() {
+
+    this.isLoading = true;
+    const emptyImg = { profileImg: null}
+    this.firebaseService.deleteImage(this.currentUserId, emptyImg).subscribe(
+      (res: any) => {
+        console.log("image removed successfully: ", res);
+        this.isLoading = false;
+        window.location.reload();
+
+      }, (error) => {
+        this.isLoading = false;
+        console.error("error stuff: ", error);
+        
+      }
+    )
+  }
   imgLoaded() {
-    this.isImgLoading = false
+    this.isImgLoading = false;
   }
 
+  onChangeImage() {
+    this.changeImgVisible = true;
+  }
+  openDelete() {
+    this.deleteWarn = true;
+  }
 }

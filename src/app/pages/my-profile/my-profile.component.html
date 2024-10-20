@@ -13,9 +13,12 @@
             <!-- <img src="assets/loginPic.png" alt=""> -->
             <p-skeleton *ngIf="isImgLoading" styleClass="border-circle w-11rem h-11rem mt-5"></p-skeleton>
             <img *ngIf="this.profImg != undefined" [src]="this.profImg" (load)="imgLoaded()">
-            <img *ngIf="this.profImg == undefined" (load)="imgLoaded()" src="assets/image1.png" alt="">
-            <div class="editImg">
+            <img *ngIf="isPfpExist == false" (load)="imgLoaded()" src="assets/image1.png" alt="">
+            <div *ngIf="isPfpExist == false" class="editImg">
                 <i class="pi pi-pencil" (click)="onEdit()"></i>
+            </div>
+            <div *ngIf="isPfpExist == true" class="editImg">
+                <i class="pi pi-pencil" (click)="onChangeImage()"></i>
             </div>
 
         </div>
@@ -39,7 +42,7 @@
     </div>
 </div>
 
-<p-dialog header="Upload profile picture" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }"
+<p-dialog header="Upload profile picture" [modal]="true" [draggable]="false" [(visible)]="visible" [style]="{ width: '50rem', height: '20rem' }"
     [breakpoints]="{ '1000px': '75vw', '400px': '90vw' }">
 
     <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)"
@@ -51,6 +54,26 @@
         </ng-template>
     </p-fileUpload>
 
+
+
+</p-dialog>
+<p-dialog header="Change or delete" [modal]="true" [(visible)]="changeImgVisible" [draggable]="false" [style]="{ width: '50rem', height: '20rem' }"
+    [breakpoints]="{ '1000px': '75vw', '400px': '90vw' }">
+
+
+    <div class="btnContainer flex gap-6 justify-content-center align-items-center">
+    <button pButton (click)="onEdit()">Change image</button>
+    <p-button severity="danger" (onClick)="openDelete()">Delete image</p-button>
+</div>
+
+<p-dialog header="Warning" [modal]="true" [(visible)]="deleteWarn" [draggable]="false" [style]="{ width: '50rem', height: '20rem' }"
+    [breakpoints]="{ '1000px': '75vw', '400px': '90vw' }">
+
+    <h2>Are you sure you want to delete?</h2>
+    <div class="btnContainer flex gap-6 justify-content-center align-items-center">
+    <button pButton (click)="removeImage()">Yes</button>
+    <p-button severity="danger" (onClick)="deleteWarn = false">No</p-button>
+</div>
 
 
 </p-dialog>
