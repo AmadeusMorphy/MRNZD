@@ -14,6 +14,10 @@ export class AuthService {
   private usernameSubject = new BehaviorSubject<string | null>(localStorage.getItem('userName'));
   username$ = this.usernameSubject.asObservable();
 
+
+  private profileImgSubject = new BehaviorSubject<string>(localStorage.getItem('profileImg') || '');
+  profileImg$ = this.profileImgSubject.asObservable();
+
   get isLoggedIn(): Observable<boolean> {
     return this.loggedIn.asObservable();
   }
@@ -29,11 +33,16 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userEmail');
+    localStorage.removeItem('userId');
     localStorage.removeItem('userName');
+    localStorage.removeItem('profileImg')
     this.usernameSubject.next(null);
     this.loggedIn.next(false);
   }
   checkLoginStatus(): boolean {
     return localStorage.getItem('isLoggedIn') === 'true';
+  }
+  updateProfileImg(newProfileImg: string) {
+    this.profileImgSubject.next(newProfileImg);
   }
 }

@@ -1,0 +1,75 @@
+.profile {
+    margin-top: 130px;
+}
+
+.profileCard {
+    display: flex;
+    justify-content: center;
+    margin-top: 130px;
+}
+
+.profileItems {
+    background-color: #27272754;
+    width: 100%;
+    max-width: 400px;
+    justify-content: center;
+    display: flow-root;
+    height: 600px;
+    border-radius: 40px;
+}
+
+.profilePic {
+    height: 173px;
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    background-color: rgb(87 87 87 / 23%);
+    border-top-right-radius: 40px;
+    border-top-left-radius: 40px;
+}
+
+.editImg {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.editImg i {
+    cursor: pointer;
+}
+
+img {
+    width: 176px;
+    height: 176px;
+    margin-top: 32px;
+    border-radius: 100px;
+}
+
+.userName {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.userInfo {
+    margin: 20px;
+
+}
+
+::ng-deep button.p-button {
+    width: auto !important;
+}
+
+.deleteGroup {
+    display: flex;
+    justify-content: center;
+}
+
+.deleteContent {
+    display: grid;
+}
+
+.deleteBtn {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}

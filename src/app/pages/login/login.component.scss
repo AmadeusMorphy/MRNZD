@@ -159,3 +159,42 @@ i {
     border-left: 5px solid #7c0410 !important;
     color: #ffffff !important;
 }
+
+.glass-card {
+    transition: max-height 0.9s ease-in-out;
+    transition: 0.9s ease-in-out;
+    max-height: 700px;
+    /* Default height for login form */
+    overflow: hidden;
+    /* Prevent content overflow during transition */
+}
+
+.glass-card.expanded {
+    max-height: 800px;
+    /* Expanded height for sign-up form */
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    /* Optional: for a nice effect */
+    animation: fadeIn 2s forwards;
+    /* Adjust the duration as needed */
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+button:enabled {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 15px rgba(94, 234, 212, 0.5);
+}
+
+button {
+    transition: 0.5s ease-in-out
+}

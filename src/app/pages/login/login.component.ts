@@ -13,66 +13,7 @@ import { InputTextModule } from 'primeng/inputtext';
   standalone: true,
   imports: [ToastModule, FormsModule, ReactiveFormsModule, CommonModule, ButtonModule, InputTextModule],
   providers: [MessageService],
-  template: `<div class="fade-in">
-
-  <p-toast />
-  <!----Loadin---->
-  <div *ngIf="isLoading" class="overlay flex justify-content-center align-items-center">
-      <div class=" flex justify-content-center align-items-center h-screen absolute">
-          <div class="loader"></div>
-      </div>
-  </div>
-  <!-------------->
-
-  <div class="stuff flex justify-content-center align-items-center bg-gray-950">
-      <div class="glass-card p-6 border-round-lg w-full m-8 md:w-27rem">
-          <div class="titleText text-center mb-6">
-              <h2 class="text-7xl font-bold mb-1 title">Rizzar's Stuff</h2>
-              <div class="titleCaptions">
-                  <p class="text-400">Website is still under construction</p>
-                  <p class="text-300">This website is owned by: <span class="Nizar">Nizar</span></p>
-              </div>
-              <div class="socialMedia flex justify-content-center align-items-center">
-                  <a href="https://www.instagram.com/nizar_masadeh">
-                      <button pButton class="p-button-raised p-button-social">
-                          <i class="pi pi-instagram"></i>
-                      </button>
-                  </a>
-                  <a href="https://www.github.com/NizarMasadeh">
-                      <button pButton class="p-button-raised p-button-social">
-                          <i class="pi pi-github"></i>
-                      </button>
-                  </a>
-                  <a href="https://www.facebook.com/nizar.masadeh.7">
-                      <button pButton class="p-button-raised p-button-social">
-                          <i class="pi pi-facebook"></i>
-                      </button>
-                  </a>
-              </div>
-          </div>
-          <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-              <div class="p-inputgroup flex justify-content-center align-items-center mb-4">
-                  <span class="p-input-icon-left">
-                      <i class="pi pi-user"></i>
-                      <input pInputText placeholder="Email" type="email" formControlName="email"
-                          class="w-full glass-input" />
-                  </span>
-              </div>
-              <div class="p-inputgroup flex justify-content-center align-items-center mb-4">
-                  <span class="p-input-icon-left">
-                      <i class="pi pi-key"></i>
-                      <input pInputText placeholder="password" type="password" formControlName="password"
-                          class="w-full glass-input" />
-                  </span>
-              </div>
-              <div class="loginBtn flex justify-content-center align-items-center pt-5">
-                  <button pButton type="submit" label="Login"
-                      class="w-19rem p-button-raised p-button-rounded p-button-glass"></button>
-              </div>
-          </form>
-      </div>
-  </div>
-</div>` ,
+  templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
@@ -80,7 +21,10 @@ export class LoginComponent {
 
   loginForm: FormGroup;
   isLoading: boolean = false;
-
+  signUpForm: FormGroup;
+  isSignUp = false;
+  users: any[] = [];
+  userId: any;
   constructor(
     private firebaseService: FirebaseService,
     private fb: FormBuilder,
@@ -90,10 +34,21 @@ export class LoginComponent {
   ) {
 
     this.loginForm = this.fb.group({
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
 
+
+    this.signUpForm = this.fb.group({
+      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.pattern(/^(?=.*[0-9])(?=.*[!@#$%^&*])/)
+      ]],
+      dateCreated: new Date()
+    });
   }
 
   ngOnInit() {
@@ -154,31 +109,95 @@ export class LoginComponent {
   onLogin(): void {
     this.isLoading = true;
     const { email, password } = this.loginForm.value;
-
     const emailLowercase = email.toLowerCase();
-
 
     this.firebaseService.signin(emailLowercase, password).subscribe(
       (user) => {
         if (user) {
           this.isLoading = false;
+
+          // Set the username in localStorage immediately after login success
+          localStorage.setItem('userName', user.username);  // Save username
           this.authService.login(emailLowercase, user.username);
-          this.router.navigate(['/home']);
+
+          // Now that userName is in localStorage, fetch userId
+          this.getUserIdFromLocalStorage();  // Proceed to get the userId
         } else {
-          this.showWarn()
-          console.log("invalid stuff");
+          this.showWarn();
+          console.log("Invalid login credentials");
           this.isLoading = false;
         }
       },
       (error) => {
-        this.isLoading = false
+        this.isLoading = false;
         console.error('Error during login:', error);
       }
     );
   }
+
+  getUserIdFromLocalStorage() {
+    const currentUser = localStorage.getItem('userName');
+    if (!currentUser) {
+      console.error("Error: currentUser is null in localStorage.");
+      return;
+    }
+
+    this.firebaseService.getUsers().subscribe((data) => {
+      // Convert the object to an array including the IDs
+      this.users = Object.entries(data).map(([id, user]) => ({ id, ...user }));
+
+      // Find the user by username from local storage
+      const foundUser = this.users.find(user => user.username === currentUser);
+      this.userId = foundUser ? foundUser.id : null;
+
+      if (this.userId) {
+        localStorage.setItem('userId', this.userId);
+
+        // Fetch profileImg and store it in localStorage
+        this.firebaseService.getUserById(this.userId).subscribe(
+          (res: any) => {
+            const newProfileImg = res.profileImg || 'path/to/default-image.png';  // Use default if null
+            localStorage.setItem('profileImg', newProfileImg);
+            this.authService.updateProfileImg(newProfileImg);
+
+            // Navigate to /home only after storing profileImg
+            this.router.navigate(['/home']);
+          },
+          (error) => {
+            console.error('Error fetching profile image:', error);
+          }
+        );
+      } else {
+        console.error("Error: userId could not be set in localStorage.");
+      }
+    });
+  }
+
   /*******************************************************************************/
 
   showWarn() {
     this.messageService.add({ severity: 'error', summary: 'Invalid', detail: 'Wrong email or password' });
+  }
+
+  onSignUp() {
+    this.isLoading = true;
+
+    const user = this.signUpForm.value;
+
+    this.firebaseService.signUp(user).subscribe(
+      (res: any) => {
+        this.isLoading = false;
+        this.toggleForm();
+        console.log('successfully signed up: ', res);
+      }, (error) => {
+        this.isLoading = false;
+        console.error("Error Stuff: ", error);
+
+      }
+    )
+  }
+
+  toggleForm() {
+    this.isSignUp = !this.isSignUp;
   }
 }

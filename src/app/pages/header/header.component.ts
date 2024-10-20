@@ -3,6 +3,7 @@ import { ConfirmationService, MenuItem, MenuItemCommandEvent } from 'primeng/api
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { Sidebar } from 'primeng/sidebar';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 
 @Component({
@@ -18,7 +19,9 @@ export class HeaderComponent {
   isMenuOpen = false;
   @ViewChild('sidebarRef') sidebarRef!: Sidebar;
   isScrolled = false;
-
+  isProfileImg: boolean = false;
+  currentUserId: any;
+  profileImg: any;
   @HostListener('window:scroll', [])
   onWindowScroll() {
     this.isScrolled = window.scrollY > 0; // Change this threshold if needed
@@ -34,14 +37,21 @@ export class HeaderComponent {
     private router: Router,
     private confirmationService: ConfirmationService,
     private checkRef: ChangeDetectorRef,
-    private authService: AuthService
+    private authService: AuthService,
+    private firebaseService: FirebaseService
   ) {
 
 
     //RESPOBSIBLE FOR SHOWING THE HEADER BY CHOOSING THE ROUTS YOU WANT THE HEADER TO EXIST IN//
 
     this.router.events.subscribe(() => {
-      this.showHeader = this.router.url === '/home' || this.router.url === '/posts' || this.router.url === '/imgs'
+      this.showHeader =
+        this.router.url === '/home' ||
+        this.router.url === '/posts' ||
+        this.router.url === '/imgs' ||
+        this.router.url === '/dms' ||
+        this.router.url === '/add-friend' ||
+        this.router.url === '/my-profile'
 
     });
   }
@@ -54,6 +64,28 @@ export class HeaderComponent {
     this.authService.username$.subscribe((username) => {
       this.username = username;
     });
+
+    this.currentUserId = localStorage.getItem('userId');
+    this.firebaseService.getUserById(this.currentUserId).subscribe(
+      (res: any) => {
+        localStorage.setItem('profileImg', res.profileImg)
+      }
+    )
+
+    this.authService.profileImg$.subscribe((newProfileImg) => {
+      this.profileImg = newProfileImg;
+    });
+
+    this.profileImg = localStorage.getItem('profileImg');
+
+    this.firebaseService.getUserById(this.currentUserId).subscribe(
+      (res: any) => {
+        if (localStorage.getItem('profileImg')) {
+          this.isProfileImg = true;
+        }
+      }
+    )
+
     this.items = [
       {
         label: 'File',
