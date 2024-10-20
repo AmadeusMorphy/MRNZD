@@ -1,4 +1,8 @@
+<p-toast />
 <div class="container flex flex-wrap gap-6 pt-10rem justify-content-center">
+    <div *ngIf="users?.length === 0" class="defaultMessage">
+        You have no friend requests
+    </div>
     <div class="card" *ngFor="let user of users; let i = index">
         <div class="profileImage flex justify-content-center align-items-center">
             <img *ngIf="user.profileImg != null || undefined" [src]="user.profileImg" [hidden]="isImgLoading" (load)="imgLoaded()">
@@ -8,7 +12,6 @@
         <div class="textContainer flex justify-content-around align-items-center">
             <p class="name">{{user.username}}</p>
 
-            <p-toast />
             <button pButton icon="pi pi-user-plus" style="height: 30px; width: 30px !important;"
                 (click)="onAccept(i)"></button>
             <!-- <button *ngIf="user.isReq === true" [disabled]="true" pButton icon="pi pi-check"

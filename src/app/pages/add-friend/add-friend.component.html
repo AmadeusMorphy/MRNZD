@@ -1,3 +1,4 @@
+<p-toast />
 <div class="container flex flex-wrap gap-6 pt-10rem justify-content-center">
     <div class="card" *ngFor="let user of users; let i = index">
         <div class="profileImage flex justify-content-center align-items-center">
@@ -8,7 +9,6 @@
         <div class="textContainer flex justify-content-around align-items-center">
             <p class="name">{{user.username}}</p>
 
-            <p-toast />
             <button pButton icon="pi pi-user-plus" style="height: 30px; width: 30px !important;"
                 (click)="sendReq(i)"></button>
             <!-- <button *ngIf="user.isReq === true" [disabled]="true" pButton icon="pi pi-check"
