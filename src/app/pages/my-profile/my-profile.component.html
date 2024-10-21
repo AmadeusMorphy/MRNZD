@@ -16,7 +16,7 @@
             <img *ngIf="profImg" [src]="profImg" (load)="imgLoaded()" alt="Profile Image" [hidden]="isImgLoading"
                 [ngClass]="isImgLoading ? 'hidden' : ''" class="border-circle w-11rem h-11rem mt-5" />
 
-            <img *ngIf="!profImg" src="assets/image1.png" (load)="imgLoaded()" alt="Default Image"
+            <img *ngIf="!profImg && this.profImg !== null" src="assets/image1.png" (load)="imgLoaded()" alt="Default Image"
                 [hidden]="isImgLoading" [ngClass]="isImgLoading ? 'hidden' : ''"
                 class="border-circle w-11rem h-11rem mt-5" />
 
